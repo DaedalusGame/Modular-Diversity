@@ -1,0 +1,55 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "bg_all": "modularmachinery:blocks/blockcasing_plain"
+    },
+    "model": "modularmachinery:blockmodel_overlay_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "size": {
+      "tiny": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_0"
+        }
+      },
+      "small": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_1"
+        }
+      },
+      "copper": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_2"
+        }
+      },
+      "reinforced": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_3"
+        }
+      },
+      "big": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_4"
+        }
+      },
+      "huge": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_5"
+        }
+      },
+      "reactor": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_6"
+        }
+      },
+      "crystal": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_emberhatch_7"
+        }
+      }
+    }
+  }
+}

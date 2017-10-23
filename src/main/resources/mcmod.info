@@ -1,0 +1,16 @@
+[
+{
+  "modid": "modulardiversity",
+  "name": "Modular Diversity",
+  "description": "An addon for Modular Machinery",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["BordListian"],
+  "credits": "Forge",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
