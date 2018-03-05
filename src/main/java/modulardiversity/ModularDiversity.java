@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = ModularDiversity.MODID, version = ModularDiversity.VERSION, dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;")
+@Mod(modid = ModularDiversity.MODID, version = ModularDiversity.VERSION, acceptedMinecraftVersions = "[1.12, 1.13)", dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;")
 @Mod.EventBusSubscriber
 public class ModularDiversity
 {
