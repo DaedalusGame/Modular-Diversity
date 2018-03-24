@@ -1,5 +1,6 @@
 package modulardiversity;
 
+import buildcraft.api.mj.MjAPI;
 import hellfirepvp.modularmachinery.ModularMachinery;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
@@ -51,6 +52,34 @@ public class Registry {
 
             registerBlock("blockjackhatch",jackHatch, new ItemBlockMachineComponent(jackHatch));
         }
+
+        if(ModularDiversity.BuildcraftLoaded) {
+            BlockLaserHatch laserHatch = new BlockLaserHatch();
+
+            registerBlock("blocklaserhatch",laserHatch, new ItemBlockMachineComponent(laserHatch));
+        }
+
+        /*if(ModularDiversity.PneumaticCraftLoaded) {
+            BlockPneumaticInput pneumaticInputHatch = new BlockPneumaticInput();
+            BlockPneumaticConsumer pneumaticConsumerHatch = new BlockPneumaticConsumer();
+            BlockPneumaticOutput pneumaticOutput = new BlockPneumaticOutput();
+
+            registerBlock("blockpneumaticinputhatch",pneumaticInputHatch, new ItemBlockMachineComponent(pneumaticInputHatch));
+            registerBlock("blockpneumaticconsumerhatch",pneumaticConsumerHatch, new ItemBlockMachineComponent(pneumaticConsumerHatch));
+            registerBlock("blockpneumaticoutputhatch",pneumaticOutput, new ItemBlockMachineComponent(pneumaticOutput));
+        }*/
+
+        if(ModularDiversity.BetterWithModsLoaded) {
+            BlockMechInputHatch mechInputHatch = new BlockMechInputHatch();
+            BlockMechCrankHatch crankInputHatch = new BlockMechCrankHatch();
+            BlockMechOutputHatch mechOutputHatch = new BlockMechOutputHatch(1);
+            BlockMechOutputHatch mechSteelOutputHatch = new BlockMechOutputHatch(50);
+
+            registerBlock("blockmechcrankhatch",crankInputHatch, new ItemBlockMachineComponent(crankInputHatch));
+            registerBlock("blockmechinputhatch",mechInputHatch, new ItemBlockMachineComponent(mechInputHatch));
+            registerBlock("blockmechoutputhatch",mechOutputHatch, new ItemBlockMachineComponent(mechOutputHatch));
+            registerBlock("blockmechsteeloutputhatch",mechSteelOutputHatch, new ItemBlockMachineComponent(mechSteelOutputHatch));
+        }
     }
 
     public static void registerBlockModels()
@@ -95,6 +124,19 @@ public class Registry {
         if(ModularDiversity.ImmersivePetroleumLoaded) {
             registerTileEntity(TileJackHatch.class);
         }
+        if(ModularDiversity.BetterWithModsLoaded) {
+            registerTileEntity(TileMechInput.class);
+            registerTileEntity(TileMechInputCrank.class);
+            registerTileEntity(TileMechOutput.class);
+        }
+        if(ModularDiversity.BuildcraftLoaded) {
+            registerTileEntity(TileLaserInput.class);
+        }
+        /*if(ModularDiversity.PneumaticCraftLoaded) {
+            registerTileEntity(TilePneumaticInput.class);
+            registerTileEntity(TilePneumaticInputConsume.class);
+            registerTileEntity(TilePneumaticOutput.class);
+        }*/
     }
 
     @SubscribeEvent
@@ -110,7 +152,6 @@ public class Registry {
             event.getRegistry().register(item);
         }
     }
-
 
     private static void registerTileEntity(Class<? extends TileEntity> tile)
     {

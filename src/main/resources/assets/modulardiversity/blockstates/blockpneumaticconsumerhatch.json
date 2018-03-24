@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "bg_all": "modularmachinery:blocks/blockcasing_plain"
+    },
+    "model": "modularmachinery:blockmodel_overlay_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "tier": {
+      "1": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_pressure_1"
+        }
+      },
+      "2": {
+        "textures": {
+          "ov_all": "modulardiversity:blocks/overlay_pressure_2"
+        }
+      }
+    }
+  }
+}

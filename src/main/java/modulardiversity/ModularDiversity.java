@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = ModularDiversity.MODID, version = ModularDiversity.VERSION, acceptedMinecraftVersions = "[1.12, 1.13)", dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;")
+@Mod(modid = ModularDiversity.MODID, version = ModularDiversity.VERSION, acceptedMinecraftVersions = "[1.12, 1.13)", dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;after:buildcraftlib;after:pneumaticcraft;after:betterwithmods;")
 @Mod.EventBusSubscriber
 public class ModularDiversity
 {
@@ -30,11 +30,16 @@ public class ModularDiversity
     public static boolean ImmersivePetroleumLoaded;
     public static boolean EmbersLoaded;
     public static boolean BotaniaLoaded;
+    public static boolean BuildcraftLoaded;
+    public static boolean BetterWithModsLoaded;
+    public static boolean PneumaticCraftLoaded;
 
     Configuration configuration;
 
     public static int ManaToFE;
     public static int EmberToFE;
+    public static int PressureToFE;
+    public static int MJToFE;
 
     @SidedProxy(clientSide = "modulardiversity.ClientProxy",serverSide = "modulardiversity.ServerProxy")
     public static IProxy proxy;
@@ -45,6 +50,9 @@ public class ModularDiversity
         BotaniaLoaded = Loader.isModLoaded("botania");
         EmbersLoaded = Loader.isModLoaded("embers");
         ImmersivePetroleumLoaded = Loader.isModLoaded("immersivepetroleum");
+        BetterWithModsLoaded = Loader.isModLoaded("betterwithmods");
+        PneumaticCraftLoaded = Loader.isModLoaded("pneumaticcraft");
+        BuildcraftLoaded = Loader.isModLoaded("buildcraftlib");
 
         configuration = new Configuration(event.getSuggestedConfigurationFile());
         configuration.load();
@@ -52,6 +60,8 @@ public class ModularDiversity
         configuration.getCategory("conversion_rates").setComment("Configure conversion rates of different power inputs.");
         ManaToFE = configuration.get("conversion_rates","mana",10).getInt();
         EmberToFE = configuration.get("conversion_rates","ember",10).getInt();
+        PressureToFE = configuration.get("conversion_rates","air_pressure",100).getInt();
+        MJToFE = configuration.get("conversion_rates","mj",1000).getInt();
 
         if (configuration.hasChanged())
         {

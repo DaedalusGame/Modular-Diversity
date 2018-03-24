@@ -15,7 +15,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "0.1hotfix"
+version = "0.2"
 group= "modulardiversity" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Modular Diversity"
 
@@ -23,7 +23,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
-    version = "1.12.2-14.23.0.2512"
+    version = "1.12.2-14.23.0.2544"
     runDir = "run"
     mappings = "snapshot_20170627"
     useDepAts = true
