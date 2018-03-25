@@ -15,14 +15,14 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class TileEntityPneumatic extends TileColorableMachineComponent implements MachineComponentTile, IPneumaticMachine, IEnergyHandler, ITickable {
+public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, IPneumaticMachine, IEnergyHandler, ITickable {
     private MachineComponent.IOType ioType;
 
     public IAirHandler airHandler;
     public int tier;
     public int volume;
 
-    public TileEntityPneumatic(MachineComponent.IOType ioType, int tier, int volume) {
+    public TileEntityPneumaticBase(MachineComponent.IOType ioType, int tier, int volume) {
         this.ioType = ioType;
         this.tier = tier;
         this.volume = volume;
@@ -45,7 +45,6 @@ public abstract class TileEntityPneumatic extends TileColorableMachineComponent 
         return null;
     }
 
-    @Override
     public IAirHandler getAirHandler(EnumFacing enumFacing) {
         return airHandler;
     }
@@ -83,7 +82,7 @@ public abstract class TileEntityPneumatic extends TileColorableMachineComponent 
     public MachineComponent provideComponent() {
         return new MachineComponent.EnergyHatch(ioType) {
             public IEnergyHandler getEnergyBuffer() {
-                return TileEntityPneumatic.this;
+                return TileEntityPneumaticBase.this;
             }
         };
     }

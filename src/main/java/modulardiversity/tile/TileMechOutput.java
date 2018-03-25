@@ -5,6 +5,7 @@ import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.tile.base.TileEntityMech;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.fml.common.Optional;
 
 public class TileMechOutput extends TileEntityMech implements ITickable {
     public TileMechOutput(int maxLevel) {
@@ -14,11 +15,13 @@ public class TileMechOutput extends TileEntityMech implements ITickable {
     public int currentPowerLevel;
     public int keepPowerTicks;
 
+    @Optional.Method(modid = "betterwithmods")
     @Override
     public int getMechanicalOutput(EnumFacing facing) {
         return BWMAPI.IMPLEMENTATION.isAxle(world, pos.offset(facing), facing.getOpposite()) ? currentPowerLevel : -1;
     }
 
+    @Optional.Method(modid = "betterwithmods")
     @Override
     public int getMechanicalInput(EnumFacing enumFacing) {
         return 0;

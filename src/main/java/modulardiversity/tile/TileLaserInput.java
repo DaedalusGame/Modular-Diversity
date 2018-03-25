@@ -7,15 +7,18 @@ import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineCompon
 import hellfirepvp.modularmachinery.common.util.IEnergyHandler;
 import modulardiversity.ModularDiversity;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 
+@Optional.Interface(iface = "buildcraft.api.mj.ILaserTarget",modid = "buildcraftlib")
 public class TileLaserInput extends TileColorableMachineComponent implements MachineComponentTile, ILaserTarget, IEnergyHandler, ITickable {
     int activeTicks;
     int laserTicks;
     int lastLaserPower;
     int demandedPower;
 
+    @Optional.Method(modid = "buildcraftlib")
     @Override
     public long getRequiredLaserPower() {
         if(laserTicks <= 0)
@@ -24,6 +27,7 @@ public class TileLaserInput extends TileColorableMachineComponent implements Mac
             return (long)demandedPower * ModularDiversity.MJToFE;
     }
 
+    @Optional.Method(modid = "buildcraftlib")
     @Override
     public long receiveLaserPower(long laserPower) {
         long demandedPower = (long)this.demandedPower * ModularDiversity.MJToFE;
@@ -34,6 +38,7 @@ public class TileLaserInput extends TileColorableMachineComponent implements Mac
         return - (long)consumedPower * ModularDiversity.MJToFE;
     }
 
+    @Optional.Method(modid = "buildcraftlib")
     @Override
     public boolean isInvalidTarget() {
         return this.isInvalid();

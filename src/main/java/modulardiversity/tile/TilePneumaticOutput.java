@@ -2,9 +2,9 @@ package modulardiversity.tile;
 
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.ModularDiversity;
-import modulardiversity.tile.base.TileEntityPneumatic;
+import modulardiversity.tile.base.TileEntityPneumaticBase;
 
-public class TilePneumaticOutput extends TileEntityPneumatic {
+public class TilePneumaticOutput extends TileEntityPneumaticBase {
     public TilePneumaticOutput(int tier, int volume) {
         super(MachineComponent.IOType.OUTPUT, tier, volume);
     }
