@@ -80,11 +80,7 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponent.EnergyHatch(ioType) {
-            public IEnergyHandler getEnergyBuffer() {
-                return TileEntityPneumaticBase.this;
-            }
-        };
+        return null;
     }
 
 }

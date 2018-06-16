@@ -53,11 +53,7 @@ public abstract class TileEntityEmber extends TileColorableMachineComponent impl
     @Override
     @Nullable
     public MachineComponent provideComponent() {
-        return new MachineComponent.EnergyHatch(ioType) {
-            public IEnergyHandler getEnergyBuffer() {
-                return capability;
-            }
-        };
+        return null;
     }
 
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

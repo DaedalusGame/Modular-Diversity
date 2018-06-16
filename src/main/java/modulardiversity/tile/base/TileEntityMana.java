@@ -50,11 +50,7 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
     @Override
     @Nullable
     public MachineComponent provideComponent() {
-        return new MachineComponent.EnergyHatch(ioType) {
-            public IEnergyHandler getEnergyBuffer() {
-                return TileEntityMana.this;
-            }
-        };
+        return null;
     }
 
     public int getCapacity() {

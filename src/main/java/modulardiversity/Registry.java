@@ -1,8 +1,10 @@
 package modulardiversity;
 
+import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
 import modulardiversity.block.*;
+import modulardiversity.components.ComponentMechanical;
 import modulardiversity.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -10,11 +12,13 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
 
+@Mod.EventBusSubscriber
 public class Registry {
     private static ArrayList<Block> BLOCKS = new ArrayList<>();
     private static ArrayList<Item> ITEMS = new ArrayList<>();
@@ -28,7 +32,7 @@ public class Registry {
 
     public static void registerBlocks()
     {
-        if(ModularDiversity.EmbersLoaded) {
+        /*if(ModularDiversity.EmbersLoaded) {
             BlockEmberInputHatch emberInputHatch = new BlockEmberInputHatch();
             BlockEmberOutputHatch emberOutputHatch = new BlockEmberOutputHatch();
 
@@ -54,7 +58,7 @@ public class Registry {
             BlockLaserHatch laserHatch = new BlockLaserHatch();
 
             registerBlock("blocklaserhatch",laserHatch, new ItemBlockMachineComponent(laserHatch));
-        }
+        }*/
 
         /*if(ModularDiversity.PneumaticCraftLoaded) {
             BlockPneumaticInput pneumaticInputHatch = new BlockPneumaticInput();
@@ -110,7 +114,7 @@ public class Registry {
 
     public static void registerTileEntities()
     {
-        if(ModularDiversity.EmbersLoaded) {
+        /*if(ModularDiversity.EmbersLoaded) {
             registerTileEntity(TileEmberInputHatch.class);
             registerTileEntity(TileEmberOutputHatch.class);
         }
@@ -120,20 +124,25 @@ public class Registry {
         }
         if(ModularDiversity.ImmersivePetroleumLoaded) {
             registerTileEntity(TileJackHatch.class);
-        }
+        }*/
         if(ModularDiversity.BetterWithModsLoaded) {
             registerTileEntity(TileMechInput.class);
             registerTileEntity(TileMechInputCrank.class);
             registerTileEntity(TileMechOutput.class);
         }
-        if(ModularDiversity.BuildcraftLoaded) {
+        /*if(ModularDiversity.BuildcraftLoaded) {
             registerTileEntity(TileLaserInput.class);
-        }
+        }*/
         /*if(ModularDiversity.PneumaticCraftLoaded) {
             registerTileEntity(TilePneumaticInput.class);
             registerTileEntity(TilePneumaticInputConsume.class);
             registerTileEntity(TilePneumaticOutput.class);
         }*/
+    }
+
+    @SubscribeEvent
+    public static void registerComponents(ComponentType.ComponentRegistryEvent event) {
+        ComponentType.Registry.register(new ComponentMechanical());
     }
 
     @SubscribeEvent

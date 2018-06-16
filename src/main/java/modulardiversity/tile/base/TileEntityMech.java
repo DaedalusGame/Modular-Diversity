@@ -8,6 +8,7 @@ import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import hellfirepvp.modularmachinery.common.util.IEnergyHandler;
+import modulardiversity.components.MachineComponents;
 import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -16,6 +17,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
+
+import static modulardiversity.components.MachineComponents.*;
 
 @Optional.Interface(iface = "betterwithmods.api.tile.IMechanicalPower",modid = "betterwithmods")
 public abstract class TileEntityMech extends TileColorableMachineComponent implements MachineComponentTile, IEnergyHandler, IMechanicalPower {
@@ -71,8 +74,9 @@ public abstract class TileEntityMech extends TileColorableMachineComponent imple
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponent.EnergyHatch(ioType) {
-            public IEnergyHandler getEnergyBuffer() {
+        return new MachineComponents.MechanicalHatch(ioType) {
+            @Override
+            public IMechanicalPower getContainerProvider() {
                 return TileEntityMech.this;
             }
         };

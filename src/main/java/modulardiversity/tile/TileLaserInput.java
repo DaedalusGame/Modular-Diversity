@@ -88,12 +88,6 @@ public class TileLaserInput extends TileColorableMachineComponent implements Mac
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new MachineComponent.EnergyHatch(MachineComponent.IOType.INPUT)
-        {
-            @Override
-            public IEnergyHandler getEnergyBuffer() {
-                return TileLaserInput.this;
-            }
-        };
+        return null;
     }
 }

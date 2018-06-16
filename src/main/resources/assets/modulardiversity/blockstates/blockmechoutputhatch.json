@@ -3,7 +3,7 @@
   "defaults": {
     "textures": {
       "bg_all": "modularmachinery:blocks/blockcasing_plain",
-      "ov_all": "modulardiversity:blocks/overlay_mech_output1"
+      "ov_all": "modulardiversity:blocks/overlay_mech_output0"
     },
     "model": "modularmachinery:blockmodel_overlay_all",
     "transform": "forge:default-block"
