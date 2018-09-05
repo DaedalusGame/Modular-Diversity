@@ -1,5 +1,6 @@
 package modulardiversity.components.requirements;
 
+import com.google.common.collect.Lists;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentOutputRestrictor;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
@@ -25,7 +26,7 @@ public class RequirementEmber extends ComponentRequirement<Embers> {
 
     @Override
     public boolean startCrafting(MachineComponent machineComponent, RecipeCraftingContext recipeCraftingContext, ResultChance resultChance) {
-        return false;
+        return canStartCrafting(machineComponent,recipeCraftingContext, Lists.newArrayList()) == CraftCheck.SUCCESS;
     }
 
     @Override
@@ -42,11 +43,7 @@ public class RequirementEmber extends ComponentRequirement<Embers> {
                         return CraftCheck.SUCCESS;
                     break;
                 case OUTPUT:
-                    for (ComponentOutputRestrictor:
-                         ) {
-                        
-                    }
-                    break;
+                    return CraftCheck.SUCCESS;
             }
 
             return CraftCheck.FAILURE_MISSING_INPUT;
