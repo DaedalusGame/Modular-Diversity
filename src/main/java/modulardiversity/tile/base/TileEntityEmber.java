@@ -1,28 +1,27 @@
 package modulardiversity.tile.base;
 
+import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
-import hellfirepvp.modularmachinery.common.util.IEnergyHandler;
 import modulardiversity.block.prop.EmberHatchSize;
-import modulardiversity.util.ScaledEmberCapability;
+import modulardiversity.components.requirements.RequirementEmber;
+import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import teamroots.embers.power.DefaultEmberCapability;
 import teamroots.embers.power.EmberCapabilityProvider;
-import teamroots.embers.power.IEmberCapability;
 
 import javax.annotation.Nullable;
 
 public abstract class TileEntityEmber extends TileColorableMachineComponent implements MachineComponentTile {
-    public ScaledEmberCapability capability = new ScaledEmberCapability();
+    public DefaultEmberCapability capability = new DefaultEmberCapability();
     private EmberHatchSize size;
     private MachineComponent.IOType ioType;
 
-    public TileEntityEmber()
-    {
+    public TileEntityEmber() {
     }
 
     public TileEntityEmber(EmberHatchSize size, MachineComponent.IOType ioType) {
@@ -60,8 +59,23 @@ public abstract class TileEntityEmber extends TileColorableMachineComponent impl
         return capability == EmberCapabilityProvider.emberCapability || super.hasCapability(capability, facing);
     }
 
-
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         return capability == EmberCapabilityProvider.emberCapability? (T)this.capability : super.getCapability(capability, facing);
+    }
+
+    public static class Component extends MachineComponent<ICraftingResourceHolder<RequirementEmber.ResourceToken>> {
+        public Component(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("ember");
+        }
+
+        @Override
+        public ICraftingResourceHolder<RequirementEmber.ResourceToken> getContainerProvider() {
+            return null;
+        }
     }
 }
