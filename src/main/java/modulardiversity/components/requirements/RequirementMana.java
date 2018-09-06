@@ -38,11 +38,18 @@ public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana
         return new JEIComponentMana(this);
     }
 
-    public static class ResourceToken implements IResourceToken
-    {
+    public static class ResourceToken implements IResourceToken {
         private int mana;
 
         public ResourceToken(int mana) {
+            this.mana = mana;
+        }
+
+        public int getMana() {
+            return mana;
+        }
+
+        public void setMana(int mana) {
             this.mana = mana;
         }
 

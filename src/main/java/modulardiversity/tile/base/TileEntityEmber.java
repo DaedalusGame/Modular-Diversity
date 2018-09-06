@@ -16,7 +16,7 @@ import teamroots.embers.power.EmberCapabilityProvider;
 
 import javax.annotation.Nullable;
 
-public abstract class TileEntityEmber extends TileColorableMachineComponent implements MachineComponentTile {
+public abstract class TileEntityEmber extends TileColorableMachineComponent implements MachineComponentTile, ICraftingResourceHolder<RequirementEmber.ResourceToken> {
     public DefaultEmberCapability capability = new DefaultEmberCapability();
     private EmberHatchSize size;
     private MachineComponent.IOType ioType;
@@ -50,9 +50,17 @@ public abstract class TileEntityEmber extends TileColorableMachineComponent impl
     }
 
     @Override
-    @Nullable
-    public MachineComponent provideComponent() {
-        return null;
+    public boolean consume(RequirementEmber.ResourceToken token) {
+        double emberConsumed = capability.removeAmount(token.getEmber(),true);
+        token.setEmber(token.getEmber() - emberConsumed);
+        return emberConsumed > 0;
+    }
+
+    @Override
+    public boolean generate(RequirementEmber.ResourceToken token) {
+        double emberAdded = capability.addAmount(token.getEmber(),true);
+        token.setEmber(token.getEmber() - emberAdded);
+        return emberAdded > 0;
     }
 
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

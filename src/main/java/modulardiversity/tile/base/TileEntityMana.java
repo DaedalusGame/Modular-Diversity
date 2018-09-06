@@ -1,31 +1,27 @@
 package modulardiversity.tile.base;
 
+import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
-import hellfirepvp.modularmachinery.common.util.IEnergyHandler;
-import modulardiversity.ModularDiversity;
-import modulardiversity.block.prop.EmberHatchSize;
+import modulardiversity.components.requirements.RequirementEmber;
+import modulardiversity.components.requirements.RequirementMana;
+import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.capabilities.Capability;
-import teamroots.embers.power.DefaultEmberCapability;
-import teamroots.embers.power.EmberCapabilityProvider;
-import teamroots.embers.power.IEmberCapability;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 
 import javax.annotation.Nullable;
 
-public abstract class TileEntityMana extends TileColorableMachineComponent implements MachineComponentTile, IEnergyHandler, IManaReceiver {
+public abstract class TileEntityMana extends TileColorableMachineComponent implements MachineComponentTile, IManaReceiver, ICraftingResourceHolder<RequirementMana.ResourceToken> {
     private int mana;
     private int capacity;
     private MachineComponent.IOType ioType;
 
     public TileEntityMana()
     {
-        capacity = 10000 * ModularDiversity.ManaToFE;
+        capacity = 10000;
     }
 
     public TileEntityMana(MachineComponent.IOType ioType) {
@@ -48,45 +44,50 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
     }
 
     @Override
-    @Nullable
-    public MachineComponent provideComponent() {
-        return null;
+    public boolean consume(RequirementMana.ResourceToken token) {
+        int manaConsumed = Math.min(mana,token.getMana());
+        token.setMana(token.getMana() - manaConsumed);
+        return manaConsumed > 0;
     }
 
-    public int getCapacity() {
-        return capacity;
+    @Override
+    public boolean generate(RequirementMana.ResourceToken token) {
+        int manaAdded = Math.min(capacity - mana,token.getMana());
+        token.setMana(token.getMana() - manaAdded);
+        return manaAdded > 0;
     }
 
     public int getManaCapacity() {
-        return capacity / ModularDiversity.ManaToFE;
-    }
-
-    public void setMana(int mana) {
-        this.mana = mana * ModularDiversity.ManaToFE;
-    }
-
-    @Override
-    public int getCurrentEnergy() {
-        return mana;
-    }
-
-    @Override
-    public void setCurrentEnergy(int i) {
-        mana = MathHelper.clamp(i,0,capacity);
-    }
-
-    @Override
-    public int getMaxEnergy() {
         return capacity;
     }
 
-    @Override
-    public int getCurrentMana() {
-        return mana / ModularDiversity.ManaToFE;
+    public void setCurrentMana(int mana) {
+        this.mana = mana;
     }
 
     @Override
     public void recieveMana(int i) {
-        setMana(MathHelper.clamp(getCurrentMana() + i,0,getManaCapacity()));
+        setCurrentMana(MathHelper.clamp(getCurrentMana() + i,0,getManaCapacity()));
+    }
+
+    @Override
+    public int getCurrentMana() {
+        return mana;
+    }
+
+    public static class Component extends MachineComponent<ICraftingResourceHolder<RequirementEmber.ResourceToken>> {
+        public Component(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("ember");
+        }
+
+        @Override
+        public ICraftingResourceHolder<RequirementEmber.ResourceToken> getContainerProvider() {
+            return null;
+        }
     }
 }

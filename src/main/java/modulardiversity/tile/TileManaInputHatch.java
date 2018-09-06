@@ -8,7 +8,9 @@ import modulardiversity.tile.base.TileEntityMana;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaReceiver;
 
-public class TileManaInputHatch extends TileEntityMana implements IManaReceiver {
+import javax.annotation.Nullable;
+
+public class TileManaInputHatch extends TileEntityMana {
     public TileManaInputHatch()
     {
         super(MachineComponent.IOType.INPUT);
@@ -22,5 +24,11 @@ public class TileManaInputHatch extends TileEntityMana implements IManaReceiver 
     @Override
     public boolean canRecieveManaFromBursts() {
         return true;
+    }
+
+    @Override
+    @Nullable
+    public MachineComponent provideComponent() {
+        return new Component(MachineComponent.IOType.INPUT);
     }
 }

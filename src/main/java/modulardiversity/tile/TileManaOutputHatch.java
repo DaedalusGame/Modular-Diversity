@@ -5,6 +5,8 @@ import modulardiversity.tile.base.TileEntityMana;
 import net.minecraft.item.EnumDyeColor;
 import vazkii.botania.api.mana.IManaPool;
 
+import javax.annotation.Nullable;
+
 public class TileManaOutputHatch extends TileEntityMana implements IManaPool {
     public TileManaOutputHatch()
     {
@@ -35,4 +37,11 @@ public class TileManaOutputHatch extends TileEntityMana implements IManaPool {
     public boolean canRecieveManaFromBursts() {
         return false;
     }
+
+    @Override
+    @Nullable
+    public MachineComponent provideComponent() {
+        return new Component(MachineComponent.IOType.OUTPUT);
+    }
+
 }

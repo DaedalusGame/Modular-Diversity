@@ -36,11 +36,6 @@ public class ModularDiversity
 
     Configuration configuration;
 
-    public static int ManaToFE;
-    public static int EmberToFE;
-    public static int PressureToFE;
-    public static int MJToFE;
-
     @SidedProxy(clientSide = "modulardiversity.ClientProxy",serverSide = "modulardiversity.ServerProxy")
     public static IProxy proxy;
 
@@ -56,12 +51,6 @@ public class ModularDiversity
 
         configuration = new Configuration(event.getSuggestedConfigurationFile());
         configuration.load();
-
-        configuration.getCategory("conversion_rates").setComment("Configure conversion rates of different power inputs.");
-        ManaToFE = configuration.get("conversion_rates","mana",10).getInt();
-        EmberToFE = configuration.get("conversion_rates","ember",10).getInt();
-        PressureToFE = configuration.get("conversion_rates","air_pressure",100).getInt();
-        MJToFE = configuration.get("conversion_rates","mj",1000).getInt();
 
         if (configuration.hasChanged())
         {

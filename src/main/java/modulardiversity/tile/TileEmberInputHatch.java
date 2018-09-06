@@ -7,7 +7,9 @@ import modulardiversity.tile.base.TileEntityEmber;
 import modulardiversity.util.ICraftingResourceHolder;
 import modulardiversity.util.IResourceToken;
 
-public class TileEmberInputHatch extends TileEntityEmber implements ICraftingResourceHolder<RequirementEmber.ResourceToken> {
+import javax.annotation.Nullable;
+
+public class TileEmberInputHatch extends TileEntityEmber {
     public TileEmberInputHatch() { super(); }
 
     public TileEmberInputHatch(EmberHatchSize size)
@@ -15,17 +17,9 @@ public class TileEmberInputHatch extends TileEntityEmber implements ICraftingRes
         super(size,MachineComponent.IOType.INPUT);
     }
 
+    @Nullable
     @Override
-    public boolean consume(RequirementEmber.ResourceToken token) {
-        double emberConsumed = capability.removeAmount(token.getEmber(),true);
-        token.setEmber(token.getEmber() - emberConsumed);
-        return emberConsumed > 0;
-    }
-
-    @Override
-    public boolean generate(RequirementEmber.ResourceToken token) {
-        double emberAdded = capability.addAmount(token.getEmber(),true);
-        token.setEmber(token.getEmber() - emberAdded);
-        return emberAdded > 0;
+    public MachineComponent provideComponent() {
+        return new Component(MachineComponent.IOType.INPUT);
     }
 }
