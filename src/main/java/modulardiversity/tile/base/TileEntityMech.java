@@ -9,6 +9,9 @@ import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import hellfirepvp.modularmachinery.common.util.IEnergyHandler;
 import modulardiversity.components.MachineComponents;
+import modulardiversity.components.requirements.RequirementMana;
+import modulardiversity.components.requirements.RequirementMechanical;
+import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.block.Block;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -21,12 +24,10 @@ import javax.annotation.Nullable;
 import static modulardiversity.components.MachineComponents.*;
 
 @Optional.Interface(iface = "betterwithmods.api.tile.IMechanicalPower",modid = "betterwithmods")
-public abstract class TileEntityMech extends TileColorableMachineComponent implements MachineComponentTile, IEnergyHandler, IMechanicalPower {
-    private MachineComponent.IOType ioType;
+public abstract class TileEntityMech extends TileColorableMachineComponent implements MachineComponentTile, IMechanicalPower, ICraftingResourceHolder<RequirementMechanical.ResourceToken> {
     private int maxLevel;
 
-    public TileEntityMech(MachineComponent.IOType ioType, int maxLevel) {
-        this.ioType = ioType;
+    public TileEntityMech(int maxLevel) {
         this.maxLevel = maxLevel;
     }
 
@@ -69,21 +70,5 @@ public abstract class TileEntityMech extends TileColorableMachineComponent imple
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityMechanicalPower.MECHANICAL_POWER ? CapabilityMechanicalPower.MECHANICAL_POWER.cast(this) : super.getCapability(capability, facing);
-    }
-
-    @Nullable
-    @Override
-    public MachineComponent provideComponent() {
-        return new MachineComponents.MechanicalHatch(ioType) {
-            @Override
-            public IMechanicalPower getContainerProvider() {
-                return TileEntityMech.this;
-            }
-        };
-    }
-
-    @Override
-    public int getMaxEnergy() {
-        return 50;
     }
 }

@@ -2,14 +2,20 @@ package modulardiversity.tile;
 
 import betterwithmods.api.BWMAPI;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import modulardiversity.components.MachineComponents;
+import modulardiversity.components.requirements.RequirementMechanical;
 import modulardiversity.tile.base.TileEntityMech;
+import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.fml.common.Optional;
 
+import javax.annotation.Nullable;
+
+@Optional.Interface(iface = "betterwithmods.api.tile.IMechanicalPower",modid = "betterwithmods")
 public class TileMechOutput extends TileEntityMech implements ITickable {
     public TileMechOutput(int maxLevel) {
-        super(MachineComponent.IOType.OUTPUT, maxLevel);
+        super(maxLevel);
     }
 
     public int currentPowerLevel;
@@ -27,20 +33,9 @@ public class TileMechOutput extends TileEntityMech implements ITickable {
         return 0;
     }
 
-    @Override
-    public int getCurrentEnergy() {
-        return 0;
-    }
-
-    @Override
     public void setCurrentEnergy(int i) {
         currentPowerLevel = i;
         keepPowerTicks = 20;
-    }
-
-    @Override
-    public int getMaxEnergy() {
-        return 50;
     }
 
     @Override
@@ -50,5 +45,27 @@ public class TileMechOutput extends TileEntityMech implements ITickable {
         {
             currentPowerLevel = 0;
         }
+    }
+
+    @Override
+    public boolean consume(RequirementMechanical.ResourceToken token) {
+        return false;
+    }
+
+    @Override
+    public boolean generate(RequirementMechanical.ResourceToken token) {
+        setCurrentEnergy(token.getRequiredLevel());
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public MachineComponent provideComponent() {
+        return new MachineComponents.MechanicalHatch(MachineComponent.IOType.OUTPUT) {
+            @Override
+            public ICraftingResourceHolder<RequirementMechanical.ResourceToken> getContainerProvider() {
+                return TileMechOutput.this;
+            }
+        };
     }
 }

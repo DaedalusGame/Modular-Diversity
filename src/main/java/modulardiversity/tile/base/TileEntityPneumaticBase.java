@@ -80,21 +80,4 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
     public void update() {
         airHandler.update();
     }
-
-    public static class Component extends MachineComponent<ICraftingResourceHolder<RequirementAir.ResourceToken>> {
-        public Component(IOType ioType) {
-            super(ioType);
-        }
-
-        @Override
-        public ComponentType getComponentType() {
-            return ComponentType.Registry.getComponent("pneumatic_air");
-        }
-
-        @Override
-        public ICraftingResourceHolder<RequirementAir.ResourceToken> getContainerProvider() {
-            return null;
-        }
-    }
-
 }

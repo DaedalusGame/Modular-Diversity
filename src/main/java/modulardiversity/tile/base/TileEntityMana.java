@@ -17,29 +17,21 @@ import javax.annotation.Nullable;
 public abstract class TileEntityMana extends TileColorableMachineComponent implements MachineComponentTile, IManaReceiver, ICraftingResourceHolder<RequirementMana.ResourceToken> {
     private int mana;
     private int capacity;
-    private MachineComponent.IOType ioType;
 
     public TileEntityMana()
     {
         capacity = 10000;
     }
 
-    public TileEntityMana(MachineComponent.IOType ioType) {
-        this();
-        this.ioType = ioType;
-    }
-
     @Override
     public void readCustomNBT(NBTTagCompound compound) {
         super.readCustomNBT(compound);
-        this.ioType = compound.getBoolean("input") ? MachineComponent.IOType.INPUT : MachineComponent.IOType.OUTPUT;
         this.mana = compound.getInteger("mana");
     }
 
     @Override
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
-        compound.setBoolean("input", this.ioType == MachineComponent.IOType.INPUT);
         compound.setInteger("mana",mana);
     }
 
@@ -73,21 +65,5 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
     @Override
     public int getCurrentMana() {
         return mana;
-    }
-
-    public static class Component extends MachineComponent<ICraftingResourceHolder<RequirementEmber.ResourceToken>> {
-        public Component(IOType ioType) {
-            super(ioType);
-        }
-
-        @Override
-        public ComponentType getComponentType() {
-            return ComponentType.Registry.getComponent("ember");
-        }
-
-        @Override
-        public ICraftingResourceHolder<RequirementEmber.ResourceToken> getContainerProvider() {
-            return null;
-        }
     }
 }
