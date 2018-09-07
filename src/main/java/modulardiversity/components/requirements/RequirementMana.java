@@ -5,7 +5,7 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.jei.JEIComponentMana;
 import modulardiversity.jei.ingredients.Mana;
-import modulardiversity.tile.base.TileEntityEmber;
+import modulardiversity.tile.base.TileEntityMana;
 import modulardiversity.util.IResourceToken;
 
 public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana.ResourceToken> {
@@ -19,7 +19,7 @@ public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana
     @Override
     protected boolean isCorrectHatch(MachineComponent component) {
         return component.getComponentType().getRegistryName().equals("mana") &&
-                component instanceof TileEntityEmber.Component &&
+                component instanceof TileEntityMana.Component &&
                 component.getIOType() == getActionType();
     }
 

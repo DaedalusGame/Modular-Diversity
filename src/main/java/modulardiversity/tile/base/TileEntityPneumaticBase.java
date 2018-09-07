@@ -1,5 +1,6 @@
 package modulardiversity.tile.base;
 
+import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
@@ -8,6 +9,9 @@ import me.desht.pneumaticcraft.api.PneumaticRegistry;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandler;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandlerSupplier;
 import me.desht.pneumaticcraft.api.tileentity.IPneumaticMachine;
+import modulardiversity.components.requirements.RequirementAir;
+import modulardiversity.components.requirements.RequirementEmber;
+import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -15,7 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, IPneumaticMachine, IEnergyHandler, ITickable {
+public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, IPneumaticMachine, ITickable {
     private MachineComponent.IOType ioType;
 
     public IAirHandler airHandler;
@@ -77,10 +81,20 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
         airHandler.update();
     }
 
-    @Nullable
-    @Override
-    public MachineComponent provideComponent() {
-        return null;
+    public static class Component extends MachineComponent<ICraftingResourceHolder<RequirementAir.ResourceToken>> {
+        public Component(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("pneumatic_air");
+        }
+
+        @Override
+        public ICraftingResourceHolder<RequirementAir.ResourceToken> getContainerProvider() {
+            return null;
+        }
     }
 
 }

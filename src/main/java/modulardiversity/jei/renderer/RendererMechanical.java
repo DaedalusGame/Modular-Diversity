@@ -6,6 +6,7 @@ import mezz.jei.api.ingredients.IIngredientRenderer;
 import modulardiversity.jei.JEIHelpers;
 import modulardiversity.jei.ingredients.Mechanical;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.util.ITooltipFlag;
 
 import javax.annotation.Nullable;
@@ -38,6 +39,7 @@ public class RendererMechanical implements IIngredientRenderer<Mechanical> {
         registerDrawables();
         int level = mechanical != null ? mechanical.getLevel() : 0;
         boolean isCrankable = mechanical != null && mechanical.isCrankAllowed();
+        GlStateManager.enableAlpha();
         if(level > 1) {
             foreground_steel.draw(minecraft, xPosition+1, yPosition+1);
             int textOffset = minecraft.fontRenderer.getStringWidth(Integer.toString(level)) / 2;
@@ -49,5 +51,6 @@ public class RendererMechanical implements IIngredientRenderer<Mechanical> {
             else
                 foreground_wood.draw(minecraft, xPosition + 1, yPosition + 1);
         }
+        GlStateManager.disableAlpha();
     }
 }

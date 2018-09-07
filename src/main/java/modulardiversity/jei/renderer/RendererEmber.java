@@ -10,11 +10,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.util.ITooltipFlag;
 import org.lwjgl.opengl.GL11;
+import teamroots.embers.api.EmbersAPI;
 import teamroots.embers.gui.GuiCodex;
 import teamroots.embers.util.EmberGenUtil;
 import teamroots.embers.util.RenderUtil;
 
 import javax.annotation.Nullable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class RendererEmber implements IIngredientRenderer<Embers> {
@@ -37,19 +39,13 @@ public class RendererEmber implements IIngredientRenderer<Embers> {
     public void render(Minecraft minecraft, int xPosition, int yPosition, @Nullable Embers embers) {
         registerDrawables();
 
-        ember_crystal.draw(minecraft,xPosition,yPosition);
-
-        GlStateManager.disableDepth();
-        GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-        GlStateManager.enableBlend();
         GlStateManager.enableAlpha();
-        int func = GL11.glGetInteger(GL11.GL_ALPHA_TEST_FUNC);
-        float ref = GL11.glGetFloat(GL11.GL_ALPHA_TEST_REF);
-        GlStateManager.alphaFunc(GL11.GL_ALWAYS, 0);
-        GuiCodex.drawTextGlowingAura(minecraft.fontRenderer, Double.toString(embers.getConsumedEmbers()), xPosition, yPosition);
-        GlStateManager.alphaFunc(func, ref);
-        GlStateManager.disableAlpha();
+        GlStateManager.enableBlend();
+        ember_crystal.draw(minecraft,xPosition+(40-16)/2,yPosition);
+        DecimalFormat emberFormat = teamroots.embers.Embers.proxy.getDecimalFormat("embers.decimal_format.ember");
+        String emberString = emberFormat.format(embers.getConsumedEmbers());
+        GuiCodex.drawTextGlowing(minecraft.fontRenderer, emberString, xPosition+(40-minecraft.fontRenderer.getStringWidth(emberString))/2, yPosition+(28-minecraft.fontRenderer.FONT_HEIGHT));
         GlStateManager.disableBlend();
-        GlStateManager.enableDepth();
+        GlStateManager.disableAlpha();
     }
 }

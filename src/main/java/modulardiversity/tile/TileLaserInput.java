@@ -24,18 +24,18 @@ public class TileLaserInput extends TileColorableMachineComponent implements Mac
         if(laserTicks <= 0)
             return 0;
         else
-            return (long)demandedPower * ModularDiversity.MJToFE;
+            return (long)demandedPower;
     }
 
     @Optional.Method(modid = "buildcraftlib")
     @Override
     public long receiveLaserPower(long laserPower) {
-        long demandedPower = (long)this.demandedPower * ModularDiversity.MJToFE;
-        int consumedPower = (int)Math.min(demandedPower,Math.min(Integer.MAX_VALUE,laserPower / ModularDiversity.MJToFE));
+        long demandedPower = (long)this.demandedPower;
+        int consumedPower = (int)Math.min(demandedPower,Math.min(Integer.MAX_VALUE,laserPower));
         lastLaserPower = consumedPower;
         if(consumedPower > 0)
             laserTicks = 20;
-        return - (long)consumedPower * ModularDiversity.MJToFE;
+        return - (long)consumedPower;
     }
 
     @Optional.Method(modid = "buildcraftlib")

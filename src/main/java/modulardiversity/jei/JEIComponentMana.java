@@ -48,12 +48,12 @@ public class JEIComponentMana extends ComponentRequirement.JEIComponent<Mana> {
 
         @Override
         public int getComponentWidth() {
-            return 16;
+            return 5;
         }
 
         @Override
         public int getComponentHeight() {
-            return 16;
+            return 63;
         }
 
         @Override

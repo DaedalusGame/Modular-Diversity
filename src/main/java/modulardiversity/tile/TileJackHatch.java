@@ -40,6 +40,11 @@ public class TileJackHatch extends TileColorableMachineComponent implements Mach
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return null;
+        return new MachineComponent.FluidHatch(MachineComponent.IOType.INPUT){
+            @Override
+            public HybridTank getContainerProvider() {
+                return tank;
+            }
+        };
     }
 }

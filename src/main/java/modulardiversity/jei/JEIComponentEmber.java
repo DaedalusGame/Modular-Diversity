@@ -48,12 +48,12 @@ public class JEIComponentEmber extends ComponentRequirement.JEIComponent<Embers>
 
         @Override
         public int getComponentWidth() {
-            return 16;
+            return 40;
         }
 
         @Override
         public int getComponentHeight() {
-            return 16;
+            return 28;
         }
 
         @Override

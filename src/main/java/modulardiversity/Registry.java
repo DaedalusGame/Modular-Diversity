@@ -4,6 +4,8 @@ import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
 import modulardiversity.block.*;
+import modulardiversity.components.ComponentEmber;
+import modulardiversity.components.ComponentMana;
 import modulardiversity.components.ComponentMechanical;
 import modulardiversity.tile.*;
 import net.minecraft.block.Block;
@@ -32,7 +34,7 @@ public class Registry {
 
     public static void registerBlocks()
     {
-        /*if(ModularDiversity.EmbersLoaded) {
+        if(ModularDiversity.EmbersLoaded) {
             BlockEmberInputHatch emberInputHatch = new BlockEmberInputHatch();
             BlockEmberOutputHatch emberOutputHatch = new BlockEmberOutputHatch();
 
@@ -48,12 +50,14 @@ public class Registry {
             registerBlock("blockmanaoutputhatch",manaOutputHatch, new ItemBlockMachineComponent(manaOutputHatch));
         }
 
+
         if(ModularDiversity.ImmersivePetroleumLoaded) {
             BlockJackHatch jackHatch = new BlockJackHatch();
 
             registerBlock("blockjackhatch",jackHatch, new ItemBlockMachineComponent(jackHatch));
         }
 
+        /*
         if(ModularDiversity.BuildcraftLoaded) {
             BlockLaserHatch laserHatch = new BlockLaserHatch();
 
@@ -114,7 +118,7 @@ public class Registry {
 
     public static void registerTileEntities()
     {
-        /*if(ModularDiversity.EmbersLoaded) {
+        if(ModularDiversity.EmbersLoaded) {
             registerTileEntity(TileEmberInputHatch.class);
             registerTileEntity(TileEmberOutputHatch.class);
         }
@@ -124,7 +128,7 @@ public class Registry {
         }
         if(ModularDiversity.ImmersivePetroleumLoaded) {
             registerTileEntity(TileJackHatch.class);
-        }*/
+        }
         if(ModularDiversity.BetterWithModsLoaded) {
             registerTileEntity(TileMechInput.class);
             registerTileEntity(TileMechInputCrank.class);
@@ -143,6 +147,8 @@ public class Registry {
     @SubscribeEvent
     public static void registerComponents(ComponentType.ComponentRegistryEvent event) {
         ComponentType.Registry.register(new ComponentMechanical());
+        ComponentType.Registry.register(new ComponentEmber());
+        ComponentType.Registry.register(new ComponentMana());
     }
 
     @SubscribeEvent
