@@ -2,8 +2,10 @@ package modulardiversity.components.requirements;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType.Registry;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
+import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent.IOType;
+import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentMechanical;
 import modulardiversity.jei.ingredients.Mechanical;
 import modulardiversity.util.IResourceToken;
@@ -29,13 +31,15 @@ public class RequirementMechanical extends RequirementConsumePerTick<Mechanical,
     }
 
     @Override
-    protected ResourceToken emitConsumptionToken() {
+    protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
         return new ResourceToken(requiredLevel,isCrankAllowed);
     }
 
     @Override
     protected boolean isCorrectHatch(MachineComponent component) {
-        return false;
+        return component.getComponentType().getRegistryName().equals("mechanical") &&
+                component instanceof MachineComponents.MechanicalHatch &&
+                component.getIOType() == getActionType();
     }
 
     public static class ResourceToken implements IResourceToken {

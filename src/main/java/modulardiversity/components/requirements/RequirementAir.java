@@ -1,18 +1,13 @@
 package modulardiversity.components.requirements;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
-import hellfirepvp.modularmachinery.common.crafting.helper.ComponentOutputRestrictor;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
-import hellfirepvp.modularmachinery.common.util.ResultChance;
+import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentAir;
 import modulardiversity.jei.ingredients.Air;
-import modulardiversity.tile.base.TileEntityEmber;
 import modulardiversity.util.IResourceToken;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAir.ResourceToken> {
     public final int volumeConsumed;
@@ -25,14 +20,14 @@ public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAi
     }
 
     @Override
-    protected ResourceToken emitConsumptionToken() {
+    protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
         return new ResourceToken(volumeConsumed,pressureRequired);
     }
 
     @Override
     protected boolean isCorrectHatch(MachineComponent component) {
         return component.getComponentType().getRegistryName().equals("pneumatic_air") &&
-                component instanceof TileEntityEmber.Component &&
+                component instanceof MachineComponents.AirHatch &&
                 component.getIOType() == getActionType();
     }
 

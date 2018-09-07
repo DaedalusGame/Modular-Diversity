@@ -48,13 +48,15 @@ public class TileMechOutput extends TileEntityMech implements ITickable {
     }
 
     @Override
-    public boolean consume(RequirementMechanical.ResourceToken token) {
+    public boolean consume(RequirementMechanical.ResourceToken token, boolean doConsume) {
         return false;
     }
 
     @Override
-    public boolean generate(RequirementMechanical.ResourceToken token) {
-        setCurrentEnergy(token.getRequiredLevel());
+    public boolean generate(RequirementMechanical.ResourceToken token, boolean doGenerate) {
+        token.setRequiredlevelMet();
+        if(doGenerate)
+            setCurrentEnergy(token.getRequiredLevel());
         return true;
     }
 

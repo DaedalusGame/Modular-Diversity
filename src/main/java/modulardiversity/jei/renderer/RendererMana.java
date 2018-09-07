@@ -40,7 +40,8 @@ public class RendererMana implements IIngredientRenderer<Mana> {
 
         GlStateManager.enableAlpha();
         Color color = new Color(Color.HSBtoRGB(0.55F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F));
-        renderManaBar(minecraft,xPosition,yPosition,color.getRGB(), 1.0f, mana.getConsumedMana(), 10000);
+        int consumedMana = mana != null ? mana.getConsumedMana() : 0;
+        renderManaBar(minecraft,xPosition,yPosition,color.getRGB(), 1.0f, consumedMana, 10000);
         GlStateManager.disableAlpha();
     }
 

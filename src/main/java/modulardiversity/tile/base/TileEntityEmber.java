@@ -48,16 +48,18 @@ public abstract class TileEntityEmber extends TileColorableMachineComponent impl
     }
 
     @Override
-    public boolean consume(RequirementEmber.ResourceToken token) {
+    public boolean consume(RequirementEmber.ResourceToken token, boolean doConsume) {
         double emberConsumed = capability.removeAmount(token.getEmber(),true);
         token.setEmber(token.getEmber() - emberConsumed);
+        capability.removeAmount(emberConsumed,doConsume);
         return emberConsumed > 0;
     }
 
     @Override
-    public boolean generate(RequirementEmber.ResourceToken token) {
+    public boolean generate(RequirementEmber.ResourceToken token, boolean doGenerate) {
         double emberAdded = capability.addAmount(token.getEmber(),true);
         token.setEmber(token.getEmber() - emberAdded);
+        capability.addAmount(emberAdded,doGenerate);
         return emberAdded > 0;
     }
 

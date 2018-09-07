@@ -4,10 +4,7 @@ import betterwithmods.api.tile.IMechanicalPower;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandler;
-import modulardiversity.components.requirements.RequirementAir;
-import modulardiversity.components.requirements.RequirementEmber;
-import modulardiversity.components.requirements.RequirementMana;
-import modulardiversity.components.requirements.RequirementMechanical;
+import modulardiversity.components.requirements.*;
 import modulardiversity.util.ICraftingResourceHolder;
 import teamroots.embers.power.IEmberCapability;
 import vazkii.botania.api.mana.IManaBlock;
@@ -55,5 +52,18 @@ public class MachineComponents {
         public ComponentType getComponentType() {
             return ComponentType.Registry.getComponent("air");
         }
+    }
+
+    public static abstract class LaserHatch extends MachineComponent<ICraftingResourceHolder<RequirementLaser.ResourceToken>> {
+        public LaserHatch(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("laser");
+        }
+
+        public abstract void reset();
     }
 }

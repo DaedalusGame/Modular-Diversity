@@ -2,10 +2,11 @@ package modulardiversity.components.requirements;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
+import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentMana;
 import modulardiversity.jei.ingredients.Mana;
-import modulardiversity.tile.base.TileEntityMana;
 import modulardiversity.util.IResourceToken;
 
 public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana.ResourceToken> {
@@ -19,12 +20,12 @@ public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana
     @Override
     protected boolean isCorrectHatch(MachineComponent component) {
         return component.getComponentType().getRegistryName().equals("mana") &&
-                component instanceof TileEntityMana.Component &&
+                component instanceof MachineComponents.ManaHatch &&
                 component.getIOType() == getActionType();
     }
 
     @Override
-    protected ResourceToken emitConsumptionToken() {
+    protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
         return new ResourceToken(requiredMana);
     }
 

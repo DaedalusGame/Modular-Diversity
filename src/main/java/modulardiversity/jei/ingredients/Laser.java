@@ -3,13 +3,13 @@ package modulardiversity.jei.ingredients;
 import modulardiversity.jei.IFakeIngredient;
 
 public class Laser implements IFakeIngredient {
-    float requiredMicroMJ;
+    long requiredMicroMJ;
 
-    public Laser(float requiredMicroMJ) {
+    public Laser(long requiredMicroMJ) {
         this.requiredMicroMJ = requiredMicroMJ;
     }
 
-    public float getRequiredMicroMJ() {
+    public long getRequiredMicroMJ() {
         return requiredMicroMJ;
     }
 

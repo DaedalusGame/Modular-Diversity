@@ -34,14 +34,14 @@ public class TileMechInput extends TileEntityMech {
     }
 
     @Override
-    public boolean consume(RequirementMechanical.ResourceToken token) {
+    public boolean consume(RequirementMechanical.ResourceToken token, boolean doConsume) {
         if(getCurrentEnergy() >= token.getRequiredLevel())
             token.setRequiredlevelMet();
         return true;
     }
 
     @Override
-    public boolean generate(RequirementMechanical.ResourceToken token) {
+    public boolean generate(RequirementMechanical.ResourceToken token, boolean doGenerate) {
         return false;
     }
 

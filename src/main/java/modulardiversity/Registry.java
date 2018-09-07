@@ -5,6 +5,7 @@ import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
 import modulardiversity.block.*;
 import modulardiversity.components.ComponentEmber;
+import modulardiversity.components.ComponentLaser;
 import modulardiversity.components.ComponentMana;
 import modulardiversity.components.ComponentMechanical;
 import modulardiversity.tile.*;
@@ -50,19 +51,17 @@ public class Registry {
             registerBlock("blockmanaoutputhatch",manaOutputHatch, new ItemBlockMachineComponent(manaOutputHatch));
         }
 
-
         if(ModularDiversity.ImmersivePetroleumLoaded) {
             BlockJackHatch jackHatch = new BlockJackHatch();
 
             registerBlock("blockjackhatch",jackHatch, new ItemBlockMachineComponent(jackHatch));
         }
 
-        /*
         if(ModularDiversity.BuildcraftLoaded) {
             BlockLaserHatch laserHatch = new BlockLaserHatch();
 
             registerBlock("blocklaserhatch",laserHatch, new ItemBlockMachineComponent(laserHatch));
-        }*/
+        }
 
         /*if(ModularDiversity.PneumaticCraftLoaded) {
             BlockPneumaticInput pneumaticInputHatch = new BlockPneumaticInput();
@@ -134,9 +133,9 @@ public class Registry {
             registerTileEntity(TileMechInputCrank.class);
             registerTileEntity(TileMechOutput.class);
         }
-        /*if(ModularDiversity.BuildcraftLoaded) {
+        if(ModularDiversity.BuildcraftLoaded) {
             registerTileEntity(TileLaserInput.class);
-        }*/
+        }
         /*if(ModularDiversity.PneumaticCraftLoaded) {
             registerTileEntity(TilePneumaticInput.class);
             registerTileEntity(TilePneumaticInputConsume.class);
@@ -149,6 +148,7 @@ public class Registry {
         ComponentType.Registry.register(new ComponentMechanical());
         ComponentType.Registry.register(new ComponentEmber());
         ComponentType.Registry.register(new ComponentMana());
+        ComponentType.Registry.register(new ComponentLaser());
     }
 
     @SubscribeEvent

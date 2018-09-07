@@ -11,9 +11,9 @@ public class TileMechInputCrank extends TileMechInput implements ICrankable {
     }
 
     @Override
-    public boolean consume(RequirementMechanical.ResourceToken token) {
-        if(!token.isCrankAllowed())
-            return false;
-        return super.consume(token);
+    public boolean consume(RequirementMechanical.ResourceToken token, boolean doConsume) {
+        /*if(!token.isCrankAllowed())
+            return false;*/
+        return super.consume(token,doConsume);
     }
 }

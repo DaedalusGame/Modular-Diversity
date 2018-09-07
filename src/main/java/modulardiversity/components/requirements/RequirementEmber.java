@@ -2,10 +2,11 @@ package modulardiversity.components.requirements;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
+import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentEmber;
 import modulardiversity.jei.ingredients.Embers;
-import modulardiversity.tile.base.TileEntityEmber;
 import modulardiversity.util.IResourceToken;
 
 public class RequirementEmber extends RequirementConsumeOnce<Embers,RequirementEmber.ResourceToken> {
@@ -29,12 +30,12 @@ public class RequirementEmber extends RequirementConsumeOnce<Embers,RequirementE
     @Override
     protected boolean isCorrectHatch(MachineComponent component) {
         return component.getComponentType().getRegistryName().equals("ember") &&
-                component instanceof TileEntityEmber.Component &&
+                component instanceof MachineComponents.EmberHatch &&
                 component.getIOType() == getActionType();
     }
 
     @Override
-    protected ResourceToken emitConsumptionToken() {
+    protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
         return new ResourceToken(requiredEmber);
     }
 

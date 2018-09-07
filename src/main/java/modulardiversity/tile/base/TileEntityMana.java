@@ -36,16 +36,20 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
     }
 
     @Override
-    public boolean consume(RequirementMana.ResourceToken token) {
-        int manaConsumed = Math.min(mana,token.getMana());
+    public boolean consume(RequirementMana.ResourceToken token, boolean doConsume) {
+        int manaConsumed = Math.min(getCurrentMana(),token.getMana());
         token.setMana(token.getMana() - manaConsumed);
+        if(doConsume)
+            setCurrentMana(getCurrentMana() - manaConsumed);
         return manaConsumed > 0;
     }
 
     @Override
-    public boolean generate(RequirementMana.ResourceToken token) {
-        int manaAdded = Math.min(capacity - mana,token.getMana());
+    public boolean generate(RequirementMana.ResourceToken token, boolean doGenerate) {
+        int manaAdded = Math.min(getManaCapacity() - getCurrentMana(),token.getMana());
         token.setMana(token.getMana() - manaAdded);
+        if(doGenerate)
+            setCurrentMana(getCurrentMana() + manaAdded);
         return manaAdded > 0;
     }
 

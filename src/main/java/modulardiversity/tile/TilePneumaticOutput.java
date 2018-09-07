@@ -2,7 +2,10 @@ package modulardiversity.tile;
 
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.ModularDiversity;
+import modulardiversity.components.MachineComponents;
+import modulardiversity.components.requirements.RequirementAir;
 import modulardiversity.tile.base.TileEntityPneumaticBase;
+import modulardiversity.util.ICraftingResourceHolder;
 
 import javax.annotation.Nullable;
 
@@ -14,6 +17,11 @@ public class TilePneumaticOutput extends TileEntityPneumaticBase {
     @Nullable
     @Override
     public MachineComponent provideComponent() {
-        return new Component(MachineComponent.IOType.OUTPUT);
+        return new MachineComponents.AirHatch(MachineComponent.IOType.OUTPUT) {
+            @Override
+            public ICraftingResourceHolder<RequirementAir.ResourceToken> getContainerProvider() {
+                return null;
+            }
+        };
     }
 }

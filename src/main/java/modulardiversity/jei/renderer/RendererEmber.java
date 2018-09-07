@@ -43,7 +43,8 @@ public class RendererEmber implements IIngredientRenderer<Embers> {
         GlStateManager.enableBlend();
         ember_crystal.draw(minecraft,xPosition+(40-16)/2,yPosition);
         DecimalFormat emberFormat = teamroots.embers.Embers.proxy.getDecimalFormat("embers.decimal_format.ember");
-        String emberString = emberFormat.format(embers.getConsumedEmbers());
+        double consumedEmbers = embers != null ? embers.getConsumedEmbers() : 0;
+        String emberString = emberFormat.format(consumedEmbers);
         GuiCodex.drawTextGlowing(minecraft.fontRenderer, emberString, xPosition+(40-minecraft.fontRenderer.getStringWidth(emberString))/2, yPosition+(28-minecraft.fontRenderer.FONT_HEIGHT));
         GlStateManager.disableBlend();
         GlStateManager.disableAlpha();

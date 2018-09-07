@@ -37,7 +37,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
         ICraftingResourceHolder<V> handler = (ICraftingResourceHolder<V>) context.getProvidedCraftingComponent(component);
         switch (getActionType()) {
             case INPUT:
-                boolean didConsume = handler.consume(checkToken);
+                boolean didConsume = handler.consume(checkToken,false);
                 if(!didConsume) {
                     return CraftCheck.FAILURE_MISSING_INPUT;
                 } else if(checkToken.isEmpty()) {
@@ -46,25 +46,30 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
                     return CraftCheck.PARTIAL_SUCCESS;
                 }
             case OUTPUT:
-                return CraftCheck.SUCCESS;
+                handler.generate(checkToken,false);
+                if(checkToken.isEmpty()) {
+                    return CraftCheck.SUCCESS;
+                } else {
+                    return CraftCheck.PARTIAL_SUCCESS;
+                }
         }
         return CraftCheck.FAILURE_MISSING_INPUT;
     }
 
     @Override
     public void startRequirementCheck(ResultChance chance, RecipeCraftingContext context) {
-        checkToken = emitConsumptionToken();
+        checkToken = emitConsumptionToken(context);
         checkToken.setModifier(context.applyModifiers(this,getActionType(),checkToken.getModifier(),false));
     }
 
     @Override
     public void endRequirementCheck() {
-        checkToken = emitConsumptionToken();
+        checkToken = emitConsumptionToken(null);
     }
 
     @Override
-    public void resetIOTick(RecipeCraftingContext recipeCraftingContext) {
-        this.perTickToken = emitConsumptionToken();
+    public void resetIOTick(RecipeCraftingContext context) {
+        this.perTickToken = emitConsumptionToken(context);
     }
 
     @Override
@@ -72,7 +77,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
         this.perTickToken.setModifier(context.applyModifiers(this, getActionType(), this.perTickToken.getModifier() , false) * durationMultiplier);
     }
 
-    protected abstract V emitConsumptionToken();
+    protected abstract V emitConsumptionToken(RecipeCraftingContext context);
 
     protected abstract boolean isCorrectHatch(MachineComponent component);
 
@@ -83,7 +88,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
         ICraftingResourceHolder<V> handler = (ICraftingResourceHolder<V>) context.getProvidedCraftingComponent(component);
         switch (getActionType()) {
             case INPUT:
-                boolean didConsume = handler.consume(perTickToken);
+                boolean didConsume = handler.consume(perTickToken,true);
                 if(!didConsume) {
                     return CraftCheck.FAILURE_MISSING_INPUT;
                 } else if(perTickToken.isEmpty()) {
@@ -92,7 +97,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
                     return CraftCheck.PARTIAL_SUCCESS;
                 }
             case OUTPUT:
-                handler.generate(perTickToken);
+                handler.generate(perTickToken,true);
                 if(perTickToken.isEmpty()) {
                     return CraftCheck.SUCCESS;
                 } else {
