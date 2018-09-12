@@ -5,6 +5,8 @@ import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
 import modulardiversity.block.*;
 import modulardiversity.components.ComponentEmber;
+import modulardiversity.components.ComponentHotAir;
+import modulardiversity.components.ComponentLaser;
 import modulardiversity.components.ComponentLaser;
 import modulardiversity.components.ComponentMana;
 import modulardiversity.components.ComponentMechanical;
@@ -84,6 +86,14 @@ public class Registry {
             registerBlock("blockmechoutputhatch",mechOutputHatch, new ItemBlockMachineComponent(mechOutputHatch));
             registerBlock("blockmechsteeloutputhatch",mechSteelOutputHatch, new ItemBlockMachineComponent(mechSteelOutputHatch));
         }
+        
+        if(ModularDiversity.ProdigyTechLoaded) {
+        	BlockHotAirInputHatch hotAirInputHatch = new BlockHotAirInputHatch();
+        	BlockHotAirOutputHatch hotAirOuputHatch = new BlockHotAirOutputHatch();
+
+            registerBlock("blockhotairinputhatch", hotAirInputHatch, new ItemBlockMachineComponent(hotAirInputHatch));
+            registerBlock("blockhotairoutputhatch",hotAirOuputHatch, new ItemBlockMachineComponent(hotAirOuputHatch));
+        }
     }
 
     public static void registerBlockModels()
@@ -136,6 +146,10 @@ public class Registry {
         if(ModularDiversity.BuildcraftLoaded) {
             registerTileEntity(TileLaserInput.class);
         }
+        if(ModularDiversity.ProdigyTechLoaded) {
+        	registerTileEntity(TileHotAirInput.class);
+        	registerTileEntity(TileHotAirOutput.class);
+        }
         /*if(ModularDiversity.PneumaticCraftLoaded) {
             registerTileEntity(TilePneumaticInput.class);
             registerTileEntity(TilePneumaticInputConsume.class);
@@ -149,6 +163,7 @@ public class Registry {
         ComponentType.Registry.register(new ComponentEmber());
         ComponentType.Registry.register(new ComponentMana());
         ComponentType.Registry.register(new ComponentLaser());
+        ComponentType.Registry.register(new ComponentHotAir());
     }
 
     @SubscribeEvent

@@ -53,6 +53,17 @@ public class MachineComponents {
             return ComponentType.Registry.getComponent("air");
         }
     }
+    
+    public static abstract class HotAirHatch extends MachineComponent<ICraftingResourceHolder<RequirementHotAir.ResourceToken>> {
+        public HotAirHatch(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("hotair");
+        }
+    }
 
     public static abstract class LaserHatch extends MachineComponent<ICraftingResourceHolder<RequirementLaser.ResourceToken>> {
         public LaserHatch(IOType ioType) {
