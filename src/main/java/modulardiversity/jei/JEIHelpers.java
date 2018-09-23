@@ -28,5 +28,9 @@ public class JEIHelpers implements IModPlugin {
         registry.register(Mana.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
         registry.register(Laser.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
         registry.register(HotAir.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
+        registry.register(BiomeIngredient.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
+        registry.register(DaylightIngredient.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
+        registry.register(Weather.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
+        registry.register(MekLaser.class, new ArrayList<>(), new FakeIngredientHelper<>(), new FakeIngredientRenderer<>());
     }
 }

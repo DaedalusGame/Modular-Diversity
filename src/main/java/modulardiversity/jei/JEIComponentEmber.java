@@ -105,8 +105,8 @@ public class JEIComponentEmber extends ComponentRequirement.JEIComponent<Embers>
         public void drawBackground(Minecraft minecraft) {
         }
 
-        @Override
-        public void drawForeground(Minecraft minecraft, Embers mechanical) {
-        }
+//        @Override
+//        public void drawForeground(Minecraft minecraft, Embers mechanical) {
+//        }
     }
 }

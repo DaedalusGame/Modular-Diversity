@@ -4,48 +4,49 @@ import com.google.common.collect.Lists;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import modulardiversity.components.requirements.RequirementLaser;
-import modulardiversity.jei.ingredients.Laser;
-import modulardiversity.jei.renderer.RendererLaser;
+import modulardiversity.components.requirements.RequirementMekLaser;
+import modulardiversity.jei.ingredients.MekLaser;
+import modulardiversity.jei.renderer.RendererMekLaser;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
 import java.util.List;
 
-public class JEIComponentLaser extends ComponentRequirement.JEIComponent<Laser> {
-    private final RequirementLaser requirement;
+public class JEIComponentMekLaser extends ComponentRequirement.JEIComponent<MekLaser> {
+    private final RequirementMekLaser requirement;
 
-    public JEIComponentLaser(RequirementLaser requirement) {
+    public JEIComponentMekLaser(RequirementMekLaser requirement) {
         this.requirement = requirement;
     }
 
     @Override
-    public Class<Laser> getJEIRequirementClass() {
-        return Laser.class;
+    public Class<MekLaser> getJEIRequirementClass() {
+        return MekLaser.class;
     }
 
     @Override
-    public List<Laser> getJEIIORequirements() {
-        return Lists.newArrayList(new Laser(requirement.requiredMicroMJ));
+    public List<MekLaser> getJEIIORequirements() {
+        return Lists.newArrayList(new MekLaser(requirement.requiredEnergy));
     }
 
     @Override
-    public RecipeLayoutPart<Laser> getLayoutPart(Point point) {
+    public RecipeLayoutPart<MekLaser> getLayoutPart(Point point) {
         return new LayoutPart(point);
     }
 
     @Override
-    public void onJEIHoverTooltip(int i, boolean b, Laser laser, List<String> list) {
+    public void onJEIHoverTooltip(int i, boolean b, MekLaser mekLaser, List<String> list) {
+
     }
 
-    public static class LayoutPart extends RecipeLayoutPart<Laser> {
+    public static class LayoutPart extends RecipeLayoutPart<MekLaser> {
         public LayoutPart(Point offset) {
             super(offset);
         }
 
         @Override
         public int getComponentWidth() {
-            return 6;
+            return 14;
         }
 
         @Override
@@ -54,13 +55,13 @@ public class JEIComponentLaser extends ComponentRequirement.JEIComponent<Laser> 
         }
 
         @Override
-        public Class<Laser> getLayoutTypeClass() {
-            return Laser.class;
+        public Class<MekLaser> getLayoutTypeClass() {
+            return MekLaser.class;
         }
 
         @Override
-        public IIngredientRenderer<Laser> provideIngredientRenderer() {
-            return new RendererLaser();
+        public IIngredientRenderer<MekLaser> provideIngredientRenderer() {
+            return new RendererMekLaser();
         }
 
         @Override
@@ -101,9 +102,6 @@ public class JEIComponentLaser extends ComponentRequirement.JEIComponent<Laser> 
         @Override
         public void drawBackground(Minecraft minecraft) {
         }
-
-//        @Override
-//        public void drawForeground(Minecraft minecraft, Laser laser) {
-//        }
     }
+
 }

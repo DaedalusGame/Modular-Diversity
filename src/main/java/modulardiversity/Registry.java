@@ -1,15 +1,12 @@
 package modulardiversity;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
+import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
 import modulardiversity.block.*;
-import modulardiversity.components.ComponentEmber;
-import modulardiversity.components.ComponentHotAir;
+import modulardiversity.components.*;
 import modulardiversity.components.ComponentLaser;
-import modulardiversity.components.ComponentLaser;
-import modulardiversity.components.ComponentMana;
-import modulardiversity.components.ComponentMechanical;
 import modulardiversity.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -94,6 +91,20 @@ public class Registry {
             registerBlock("blockhotairinputhatch", hotAirInputHatch, new ItemBlockMachineComponent(hotAirInputHatch));
             registerBlock("blockhotairoutputhatch",hotAirOuputHatch, new ItemBlockMachineComponent(hotAirOuputHatch));
         }
+
+        if (ModularDiversity.MekanismLoaded) {
+            BlockMekLaserAcceptor mekLaserAcceptor = new BlockMekLaserAcceptor();
+
+            registerBlock("blockmeklaseracceptor", mekLaserAcceptor, new ItemBlockMachineComponent(mekLaserAcceptor));
+        }
+
+        BlockBiomeDetector blockBiomeDetector = new BlockBiomeDetector();
+        BlockDaylightDetector blockDaylightDetector = new BlockDaylightDetector();
+        BlockWeatherDetector blockWeatherDetector = new BlockWeatherDetector();
+
+        registerBlock("blockbiomedetector",blockBiomeDetector, new ItemBlockMachineComponent(blockBiomeDetector));
+        registerBlock("blockdaylightdetector", blockDaylightDetector, new ItemBlockMachineComponent(blockDaylightDetector));
+        registerBlock("blockweatherdetector", blockWeatherDetector, new ItemBlockMachineComponent(blockWeatherDetector));
     }
 
     public static void registerBlockModels()
@@ -155,6 +166,12 @@ public class Registry {
             registerTileEntity(TilePneumaticInputConsume.class);
             registerTileEntity(TilePneumaticOutput.class);
         }*/
+        if (ModularDiversity.MekanismLoaded) {
+            registerTileEntity(TileEntityMekLaserAcceptor.class);
+        }
+        registerTileEntity(TileEntityBiomeDetector.class);
+        registerTileEntity(TileEntityDaylightDetector.class);
+        registerTileEntity(TileEntityWeatherDetector.class);
     }
 
     @SubscribeEvent
@@ -164,6 +181,10 @@ public class Registry {
         ComponentType.Registry.register(new ComponentMana());
         ComponentType.Registry.register(new ComponentLaser());
         ComponentType.Registry.register(new ComponentHotAir());
+        ComponentType.Registry.register(new ComponentBiome());
+        ComponentType.Registry.register(new ComponentDaylight());
+        ComponentType.Registry.register(new ComponentMekLaser());
+        ComponentType.Registry.register(new ComponentWeather());
     }
 
     @SubscribeEvent

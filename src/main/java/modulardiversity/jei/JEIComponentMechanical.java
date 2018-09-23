@@ -104,8 +104,8 @@ public class JEIComponentMechanical extends ComponentRequirement.JEIComponent<Me
         public void drawBackground(Minecraft minecraft) {
         }
 
-        @Override
-        public void drawForeground(Minecraft minecraft, Mechanical mechanical) {
-        }
+//        @Override
+//        public void drawForeground(Minecraft minecraft, Mechanical mechanical) {
+//        }
     }
 }
