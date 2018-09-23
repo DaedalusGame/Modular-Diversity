@@ -29,3 +29,9 @@ tile.blocklaserhatch.name=Laser Hatch
 
 tile.blockhotairinputhatch.name=Hot Air Input Hatch
 tile.blockhotairoutputhatch.name=Hot Air Output Hatch
+
+tile.blockmeklaseracceptor.name=Mekanism Laser Acceptor
+
+tile.blockbiomedetector.name=Biome Detector
+tile.blockdaylightdetector.name=Daylight Detector
+tile.blockweatherdetector.name=Weather Detector

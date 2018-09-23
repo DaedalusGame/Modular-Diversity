@@ -102,8 +102,8 @@ public class JEIComponentAir extends ComponentRequirement.JEIComponent<Air> {
         public void drawBackground(Minecraft minecraft) {
         }
 
-        @Override
-        public void drawForeground(Minecraft minecraft, Air air) {
-        }
+//        @Override
+//        public void drawForeground(Minecraft minecraft, Air air) {
+//        }
     }
 }

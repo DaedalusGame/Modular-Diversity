@@ -6,7 +6,7 @@ import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandler;
 import modulardiversity.components.requirements.*;
 import modulardiversity.util.ICraftingResourceHolder;
-import teamroots.embers.power.IEmberCapability;
+import teamroots.embers.api.power.IEmberCapability;
 import vazkii.botania.api.mana.IManaBlock;
 
 public class MachineComponents {
@@ -76,5 +76,50 @@ public class MachineComponents {
         }
 
         public abstract void reset();
+    }
+
+    public static abstract class BiomeDetector extends MachineComponent<Integer> {
+        public BiomeDetector(IOType ioType) {
+            super(IOType.INPUT);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("biome");
+        }
+    }
+
+    public static abstract class DaylightDetector extends MachineComponent<Long> {
+
+        public DaylightDetector(IOType ioType) {
+            super(IOType.INPUT);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("daylight");
+        }
+    }
+
+    public static abstract class WeatherDetector extends MachineComponent<Integer> {
+        public WeatherDetector(IOType ioType) {
+            super(IOType.INPUT);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("weather");
+        }
+    }
+
+    public static abstract class MekLaserAcceptor extends MachineComponent<ICraftingResourceHolder<RequirementMekLaser.ResourceToken>> {
+        public MekLaserAcceptor(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("mlenergy");
+        }
     }
 }

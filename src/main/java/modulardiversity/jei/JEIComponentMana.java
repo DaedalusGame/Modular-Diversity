@@ -105,8 +105,8 @@ public class JEIComponentMana extends ComponentRequirement.JEIComponent<Mana> {
         public void drawBackground(Minecraft minecraft) {
         }
 
-        @Override
-        public void drawForeground(Minecraft minecraft, Mana mana) {
-        }
+//        @Override
+//        public void drawForeground(Minecraft minecraft, Mana mana) {
+//        }
     }
 }

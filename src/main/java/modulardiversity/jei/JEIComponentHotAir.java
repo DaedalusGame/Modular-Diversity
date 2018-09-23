@@ -103,9 +103,9 @@ public class JEIComponentHotAir extends ComponentRequirement.JEIComponent<HotAir
         public void drawBackground(Minecraft minecraft) {
         }
 
-        @Override
-        public void drawForeground(Minecraft minecraft, HotAir hotair) {
-        }
+//        @Override
+//        public void drawForeground(Minecraft minecraft, HotAir hotair) {
+//        }
     }
 
 }

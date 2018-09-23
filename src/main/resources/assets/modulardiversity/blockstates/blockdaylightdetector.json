@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "bg_all": "modularmachinery:blocks/blockcasing_plain",
+      "ov_all": "modulardiversity:blocks/overlay_daylight"
+    },
+    "model": "modularmachinery:blockmodel_overlay_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}
