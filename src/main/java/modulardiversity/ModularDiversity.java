@@ -20,12 +20,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = ModularDiversity.MODID, version = ModularDiversity.VERSION, acceptedMinecraftVersions = "[1.12, 1.13)", dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;after:buildcraftlib;after:pneumaticcraft;after:betterwithmods;")
+@Mod(modid = ModularDiversity.MODID, acceptedMinecraftVersions = "[1.12, 1.13)", dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;after:buildcraftlib;after:pneumaticcraft;after:betterwithmods;")
 @Mod.EventBusSubscriber
 public class ModularDiversity
 {
     public static final String MODID = "modulardiversity";
-    public static final String VERSION = "0.1";
 
     public static boolean ImmersivePetroleumLoaded;
     public static boolean EmbersLoaded;
