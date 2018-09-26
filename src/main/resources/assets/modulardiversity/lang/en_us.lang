@@ -31,7 +31,12 @@ tile.blockhotairinputhatch.name=Hot Air Input Hatch
 tile.blockhotairoutputhatch.name=Hot Air Output Hatch
 
 tile.blockmeklaseracceptor.name=Mekanism Laser Acceptor
+tile.blockmekheatinput.name=Mekanism Heat Input
+tile.blockmekheatoutput.name=Mekanism Heat Output
 
 tile.blockbiomedetector.name=Biome Detector
-tile.blockdaylightdetector.name=Daylight Detector
+tile.blockdaylightdetector.name=Time Detector
 tile.blockweatherdetector.name=Weather Detector
+
+tile.blockmystmechinput.name=Mystical Mechanical Input
+tile.blockmystmechoutput.name=Mystical Mechanical Output

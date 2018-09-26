@@ -6,7 +6,7 @@ import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import modulardiversity.components.requirements.RequirementDaylight;
 import modulardiversity.jei.ingredients.DaylightIngredient;
-import modulardiversity.jei.renderer.DaylightRenderer;
+import modulardiversity.jei.renderer.RendererDaylight;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -67,7 +67,7 @@ public class JEIComponentDaylight extends JEIComponent<DaylightIngredient> {
 
         @Override
         public IIngredientRenderer<DaylightIngredient> provideIngredientRenderer() {
-            return new DaylightRenderer();
+            return new RendererDaylight();
         }
 
         @Override

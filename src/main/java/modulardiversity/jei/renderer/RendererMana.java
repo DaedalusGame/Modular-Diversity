@@ -36,6 +36,9 @@ public class RendererMana implements IIngredientRenderer<Mana> {
 
     @Override
     public void render(Minecraft minecraft, int xPosition, int yPosition, @Nullable Mana mana) {
+        if(mana == null)
+            return;
+
         registerDrawables();
 
         GlStateManager.enableAlpha();

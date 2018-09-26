@@ -94,8 +94,20 @@ public class Registry {
 
         if (ModularDiversity.MekanismLoaded) {
             BlockMekLaserAcceptor mekLaserAcceptor = new BlockMekLaserAcceptor();
+            BlockMekHeatInput mekHeatInput = new BlockMekHeatInput();
+            BlockMekHeatOutput mekHeatOutput = new BlockMekHeatOutput();
 
             registerBlock("blockmeklaseracceptor", mekLaserAcceptor, new ItemBlockMachineComponent(mekLaserAcceptor));
+            registerBlock("blockmekheatinput", mekHeatInput, new ItemBlockMachineComponent(mekHeatInput));
+            registerBlock("blockmekheatoutput", mekHeatOutput, new ItemBlockMachineComponent(mekHeatOutput));
+        }
+
+        if(ModularDiversity.MysticalMechanicsLoaded) {
+            BlockMysticalMechanicsInput mysticalMechanicsInput = new BlockMysticalMechanicsInput();
+            BlockMysticalMechanicsOutput mysticalMechanicsOutput = new BlockMysticalMechanicsOutput();
+
+            registerBlock("blockmystmechinput", mysticalMechanicsInput, new ItemBlockMachineComponent(mysticalMechanicsInput));
+            registerBlock("blockmystmechoutput",mysticalMechanicsOutput, new ItemBlockMachineComponent(mysticalMechanicsOutput));
         }
 
         BlockBiomeDetector blockBiomeDetector = new BlockBiomeDetector();
@@ -168,6 +180,12 @@ public class Registry {
         }*/
         if (ModularDiversity.MekanismLoaded) {
             registerTileEntity(TileEntityMekLaserAcceptor.class);
+            registerTileEntity(TileEntityMekHeatInput.class);
+            registerTileEntity(TileEntityMekHeatOutput.class);
+        }
+        if (ModularDiversity.MysticalMechanicsLoaded) {
+            registerTileEntity(TileMysticalMechanicsInput.class);
+            registerTileEntity(TileMysticalMechanicsOutput.class);
         }
         registerTileEntity(TileEntityBiomeDetector.class);
         registerTileEntity(TileEntityDaylightDetector.class);
@@ -181,9 +199,11 @@ public class Registry {
         ComponentType.Registry.register(new ComponentMana());
         ComponentType.Registry.register(new ComponentLaser());
         ComponentType.Registry.register(new ComponentHotAir());
+        ComponentType.Registry.register(new ComponentMekLaser());
+        ComponentType.Registry.register(new ComponentMekHeat());
+        ComponentType.Registry.register(new ComponentMysticalMechanics());
         ComponentType.Registry.register(new ComponentBiome());
         ComponentType.Registry.register(new ComponentDaylight());
-        ComponentType.Registry.register(new ComponentMekLaser());
         ComponentType.Registry.register(new ComponentWeather());
     }
 

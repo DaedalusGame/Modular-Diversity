@@ -34,6 +34,7 @@ public class ModularDiversity
     public static boolean PneumaticCraftLoaded;
     public static boolean ProdigyTechLoaded;
     public static boolean MekanismLoaded;
+    public static boolean MysticalMechanicsLoaded;
 
     Configuration configuration;
 
@@ -51,6 +52,7 @@ public class ModularDiversity
         BuildcraftLoaded = Loader.isModLoaded("buildcraftlib");
         ProdigyTechLoaded = Loader.isModLoaded("prodigytech");
         MekanismLoaded = Loader.isModLoaded("mekanism");
+        MysticalMechanicsLoaded = Loader.isModLoaded("mysticalmechanics");
 
         configuration = new Configuration(event.getSuggestedConfigurationFile());
         configuration.load();

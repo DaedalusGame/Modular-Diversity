@@ -40,8 +40,13 @@ public class TileHotAirInput extends TileEntityHotAir {
 			token.setRequiredTempMet();
 		return true;
 	}
-    
-    @Nullable
+
+	@Override
+	public boolean generate(ResourceToken token, boolean doGenerate) {
+		return false;
+	}
+
+	@Nullable
     @Override
     public MachineComponent provideComponent() {
         return new MachineComponents.HotAirHatch(MachineComponent.IOType.INPUT) {

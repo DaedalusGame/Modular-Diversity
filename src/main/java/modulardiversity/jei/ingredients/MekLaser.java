@@ -21,6 +21,6 @@ public class MekLaser implements IFakeIngredient {
 
     @Override
     public String getUniqueID() {
-        return "mlenergy";
+        return "meklaser";
     }
 }

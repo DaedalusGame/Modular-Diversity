@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class DaylightRenderer implements IIngredientRenderer<DaylightIngredient> {
+public class RendererDaylight implements IIngredientRenderer<DaylightIngredient> {
     ResourceLocation clock1Resource = new ResourceLocation("minecraft", "textures/items/clock_00.png");
     static IDrawable clock1;
     ResourceLocation clock2Resource = new ResourceLocation("minecraft", "textures/items/clock_00.png");

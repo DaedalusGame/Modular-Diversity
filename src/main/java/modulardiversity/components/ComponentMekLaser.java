@@ -14,7 +14,7 @@ public class ComponentMekLaser extends ComponentType<RequirementMekLaser> {
     @Nonnull
     @Override
     public String getRegistryName() {
-        return "mlenergy";
+        return "meklaser";
     }
 
     @Nullable
@@ -26,11 +26,11 @@ public class ComponentMekLaser extends ComponentType<RequirementMekLaser> {
     @Nonnull
     @Override
     public RequirementMekLaser provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
-        if(requirement.has("mlenergy") && requirement.get("mlenergy").isJsonPrimitive() && requirement.get("mlenergy").getAsJsonPrimitive().isNumber()) {
-            double energyRequired = requirement.getAsJsonPrimitive("mlenergy").getAsDouble();
+        if(requirement.has("energy") && requirement.get("energy").isJsonPrimitive() && requirement.get("energy").getAsJsonPrimitive().isNumber()) {
+            double energyRequired = requirement.getAsJsonPrimitive("energy").getAsDouble();
             return new RequirementMekLaser(ioType, energyRequired);
         } else {
-            throw new JsonParseException("The ComponentType \'"+getRegistryName()+"\' expects a \'double\'-entry that defines the required Mekanism Laser Energy!");
+            throw new JsonParseException("The ComponentType \'"+getRegistryName()+"\' expects a \'energy\'-entry that defines the required Mekanism Laser Energy!");
         }
     }
 }

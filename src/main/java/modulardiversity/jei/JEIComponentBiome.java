@@ -6,7 +6,7 @@ import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import modulardiversity.components.requirements.RequirementBiome;
 import modulardiversity.jei.ingredients.BiomeIngredient;
-import modulardiversity.jei.renderer.BiomeRenderer;
+import modulardiversity.jei.renderer.RendererBiome;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -65,7 +65,7 @@ public class JEIComponentBiome extends JEIComponent<BiomeIngredient> {
 
         @Override
         public IIngredientRenderer<BiomeIngredient> provideIngredientRenderer() {
-            return new BiomeRenderer();
+            return new RendererBiome();
         }
 
         @Override

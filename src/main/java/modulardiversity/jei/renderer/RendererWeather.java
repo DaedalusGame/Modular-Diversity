@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class WeatherRenderer implements IIngredientRenderer<Weather> {
+public class RendererWeather implements IIngredientRenderer<Weather> {
     IDrawable rain;
     IDrawable thunder;
     IDrawable clear;

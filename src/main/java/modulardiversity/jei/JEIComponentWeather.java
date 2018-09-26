@@ -4,12 +4,9 @@ import com.google.common.collect.Lists;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement.JEIComponent;
 import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import modulardiversity.components.requirements.RequirementBiome;
 import modulardiversity.components.requirements.RequirementWeather;
 import modulardiversity.jei.ingredients.Weather;
-import modulardiversity.jei.ingredients.Weather;
-import modulardiversity.jei.renderer.BiomeRenderer;
-import modulardiversity.jei.renderer.WeatherRenderer;
+import modulardiversity.jei.renderer.RendererWeather;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -68,7 +65,7 @@ public class JEIComponentWeather extends JEIComponent<Weather> {
 
         @Override
         public IIngredientRenderer<Weather> provideIngredientRenderer() {
-            return new WeatherRenderer();
+            return new RendererWeather();
         }
 
         @Override

@@ -3,22 +3,23 @@ package modulardiversity.tile.base;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import mekanism.api.lasers.ILaserReceptor;
-import mekanism.common.capabilities.Capabilities;
-import modulardiversity.block.BlockMekLaserAcceptor;
 import modulardiversity.components.requirements.RequirementMekLaser;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.fml.common.Mod;
 
 public abstract class TileEntityMekLaser extends TileColorableMachineComponent implements MachineComponentTile, ILaserReceptor, ICraftingResourceHolder<RequirementMekLaser.ResourceToken> {
     private double energy;
     private double capacity;
 
+    @CapabilityInject(ILaserReceptor.class)
+    public static Capability<ILaserReceptor> LASER_RECEPTOR_CAPABILITY = null;
 
     //TODO add a config for MekLaserAcceptorCapacity
     public TileEntityMekLaser() {
-//        System.out.println("Created TileEntityMekLaser");
         this.capacity = 5.0E9D;
         this.energy = 0;
     }
@@ -26,13 +27,13 @@ public abstract class TileEntityMekLaser extends TileColorableMachineComponent i
     @Override
     public void readCustomNBT(NBTTagCompound compound) {
         super.readCustomNBT(compound);
-        this.energy = compound.getDouble("mlenergy");
+        this.energy = compound.getDouble("energy");
     }
 
     @Override
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
-        compound.setDouble("mlenergy",energy);
+        compound.setDouble("energy",energy);
     }
 
     @Override
@@ -71,13 +72,13 @@ public abstract class TileEntityMekLaser extends TileColorableMachineComponent i
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing side)
     {
-        return capability == Capabilities.LASER_RECEPTOR_CAPABILITY || super.hasCapability(capability, side);
+        return capability == LASER_RECEPTOR_CAPABILITY || super.hasCapability(capability, side);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing side)
     {
-        if(capability == Capabilities.LASER_RECEPTOR_CAPABILITY)
+        if(capability == LASER_RECEPTOR_CAPABILITY)
         {
             return (T)this;
         }

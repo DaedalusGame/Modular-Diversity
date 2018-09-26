@@ -27,6 +27,8 @@ import static modulardiversity.components.MachineComponents.*;
 public abstract class TileEntityMech extends TileColorableMachineComponent implements MachineComponentTile, IMechanicalPower, ICraftingResourceHolder<RequirementMechanical.ResourceToken> {
     private int maxLevel;
 
+    public TileEntityMech() {}
+
     public TileEntityMech(int maxLevel) {
         this.maxLevel = maxLevel;
     }

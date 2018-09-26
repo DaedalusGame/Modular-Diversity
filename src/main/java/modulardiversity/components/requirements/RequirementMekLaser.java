@@ -19,13 +19,13 @@ public class RequirementMekLaser extends RequirementConsumeOnce<MekLaser, Requir
     public double requiredEnergy;
 
     public RequirementMekLaser(MachineComponent.IOType actionType, double requiredEnergy) {
-        super(ComponentType.Registry.getComponent("mlenergy"), actionType);
+        super(ComponentType.Registry.getComponent("meklaser"), actionType);
         this.requiredEnergy = requiredEnergy;
     }
 
     @Override
     protected boolean isCorrectHatch(MachineComponent component) {
-        return component.getComponentType().getRegistryName().equals("mlenergy") &&
+        return component.getComponentType().getRegistryName().equals("meklaser") &&
                 component instanceof MachineComponents.MekLaserAcceptor &&
                 component.getIOType() == getActionType();
     }

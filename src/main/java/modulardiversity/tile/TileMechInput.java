@@ -13,6 +13,10 @@ import javax.annotation.Nullable;
 
 @Optional.Interface(iface = "betterwithmods.api.tile.IMechanicalPower",modid = "betterwithmods")
 public class TileMechInput extends TileEntityMech {
+    public TileMechInput() {
+        super();
+    }
+
     public TileMechInput(int maxLevel) {
         super(maxLevel);
     }

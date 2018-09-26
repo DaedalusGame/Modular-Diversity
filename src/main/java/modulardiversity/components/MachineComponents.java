@@ -119,7 +119,29 @@ public class MachineComponents {
 
         @Override
         public ComponentType getComponentType() {
-            return ComponentType.Registry.getComponent("mlenergy");
+            return ComponentType.Registry.getComponent("meklaser");
+        }
+    }
+
+    public static abstract class MekHeatHatch extends MachineComponent<ICraftingResourceHolder<RequirementMekHeat.ResourceToken>> {
+        public MekHeatHatch(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("mekheat");
+        }
+    }
+
+    public static abstract class MysticalMechanicsHatch extends MachineComponent<ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken>> {
+        public MysticalMechanicsHatch(IOType ioType) {
+            super(ioType);
+        }
+
+        @Override
+        public ComponentType getComponentType() {
+            return ComponentType.Registry.getComponent("mysticalmechanics");
         }
     }
 }

@@ -1,7 +1,5 @@
 package modulardiversity.tile.base;
 
-import betterwithmods.api.tile.IMechanicalPower;
-import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import lykrast.prodigytech.common.capability.IHotAir;
@@ -33,12 +31,6 @@ public abstract class TileEntityHotAir extends TileColorableMachineComponent imp
         super.writeCustomNBT(compound);
         compound.setInteger("airtemp", airTemp);
     }
-
-	@Override
-	public boolean generate(ResourceToken token, boolean doGenerate) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	public void setAirTemp(int temp) {
 		this.airTemp = temp;

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BiomeRenderer implements IIngredientRenderer<BiomeIngredient> {
+public class RendererBiome implements IIngredientRenderer<BiomeIngredient> {
     static IDrawable grassBlock;
 
     private void registerDrawables() {
