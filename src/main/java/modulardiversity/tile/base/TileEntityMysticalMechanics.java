@@ -29,7 +29,7 @@ public abstract class TileEntityMysticalMechanics extends TileColorableMachineCo
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if(capability == MysticalMechanicsAPI.MECH_CAPABILITY)
-            return (T) capability;
+            return (T) this.capability;
         return super.getCapability(capability, facing);
     }
 }
