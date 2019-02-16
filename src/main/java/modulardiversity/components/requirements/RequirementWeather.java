@@ -22,7 +22,7 @@ public class RequirementWeather extends ComponentRequirement<Weather> {
 
     private int weather;
 
-    public RequirementWeather(ComponentType componentType, MachineComponent.IOType actionType, int time) {
+    public RequirementWeather(ComponentType componentType, MachineComponent.IOType actionType, int weather) {
         super(componentType, MachineComponent.IOType.INPUT);
         this.weather = weather;
     }
