@@ -1,16 +1,13 @@
 package modulardiversity.tile.base;
 
-import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
-import hellfirepvp.modularmachinery.common.util.IEnergyHandler;
 import me.desht.pneumaticcraft.api.PneumaticRegistry;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandler;
 import me.desht.pneumaticcraft.api.tileentity.IAirHandlerSupplier;
 import me.desht.pneumaticcraft.api.tileentity.IPneumaticMachine;
-import modulardiversity.components.requirements.RequirementAir;
-import modulardiversity.components.requirements.RequirementEmber;
+import modulardiversity.components.requirements.RequirementMysticalMechanics;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -19,7 +16,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, IPneumaticMachine, ITickable {
+public abstract class TileEntityPneumaticBase extends TileColorableMachineComponent implements MachineComponentTile, ICraftingResourceHolder<RequirementMysticalMechanics.ResourceToken>, IPneumaticMachine, ITickable {
     private MachineComponent.IOType ioType;
 
     public IAirHandler airHandler;
@@ -69,6 +66,16 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         airHandler.readFromNBT(compound);
+    }
+
+    @Override
+    public boolean consume(RequirementMysticalMechanics.ResourceToken token, boolean doConsume) {
+        return false;
+    }
+
+    @Override
+    public boolean generate(RequirementMysticalMechanics.ResourceToken token, boolean doGenerate) {
+        return false;
     }
 
     public void onNeighborChange()

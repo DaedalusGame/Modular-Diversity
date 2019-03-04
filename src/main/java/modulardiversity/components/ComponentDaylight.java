@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.requirements.RequirementDaylight;
+import modulardiversity.util.JsonUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,7 +28,9 @@ public class ComponentDaylight extends ComponentType<RequirementDaylight> {
 
     @Nonnull
     @Override
-    public RequirementDaylight provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
+    public RequirementDaylight provideComponent(MachineComponent.IOType ioType, JsonObject json) {
+        JsonUtil.assertOnlyOne(json,"daytime","time","");
+
         if (requirement.has("daylight") && requirement.get("daylight").isJsonArray() && requirement.get("daylight").getAsJsonArray().size() == 2 && requirement.get("daylight").getAsJsonArray().get(0).isJsonPrimitive() && requirement.get("daylight").getAsJsonArray().get(1).isJsonPrimitive() && requirement.get("daylight").getAsJsonArray().get(0).getAsJsonPrimitive().isNumber() && requirement.get("daylight").getAsJsonArray().get(1).getAsJsonPrimitive().isNumber()) {
             JsonArray daylightPrimitive = requirement.get("daylight").getAsJsonArray();
             ArrayList<Integer> daylight = new ArrayList<>();

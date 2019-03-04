@@ -1,11 +1,12 @@
 package modulardiversity.components.requirements;
 
-import com.google.common.collect.Lists;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentOutputRestrictor;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
+import hellfirepvp.modularmachinery.common.crafting.helper.CraftCheck;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ResultChance;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.ICraftingResourceHolder;
@@ -23,7 +24,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
 
     @Override
     public boolean startCrafting(MachineComponent component, RecipeCraftingContext context, ResultChance resultChance) {
-        return canStartCrafting(component, context, Lists.newArrayList()) == CraftCheck.SUCCESS;
+        return true;
     }
 
     @Override
@@ -33,33 +34,33 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
 
     @Override
     public CraftCheck canStartCrafting(MachineComponent component, RecipeCraftingContext context, List<ComponentOutputRestrictor> list) {
-        if(!isCorrectHatch(component)) return CraftCheck.INVALID_SKIP;
+        if(!isCorrectHatch(component)) return CraftCheck.skipComponent();
         ICraftingResourceHolder<V> handler = (ICraftingResourceHolder<V>) context.getProvidedCraftingComponent(component);
         switch (getActionType()) {
             case INPUT:
                 boolean didConsume = handler.consume(checkToken,false);
                 if(!didConsume) {
-                    return CraftCheck.FAILURE_MISSING_INPUT;
+                    return CraftCheck.failure("craftcheck.failure.generic.input");
                 } else if(checkToken.isEmpty()) {
-                    return CraftCheck.SUCCESS;
+                    return CraftCheck.success();
                 } else {
-                    return CraftCheck.PARTIAL_SUCCESS;
+                    return CraftCheck.partialSuccess();
                 }
             case OUTPUT:
                 handler.generate(checkToken,false);
                 if(checkToken.isEmpty()) {
-                    return CraftCheck.SUCCESS;
+                    return CraftCheck.success();
                 } else {
-                    return CraftCheck.PARTIAL_SUCCESS;
+                    return CraftCheck.partialSuccess();
                 }
         }
-        return CraftCheck.FAILURE_MISSING_INPUT;
+        return CraftCheck.failure("craftcheck.failure.generic.input");
     }
 
     @Override
     public void startRequirementCheck(ResultChance chance, RecipeCraftingContext context) {
         checkToken = emitConsumptionToken(context);
-        checkToken.setModifier(context.applyModifiers(this,getActionType(),checkToken.getModifier(),false));
+        checkToken.setModifier(RecipeModifier.applyModifiers(context,this,checkToken.getModifier(),false));
     }
 
     @Override
@@ -68,13 +69,15 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
     }
 
     @Override
-    public void resetIOTick(RecipeCraftingContext context) {
+    public CraftCheck resetIOTick(RecipeCraftingContext context) {
+        boolean enough = perTickToken.isEmpty();
         this.perTickToken = emitConsumptionToken(context);
+        return enough ? CraftCheck.success() : CraftCheck.failure("craftcheck.failure.generic.input");
     }
 
     @Override
     public void startIOTick(RecipeCraftingContext context, float durationMultiplier) {
-        this.perTickToken.setModifier(context.applyModifiers(this, getActionType(), this.perTickToken.getModifier() , false) * durationMultiplier);
+        this.perTickToken.setModifier(RecipeModifier.applyModifiers(context,this,checkToken.getModifier(),false) * durationMultiplier);
     }
 
     protected abstract V emitConsumptionToken(RecipeCraftingContext context);
@@ -84,27 +87,27 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
     @Nonnull
     @Override
     public CraftCheck doIOTick(MachineComponent component, RecipeCraftingContext context) {
-        if(!isCorrectHatch(component)) return CraftCheck.INVALID_SKIP;
+        if(!isCorrectHatch(component)) return CraftCheck.skipComponent();
         ICraftingResourceHolder<V> handler = (ICraftingResourceHolder<V>) context.getProvidedCraftingComponent(component);
         switch (getActionType()) {
             case INPUT:
                 boolean didConsume = handler.consume(perTickToken,true);
                 if(!didConsume) {
-                    return CraftCheck.FAILURE_MISSING_INPUT;
+                    return CraftCheck.failure("craftcheck.failure.generic.input");
                 } else if(perTickToken.isEmpty()) {
-                    return CraftCheck.SUCCESS;
+                    return CraftCheck.success();
                 } else {
-                    return CraftCheck.PARTIAL_SUCCESS;
+                    return CraftCheck.partialSuccess();
                 }
             case OUTPUT:
                 handler.generate(perTickToken,true);
                 if(perTickToken.isEmpty()) {
-                    return CraftCheck.SUCCESS;
+                    return CraftCheck.success();
                 } else {
-                    return CraftCheck.PARTIAL_SUCCESS;
+                    return CraftCheck.partialSuccess();
                 }
         }
         //This is neither input nor output? when do we actually end up in this case down here?
-        return CraftCheck.INVALID_SKIP;
+        return CraftCheck.failure("craftcheck.failure.generic.input");
     }
 }

@@ -20,7 +20,7 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
 
     public TileEntityMana()
     {
-        capacity = 10000;
+        capacity = 10000000;
     }
 
     @Override

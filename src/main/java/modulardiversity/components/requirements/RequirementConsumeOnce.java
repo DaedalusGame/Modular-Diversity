@@ -26,7 +26,8 @@ public abstract class RequirementConsumeOnce<T, V extends IResourceToken> extend
         switch (getActionType()) {
             case INPUT:
                 handler.consume(outputToken,true);
-                return outputToken.isEmpty();
+                if(outputToken.isEmpty())
+                    return true;
         }
         return false;
     }
@@ -38,7 +39,8 @@ public abstract class RequirementConsumeOnce<T, V extends IResourceToken> extend
         switch (getActionType()) {
             case OUTPUT:
                 handler.generate(outputToken,true);
-                return outputToken.isEmpty();
+                if(outputToken.isEmpty())
+                    return true;
         }
         return false;
     }

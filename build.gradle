@@ -15,7 +15,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "1.0"
+version = "1.1"
 group= "modulardiversity" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Modular Diversity"
 
@@ -33,11 +33,15 @@ repositories {
     maven { url "http://dvs1.progwml6.com/files/maven" }
 	maven { url "http://www.ryanliptak.com/maven/" }
     maven { url "http://maven.blamejared.com" }
+    maven { url "https://modmaven.k-4u.nl" }
+    maven { url "https://maven.hellfiredev.net"}
 }
 
 dependencies {
 	deobfCompile "mezz.jei:jei_1.12.2:4.8.3.128"
     deobfCompile "vazkii.botania:Botania:r1.10-355.4" //should this be deobfProvided?
+    deobfCompile "me.desht.pneumaticcraft:pneumaticcraft-repressurized:1.12.2-0.9.1-317"
+    deobfCompile "hellfirepvp.modularmachinery:modularmachinery:1.12.2-1.9.6-v27"
 }
 
 task deobfJar(type: Jar) {
