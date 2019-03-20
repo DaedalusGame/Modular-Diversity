@@ -3,36 +3,51 @@ package modulardiversity.components.requirements;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType.Registry;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
-import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement.JEIComponent;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent.IOType;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
-import modulardiversity.components.requirements.RequirementMechanical.ResourceToken;
 import modulardiversity.jei.JEIComponentHotAir;
 import modulardiversity.jei.ingredients.HotAir;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
+
+import java.util.List;
 
 public class RequirementHotAir  extends RequirementConsumePerTick<HotAir, RequirementHotAir.ResourceToken> {
-	public final int requiredTemp;
-	
-	public RequirementHotAir(IOType ioType, int requiredTemp) {
+	public final int requiredTempMin;
+    public final int requiredTempMax;
+	public final int temp;
+
+	public RequirementHotAir(IOType ioType, int requiredTempMin, int requiredTempMax, int temp) {
         super(Registry.getComponent("hotair"),ioType);
-        this.requiredTemp = requiredTemp;
+        this.requiredTempMin = requiredTempMin;
+        this.requiredTempMax = requiredTempMax;
+        this.temp = temp;
     }
 	
 	@Override
     public ComponentRequirement deepCopy() {
-        return new RequirementHotAir(getActionType(), requiredTemp);
+        return new RequirementHotAir(getActionType(), requiredTempMin, requiredTempMax, temp);
     }
-	
-	@Override
+
+    @Override
+    public ComponentRequirement<HotAir> deepCopyModified(List<RecipeModifier> modifiers) {
+        return  new RequirementHotAir(getActionType(),
+                Misc.applyModifiers(modifiers,"hotair_min",getActionType(), requiredTempMin,false),
+                Misc.applyModifiers(modifiers,"hotair_max",getActionType(), requiredTempMin,false),
+                Misc.applyModifiers(modifiers,"hotair",getActionType(), temp,false)
+        );
+    }
+
+    @Override
     public JEIComponent<HotAir> provideJEIComponent() {
         return new JEIComponentHotAir(this);
     }
 	
 	@Override
     protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
-        return new ResourceToken(requiredTemp);
+        return new ResourceToken(requiredTempMin,requiredTempMax,temp);
     }
 	
 	@Override
@@ -43,15 +58,27 @@ public class RequirementHotAir  extends RequirementConsumePerTick<HotAir, Requir
     }
 
 	public static class ResourceToken implements IResourceToken {
-        private int tempRequired;
+        private int tempRequiredMin;
+        private int tempRequiredMax;
+        private int temp;
         private boolean requiredTempMet;
 
-        public ResourceToken(int tempRequired) {
-            this.tempRequired = tempRequired;
+        public ResourceToken(int tempRequiredMin,int tempRequiredMax,int temp) {
+            this.tempRequiredMin = tempRequiredMin;
+            this.tempRequiredMax = tempRequiredMax;
+            this.temp = temp;
         }
 
-        public int getRequiredTemp() {
-            return tempRequired;
+        public int getRequiredMinTemp() {
+            return tempRequiredMin;
+        }
+
+        public int getRequiredMaxTemp() {
+            return tempRequiredMax;
+        }
+
+        public int getTemp() {
+            return temp;
         }
         
         public void setRequiredTempMet() {
@@ -59,13 +86,10 @@ public class RequirementHotAir  extends RequirementConsumePerTick<HotAir, Requir
         }
 
         @Override
-        public float getModifier() {
-            return (float)tempRequired;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-        	tempRequired = (int) modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
+            tempRequiredMin = Misc.applyModifiers(modifiers,"hotair_min",ioType, tempRequiredMin,false);
+            tempRequiredMax = Misc.applyModifiers(modifiers,"hotair_max",ioType, tempRequiredMax,false);
+            temp = Misc.applyModifiers(modifiers,"hotair",ioType, temp,false);
         }
 
         @Override

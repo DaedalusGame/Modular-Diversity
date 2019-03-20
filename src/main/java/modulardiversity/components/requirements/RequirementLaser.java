@@ -5,12 +5,16 @@ import hellfirepvp.modularmachinery.common.crafting.MachineRecipe;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ResultChance;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentLaser;
 import modulardiversity.jei.ingredients.Laser;
 import modulardiversity.util.ICraftingResourceHolder;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
+
+import java.util.List;
 
 public class RequirementLaser extends RequirementConsumePerTick<Laser,RequirementLaser.ResourceToken> {
     public static long highestRequiredMJ;
@@ -27,6 +31,11 @@ public class RequirementLaser extends RequirementConsumePerTick<Laser,Requiremen
     @Override
     public ComponentRequirement deepCopy() {
         return new RequirementLaser(getActionType(),requiredMicroMJ);
+    }
+
+    @Override
+    public ComponentRequirement<Laser> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementLaser(getActionType(),Misc.applyModifiers(modifiers,"laser",getActionType(),requiredMicroMJ,false));
     }
 
     @Override
@@ -77,13 +86,8 @@ public class RequirementLaser extends RequirementConsumePerTick<Laser,Requiremen
         }
 
         @Override
-        public float getModifier() {
-            return requiredMicroMJ;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-            requiredMicroMJ = (long) modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+            requiredMicroMJ = Misc.applyModifiers(modifiers,"laser",ioType,requiredMicroMJ,false);
         }
 
         @Override

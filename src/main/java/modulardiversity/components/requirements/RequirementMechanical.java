@@ -5,10 +5,14 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent.IOType;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentMechanical;
 import modulardiversity.jei.ingredients.Mechanical;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
+
+import java.util.List;
 
 public class RequirementMechanical extends RequirementConsumePerTick<Mechanical,RequirementMechanical.ResourceToken> {
     public final int requiredLevel;
@@ -23,6 +27,11 @@ public class RequirementMechanical extends RequirementConsumePerTick<Mechanical,
     @Override
     public ComponentRequirement deepCopy() {
         return new RequirementMechanical(getActionType(),requiredLevel,isCrankAllowed);
+    }
+
+    @Override
+    public ComponentRequirement<Mechanical> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementMechanical(getActionType(), Misc.applyModifiers(modifiers,"mechanical",getActionType(),requiredLevel,false),isCrankAllowed);
     }
 
     @Override
@@ -65,13 +74,8 @@ public class RequirementMechanical extends RequirementConsumePerTick<Mechanical,
         }
 
         @Override
-        public float getModifier() {
-            return (float)requiredLevel;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-            requiredLevel = (int) modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
+            requiredLevel = Misc.applyModifiers(modifiers,"mechanical",ioType,requiredLevel,false);
         }
 
         @Override

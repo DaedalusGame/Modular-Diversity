@@ -4,7 +4,6 @@ import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementMysticalMechanics;
 import modulardiversity.tile.base.TileEntityMysticalMechanics;
-import modulardiversity.util.ConsumerMechCapability;
 import modulardiversity.util.ICraftingResourceHolder;
 import mysticalmechanics.api.DefaultMechCapability;
 import mysticalmechanics.api.IMechCapability;
@@ -29,8 +28,8 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
     @Override
     public boolean generate(RequirementMysticalMechanics.ResourceToken token, boolean doGenerate) {
         if(doGenerate) {
-            if(capability.getPower(null) != token.getOutputLevel())
-            capability.setPower(token.getOutputLevel(),null);
+            if(capability.getPower(null) != token.getLevelOutput())
+            capability.setPower(token.getLevelOutput(),null);
             keepPowerTicks = 20;
         }
 

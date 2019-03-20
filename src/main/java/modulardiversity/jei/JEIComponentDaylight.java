@@ -29,7 +29,7 @@ public class JEIComponentDaylight extends JEIComponent<DaylightIngredient> {
 
     @Override
     public List<DaylightIngredient> getJEIIORequirements() {
-        return Lists.newArrayList(new DaylightIngredient(requirement.getDaylight()));
+        return Lists.newArrayList(new DaylightIngredient(requirement.timeMin,requirement.timeMin,requirement.timeModulo));
     }
 
     @SideOnly(Side.CLIENT)

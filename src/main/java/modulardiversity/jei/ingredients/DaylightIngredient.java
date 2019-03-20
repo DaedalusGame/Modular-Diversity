@@ -5,24 +5,24 @@ import modulardiversity.jei.IFakeIngredient;
 import java.util.ArrayList;
 
 public class DaylightIngredient implements IFakeIngredient {
-    private ArrayList<Integer> daylight;
+    long timeMin;
+    long timeMax;
+    long timeModulo;
 
-    public DaylightIngredient(ArrayList<Integer> daylight) {
-        this.daylight = daylight;
+    public DaylightIngredient(long timeMin, long timeMax, long timeModulo) {
+        this.timeMin = timeMin;
+        this.timeMax = timeMax;
+        this.timeModulo = timeModulo;
     }
 
-    public String getClockCfg(int index) {
-        int num = (int) Math.floor((daylight.get(index) - 6000) / 375);
+    public String getClockFrame(int time) {
+        int num = (int) Math.floor((time - 6000) / 375);
         if (num < 0) {
             num += 64;
         }
         String numString = Integer.toString(num);
         if (num < 10) numString = "0" + numString;
         return numString;
-    }
-
-    public int getDaylight(int index) {
-        return daylight.get(index);
     }
 
     public static String getFormattedTime(long time) {
@@ -45,7 +45,7 @@ public class DaylightIngredient implements IFakeIngredient {
 
     @Override
     public String getDisplayName() {
-        return "Time Required: Between " + getFormattedTime(daylight.get(0)) + " : " + getFormattedTime(daylight.get(1));
+        return "Time Required: Between " + getFormattedTime(timeMin) + " : " + getFormattedTime(timeMax);
     }
 
     @Override

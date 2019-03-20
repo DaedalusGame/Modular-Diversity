@@ -4,15 +4,20 @@ import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.machine.MachineComponent.IOType;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentMana;
 import modulardiversity.jei.ingredients.Mana;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
+
+import java.util.List;
 
 public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana.ResourceToken> {
     public int requiredMana;
 
-    public RequirementMana(MachineComponent.IOType actionType, int requiredMana) {
+    public RequirementMana(IOType actionType, int requiredMana) {
         super(ComponentType.Registry.getComponent("mana"), actionType);
         this.requiredMana = requiredMana;
     }
@@ -32,6 +37,11 @@ public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana
     @Override
     public ComponentRequirement deepCopy() {
         return new RequirementMana(getActionType(),requiredMana);
+    }
+
+    @Override
+    public ComponentRequirement<Mana> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementMana(getActionType(),Misc.applyModifiers(modifiers,"mana",getActionType(),requiredMana,false));
     }
 
     @Override
@@ -55,13 +65,8 @@ public class RequirementMana extends RequirementConsumeOnce<Mana,RequirementMana
         }
 
         @Override
-        public float getModifier() {
-            return (float)mana;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-            mana = (int) modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, IOType ioType, float durationMultiplier) {
+            mana = Misc.applyModifiers(modifiers,"mana",ioType,mana,false);
         }
 
         @Override

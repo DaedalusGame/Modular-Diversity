@@ -63,8 +63,8 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
+    public void readCustomNBT(NBTTagCompound compound) {
+        super.readCustomNBT(compound);
         airHandler.readFromNBT(compound);
     }
 

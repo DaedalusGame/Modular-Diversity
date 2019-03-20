@@ -6,7 +6,6 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.CraftCheck;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
-import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import hellfirepvp.modularmachinery.common.util.ResultChance;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.ICraftingResourceHolder;
@@ -60,7 +59,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
     @Override
     public void startRequirementCheck(ResultChance chance, RecipeCraftingContext context) {
         checkToken = emitConsumptionToken(context);
-        checkToken.setModifier(RecipeModifier.applyModifiers(context,this,checkToken.getModifier(),false));
+        checkToken.applyModifiers(context,getActionType(), 1.0f);
     }
 
     @Override
@@ -77,7 +76,7 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
 
     @Override
     public void startIOTick(RecipeCraftingContext context, float durationMultiplier) {
-        this.perTickToken.setModifier(RecipeModifier.applyModifiers(context,this,checkToken.getModifier(),false) * durationMultiplier);
+        perTickToken.applyModifiers(context,getActionType(), durationMultiplier);
     }
 
     protected abstract V emitConsumptionToken(RecipeCraftingContext context);

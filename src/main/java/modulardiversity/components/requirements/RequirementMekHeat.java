@@ -4,10 +4,14 @@ import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentMekHeat;
 import modulardiversity.jei.ingredients.MekHeat;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
+
+import java.util.List;
 
 public class RequirementMekHeat extends RequirementConsumePerTick<MekHeat, RequirementMekHeat.ResourceToken> {
     double temperature;
@@ -51,6 +55,15 @@ public class RequirementMekHeat extends RequirementConsumePerTick<MekHeat, Requi
     }
 
     @Override
+    public ComponentRequirement<MekHeat> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementMekHeat(getActionType(),
+                Misc.applyModifiers(modifiers,"mekheat",getActionType(),temperature,false),
+                Misc.applyModifiers(modifiers,"mekheat_min",getActionType(),temperatureRequiredMin,false),
+                Misc.applyModifiers(modifiers,"mekheat_max",getActionType(), temperatureRequiredMax,false)
+        );
+    }
+
+    @Override
     public JEIComponent<MekHeat> provideJEIComponent() {
         return new JEIComponentMekHeat(this);
     }
@@ -84,13 +97,10 @@ public class RequirementMekHeat extends RequirementConsumePerTick<MekHeat, Requi
         }
 
         @Override
-        public float getModifier() {
-            return (float) temperature;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-            temperature = (double) modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+            requiredTemperatureMin = Misc.applyModifiers(modifiers,"mekheat_min",ioType, requiredTemperatureMin,false);
+            requiredTemperatureMax = Misc.applyModifiers(modifiers,"mekheat_max",ioType, requiredTemperatureMax,false);
+            temperature = Misc.applyModifiers(modifiers,"mekheat",ioType, temperature,false);
         }
 
         @Override

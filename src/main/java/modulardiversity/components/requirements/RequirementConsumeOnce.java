@@ -3,6 +3,7 @@ package modulardiversity.components.requirements;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentOutputRestrictor;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
+import hellfirepvp.modularmachinery.common.crafting.helper.CraftCheck;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.util.ResultChance;
@@ -47,35 +48,35 @@ public abstract class RequirementConsumeOnce<T, V extends IResourceToken> extend
 
     @Override
     public CraftCheck canStartCrafting(MachineComponent component, RecipeCraftingContext context, List<ComponentOutputRestrictor> list) {
-        if(!isCorrectHatch(component)) return CraftCheck.INVALID_SKIP;
+        if(!isCorrectHatch(component)) return CraftCheck.skipComponent();
         ICraftingResourceHolder<V> handler = (ICraftingResourceHolder<V>) context.getProvidedCraftingComponent(component);
         switch (getActionType()) {
             case INPUT:
                 boolean didConsume = handler.consume(checkToken,false);
                 if(!didConsume) {
-                    return CraftCheck.FAILURE_MISSING_INPUT;
+                    return CraftCheck.failure("");
                 } else if(checkToken.isEmpty()) {
-                    return CraftCheck.SUCCESS;
+                    return CraftCheck.success();
                 } else {
-                    return CraftCheck.PARTIAL_SUCCESS;
+                    return CraftCheck.failure("");
                 }
             case OUTPUT:
                 handler.generate(checkToken,false);
                 if(checkToken.isEmpty()) {
-                    return CraftCheck.SUCCESS;
+                    return CraftCheck.success();
                 } else {
-                    return CraftCheck.PARTIAL_SUCCESS;
+                    return CraftCheck.failure("");
                 }
         }
-        return CraftCheck.FAILURE_MISSING_INPUT;
+        return CraftCheck.failure("");
     }
 
     @Override
     public void startRequirementCheck(ResultChance chance, RecipeCraftingContext context) {
         checkToken = emitConsumptionToken(context);
-        checkToken.setModifier(context.applyModifiers(this,getActionType(),checkToken.getModifier(),false));
+        checkToken.applyModifiers(context,getActionType(), 1.0f);
         outputToken = emitConsumptionToken(context);
-        outputToken.setModifier(context.applyModifiers(this,getActionType(),outputToken.getModifier(),false));
+        outputToken.applyModifiers(context,getActionType(), 1.0f);
     }
 
     @Override

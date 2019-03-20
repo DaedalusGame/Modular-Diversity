@@ -33,7 +33,7 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
     public boolean generate(RequirementHotAir.ResourceToken token, boolean doGenerate) {
     	token.setRequiredTempMet();
     	if(doGenerate)
-    		setAirTemp(token.getRequiredTemp());
+    		setAirTemp(token.getTemp());
     	return true;
     }
     

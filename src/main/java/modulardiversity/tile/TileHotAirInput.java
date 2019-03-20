@@ -36,8 +36,11 @@ public class TileHotAirInput extends TileEntityHotAir {
     
     @Override
 	public boolean consume(ResourceToken token, boolean doConsume) {
-		if(getCurrentAirTemp() >= token.getRequiredTemp())
+		if(getCurrentAirTemp() >= token.getRequiredMinTemp() && getCurrentAirTemp() <= token.getRequiredMaxTemp()) {
 			token.setRequiredTempMet();
+			if (doConsume)
+				setAirTemp(token.getTemp());
+		}
 		return true;
 	}
 

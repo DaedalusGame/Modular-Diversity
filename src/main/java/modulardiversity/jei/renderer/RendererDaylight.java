@@ -31,8 +31,8 @@ public class RendererDaylight implements IIngredientRenderer<DaylightIngredient>
     public void render(Minecraft minecraft, int i, int i1, @Nullable DaylightIngredient daylightIngredient) {
         GlStateManager.enableAlpha();
         GlStateManager.enableBlend();
-        clock1Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylightIngredient.getClockCfg(0) + ".png");
-        clock2Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylightIngredient.getClockCfg(1) + ".png");
+        clock1Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylightIngredient.getClockFrame(0) + ".png");
+        clock2Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylightIngredient.getClockFrame(1) + ".png");
 
         registerDrawables();
 

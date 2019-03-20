@@ -4,10 +4,14 @@ import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentEmber;
 import modulardiversity.jei.ingredients.Embers;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
+
+import java.util.List;
 
 public class RequirementEmber extends RequirementConsumeOnce<Embers,RequirementEmber.ResourceToken> {
     public double requiredEmber;
@@ -20,6 +24,11 @@ public class RequirementEmber extends RequirementConsumeOnce<Embers,RequirementE
     @Override
     public ComponentRequirement deepCopy() {
         return new RequirementEmber(getActionType(),requiredEmber);
+    }
+
+    @Override
+    public ComponentRequirement<Embers> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementEmber(getActionType(),Misc.applyModifiers(modifiers,"ember",getActionType(),requiredEmber,false));
     }
 
     @Override
@@ -56,13 +65,8 @@ public class RequirementEmber extends RequirementConsumeOnce<Embers,RequirementE
         }
 
         @Override
-        public float getModifier() {
-            return (float)ember;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-            ember = modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+            ember = Misc.applyModifiers(modifiers,"ember",ioType,ember,false);
         }
 
         @Override

@@ -29,7 +29,7 @@ public class JEIComponentWeather extends JEIComponent<Weather> {
 
     @Override
     public List<Weather> getJEIIORequirements() {
-        return Lists.newArrayList(new Weather(requirement.getWeather()));
+        return Lists.newArrayList(new Weather(requirement.weather));
     }
 
     @SideOnly(Side.CLIENT)

@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nullable;
 
-public class TileJackHatch extends TileColorableMachineComponent implements MachineComponentTile {
+public class TileJackHatch extends TileColorableMachineComponent {
     private ReservoirTank tank;
     private MachineComponent.IOType ioType = MachineComponent.IOType.INPUT;
 
@@ -31,20 +31,5 @@ public class TileJackHatch extends TileColorableMachineComponent implements Mach
         super.readCustomNBT(compound);
         NBTTagCompound tankTag = compound.getCompoundTag("tank");
         tank.readFromNBT(tankTag);
-    }
-
-    public HybridTank getTank() {
-        return this.tank;
-    }
-
-    @Nullable
-    @Override
-    public MachineComponent provideComponent() {
-        return new MachineComponent.FluidHatch(MachineComponent.IOType.INPUT){
-            @Override
-            public HybridTank getContainerProvider() {
-                return tank;
-            }
-        };
     }
 }

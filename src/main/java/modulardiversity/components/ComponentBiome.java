@@ -30,7 +30,7 @@ public class ComponentBiome extends ComponentType<RequirementBiome> {
     public RequirementBiome provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
         if (requirement.has("biome") && requirement.get("biome").isJsonPrimitive() && requirement.get("biome").getAsJsonPrimitive().isNumber()) {
             int biome = requirement.getAsJsonPrimitive("biome").getAsInt();
-            return new RequirementBiome(this, ioType, biome);
+            return new RequirementBiome(ioType, biome);
         } else if (requirement.has("biome") && requirement.get("biome").isJsonArray()) {
             JsonArray biomes = requirement.get("biome").getAsJsonArray();
             ArrayList<Integer> biomesArrayList = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ComponentBiome extends ComponentType<RequirementBiome> {
                 if (!(i.isJsonPrimitive() && i.getAsJsonPrimitive().isNumber())) throw new JsonParseException("The ComponentType 'biome' expects an integer-entry that defines the type of biome! Either your array of biomes is wrong or one of your biomes is not an integer!");
                 biomesArrayList.add(i.getAsJsonPrimitive().getAsInt());
             }
-            return new RequirementBiome(this, ioType, biomesArrayList);
+            return new RequirementBiome(ioType, biomesArrayList);
         } else {
             throw new JsonParseException("The ComponentType 'biome' expects an integer-entry that defines the type of biome!");
         }

@@ -41,7 +41,7 @@ dependencies {
 	deobfCompile "mezz.jei:jei_1.12.2:4.8.3.128"
     deobfCompile "vazkii.botania:Botania:r1.10-355.4" //should this be deobfProvided?
     deobfCompile "me.desht.pneumaticcraft:pneumaticcraft-repressurized:1.12.2-0.9.1-317"
-    deobfCompile "hellfirepvp.modularmachinery:modularmachinery:1.12.2-1.9.6-v27"
+    deobfCompile "hellfirepvp.modularmachinery:modularmachinery:1.12.2-1.10.0-v38"
 }
 
 task deobfJar(type: Jar) {

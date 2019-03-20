@@ -3,15 +3,14 @@ package modulardiversity.components.requirements;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
-import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentMekLaser;
 import modulardiversity.jei.ingredients.MekLaser;
 import modulardiversity.util.IResourceToken;
+import modulardiversity.util.Misc;
 
-import javax.annotation.Resource;
-import java.awt.*;
 import java.util.List;
 
 public class RequirementMekLaser extends RequirementConsumeOnce<MekLaser, RequirementMekLaser.ResourceToken> {
@@ -41,6 +40,11 @@ public class RequirementMekLaser extends RequirementConsumeOnce<MekLaser, Requir
     }
 
     @Override
+    public ComponentRequirement<MekLaser> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementMekLaser(getActionType(), requiredEnergy);
+    }
+
+    @Override
     public JEIComponent<MekLaser> provideJEIComponent() {
         return new JEIComponentMekLaser(this);
     }
@@ -61,13 +65,8 @@ public class RequirementMekLaser extends RequirementConsumeOnce<MekLaser, Requir
         }
 
         @Override
-        public float getModifier() {
-            return (float) energy;
-        }
-
-        @Override
-        public void setModifier(float modifier) {
-            energy = (double) modifier;
+        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
+            energy = Misc.applyModifiers(modifiers,"meklaser",ioType, energy,false);
         }
 
         @Override

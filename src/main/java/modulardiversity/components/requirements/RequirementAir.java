@@ -4,10 +4,13 @@ import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.jei.JEIComponentAir;
 import modulardiversity.jei.ingredients.Air;
 import modulardiversity.util.IResourceToken;
+
+import java.util.List;
 
 public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAir.ResourceToken> {
     public final int volumeConsumed;
@@ -33,6 +36,11 @@ public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAi
 
     @Override
     public ComponentRequirement deepCopy() {
+        return new RequirementAir(getActionType(),volumeConsumed,pressureRequired);
+    }
+
+    @Override
+    public ComponentRequirement<Air> deepCopyModified(List<RecipeModifier> modifiers) {
         return new RequirementAir(getActionType(),volumeConsumed,pressureRequired);
     }
 
@@ -64,13 +72,8 @@ public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAi
         }
 
         @Override
-        public float getModifier() {
-            return (float)volumeConsumed;
-        }
+        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
 
-        @Override
-        public void setModifier(float modifier) {
-            volumeConsumed = (int) modifier;
         }
 
         @Override

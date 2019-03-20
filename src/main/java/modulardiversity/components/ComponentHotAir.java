@@ -10,6 +10,7 @@ import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent.IOType;
 import modulardiversity.components.requirements.RequirementHotAir;
+import modulardiversity.components.requirements.RequirementMekHeat;
 
 
 public class ComponentHotAir extends ComponentType<RequirementHotAir> {
@@ -28,11 +29,10 @@ public class ComponentHotAir extends ComponentType<RequirementHotAir> {
     @Nonnull
     @Override
     public RequirementHotAir provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
-        if(requirement.has("temperature") && requirement.get("temperature").isJsonPrimitive() && requirement.get("temperature").getAsJsonPrimitive().isNumber()) {
-            int requiredTemp = requirement.getAsJsonPrimitive("temperature").getAsInt();
-            return new RequirementHotAir(ioType, requiredTemp);
-        } else {
-            throw new JsonParseException("The ComponentType \'"+getRegistryName()+"\' expects a \'temperature\'-entry that defines the required hot air temperature!");
-        }
+        int temperatureRequiredMin = requirement.has("temperatureRequiredMin") ? requirement.getAsJsonPrimitive("temperatureRequiredMin").getAsInt() : 0;
+        int temperatureRequiredMax = requirement.has("temperatureRequiredMax") ? requirement.getAsJsonPrimitive("temperatureRequiredMax").getAsInt() : Integer.MAX_VALUE;
+        int temperature = requirement.has("temperature") ? requirement.getAsJsonPrimitive("temperature").getAsInt() : 0;
+
+        return new RequirementHotAir(ioType, temperatureRequiredMin, temperatureRequiredMax, temperature);
     }
 }

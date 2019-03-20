@@ -1,38 +1,34 @@
 package modulardiversity.components.requirements;
 
-import hellfirepvp.modularmachinery.common.crafting.ComponentType;
-import hellfirepvp.modularmachinery.common.crafting.helper.ComponentOutputRestrictor;
+import hellfirepvp.modularmachinery.common.crafting.ComponentType.Registry;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
-import hellfirepvp.modularmachinery.common.util.ResultChance;
-import modulardiversity.components.MachineComponents.BiomeDetector;
-import modulardiversity.components.MachineComponents.DaylightDetector;
-import modulardiversity.components.ComponentDaylight;
+import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.jei.JEIComponentDaylight;
 import modulardiversity.jei.ingredients.DaylightIngredient;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.Misc;
 import net.minecraft.tileentity.TileEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RequirementDaylight extends RequirementEnvironmental<DaylightIngredient,RequirementDaylight.ResourceToken> {
 
-    private long timeMin, timeMax;
-    private long timeModulo;
+    public long timeMin, timeMax;
+    public long timeModulo;
 
     private boolean isTimeValid(long time)
     {
         time = time % timeModulo;
         if(time > Math.min(timeMin,timeMax) && time <= Math.max(timeMin,timeMax))
             return timeMin < timeMax;
-        return timeMin >= timeMax;
+        else
+            return timeMin >= timeMax;
     }
 
-    public RequirementDaylight(ComponentType componentType, MachineComponent.IOType actionType, long min, long max, long modulo) {
-        super(componentType, MachineComponent.IOType.INPUT);
+    public RequirementDaylight(MachineComponent.IOType actionType, long min, long max, long modulo) {
+        super(Registry.getComponent("daylight"), actionType);
         timeMin = min;
         timeMax = max;
         timeModulo = modulo;
@@ -58,7 +54,12 @@ public class RequirementDaylight extends RequirementEnvironmental<DaylightIngred
 
     @Override
     public ComponentRequirement deepCopy() {
-        return new RequirementDaylight(new ComponentDaylight(), this.getActionType(), timeMin, timeMax, timeModulo);
+        return new RequirementDaylight(this.getActionType(), timeMin, timeMax, timeModulo);
+    }
+
+    @Override
+    public ComponentRequirement<DaylightIngredient> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementDaylight(this.getActionType(), timeMin, timeMax, timeModulo);
     }
 
     @Override
@@ -123,13 +124,8 @@ public class RequirementDaylight extends RequirementEnvironmental<DaylightIngred
         }
 
         @Override
-        public float getModifier() {
-            return 0;
-        }
+        public void applyModifiers(RecipeCraftingContext modifiers, MachineComponent.IOType ioType, float durationMultiplier) {
 
-        @Override
-        public void setModifier(float modifier) {
-            //NOOP;
         }
 
         @Override

@@ -27,7 +27,7 @@ public class JEIComponentHotAir extends ComponentRequirement.JEIComponent<HotAir
 	
 	@Override
 	public List<HotAir> getJEIIORequirements(){
-		return Lists.newArrayList(new HotAir(requirement.requiredTemp));
+		return Lists.newArrayList(new HotAir(requirement.requiredTempMin));
 	}
 	
 	@Override
