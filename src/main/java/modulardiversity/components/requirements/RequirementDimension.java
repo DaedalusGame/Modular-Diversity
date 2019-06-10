@@ -5,32 +5,31 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
-import modulardiversity.jei.JEIComponentBiome;
-import modulardiversity.jei.ingredients.BiomeIngredient;
+import modulardiversity.jei.JEIComponentDimension;
+import modulardiversity.jei.ingredients.DimensionIngredient;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.Misc;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,RequirementBiome.ResourceToken> {
-    private HashSet<Integer> biomes;
+public class RequirementDimension extends RequirementEnvironmental<DimensionIngredient, RequirementDimension.ResourceToken> {
+    private HashSet<Integer> dimensions;
 
-    public RequirementBiome(MachineComponent.IOType actionType, int biome) {
-        super(ComponentType.Registry.getComponent("biome"), actionType);
-        biomes = new HashSet<>();
-        this.biomes.add(biome);
+    public RequirementDimension(MachineComponent.IOType actionType, int biome) {
+        super(ComponentType.Registry.getComponent("dimension"), actionType);
+        dimensions = new HashSet<>();
+        this.dimensions.add(biome);
     }
 
-    public RequirementBiome(MachineComponent.IOType actionType, Collection<Integer> biomes) {
-        super(ComponentType.Registry.getComponent("biome"), actionType);
-        this.biomes = new HashSet<>(biomes);
+    public RequirementDimension(MachineComponent.IOType actionType, Collection<Integer> dimensions) {
+        super(ComponentType.Registry.getComponent("dimension"), actionType);
+        this.dimensions = new HashSet<>(dimensions);
     }
 
     /*@Override
@@ -70,13 +69,13 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
     }*/
 
     @Override
-    public ComponentRequirement<BiomeIngredient> deepCopy() {
-        return new RequirementBiome(this.getActionType(), this.biomes);
+    public ComponentRequirement<DimensionIngredient> deepCopy() {
+        return new RequirementDimension(this.getActionType(), this.dimensions);
     }
 
     @Override
-    public ComponentRequirement<BiomeIngredient> deepCopyModified(List<RecipeModifier> modifiers) {
-        return new RequirementBiome(this.getActionType(), this.biomes);
+    public ComponentRequirement<DimensionIngredient> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementDimension(this.getActionType(), this.dimensions);
     }
 
     /*@Override
@@ -89,7 +88,7 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
 
     @Override
     protected String getInputProblem(ResourceToken token) {
-        return "craftcheck.biome";
+        return "craftcheck.dimension";
     }
 
     @Override
@@ -105,15 +104,15 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
     @Override
     protected boolean consumeToken(MachineComponent component, RecipeCraftingContext context, ResourceToken token, boolean doConsume) {
         TileEntity tile = Misc.getTileEntity(component);
-        if (tile != null && isValidBiome(tile.getWorld(), tile.getPos())) {
+        if (tile != null && isValidDimension(tile.getWorld(), tile.getPos())) {
             token.setRequirementMet();
             return true;
         }
         return false;
     }
 
-    private boolean isValidBiome(World world, BlockPos pos) {
-        return biomes.contains(Biome.getIdForBiome(world.getBiome(pos)));
+    private boolean isValidDimension(World world, BlockPos pos) {
+        return dimensions.contains(world.provider.getDimension());
     }
 
     @Override
@@ -122,12 +121,12 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
     }
 
     @Override
-    public JEIComponent<BiomeIngredient> provideJEIComponent() {
-        return new JEIComponentBiome(this);
+    public JEIComponent<DimensionIngredient> provideJEIComponent() {
+        return new JEIComponentDimension(this);
     }
 
-    public Collection<Integer> getBiomes() {
-        return this.biomes.stream().sorted().collect(Collectors.toList());
+    public Collection<Integer> getDimensions() {
+        return this.dimensions.stream().sorted().collect(Collectors.toList());
     }
 
     public static class ResourceToken implements IResourceToken {

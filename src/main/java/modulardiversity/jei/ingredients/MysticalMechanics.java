@@ -1,6 +1,8 @@
 package modulardiversity.jei.ingredients;
 
 import modulardiversity.jei.IFakeIngredient;
+import mysticalmechanics.api.IMechUnit;
+import mysticalmechanics.api.MysticalMechanicsAPI;
 
 public class MysticalMechanics implements IFakeIngredient {
     private double requiredLevelMin;
@@ -31,7 +33,19 @@ public class MysticalMechanics implements IFakeIngredient {
 
     @Override
     public String getDisplayName() {
-        return "Mechanical Power";
+        double max = getRequiredLevelMax();
+        double min = getRequiredLevelMin();
+
+        IMechUnit unit = MysticalMechanicsAPI.IMPL.getDefaultUnit();
+
+        if(max == min)
+            return unit.format(min);
+        else if(Double.isInfinite(max))
+            return ">"+unit.format(min);
+        else if(min <= 0)
+            return "<"+unit.format(max);
+        else
+            return unit.format(min)+" - "+unit.format(max);
     }
 
     @Override

@@ -98,5 +98,13 @@ public abstract class TileEntityMekHeat extends TileColorableMachineComponent im
         return super.getCapability(capability, facing);
     }
 
+    @Override
+    public String getInputProblem(RequirementMekHeat.ResourceToken token) {
+        return "craftcheck.mekheat.input";
+    }
 
+    @Override
+    public String getOutputProblem(RequirementMekHeat.ResourceToken token) {
+        return "craftcheck.mekheat.output";
+    }
 }

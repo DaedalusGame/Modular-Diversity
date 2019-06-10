@@ -1,29 +1,28 @@
 package modulardiversity.jei.ingredients;
 
 import modulardiversity.jei.IFakeIngredient;
+import modulardiversity.util.DimensionNameUtil;
+import modulardiversity.util.Misc;
 import net.minecraft.world.biome.Biome;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Objects;
 
 public class BiomeIngredient implements IFakeIngredient {
-    private ArrayList<Integer> biomes;
+    private Collection<Integer> biomes;
 
-    public BiomeIngredient(ArrayList<Integer> biomes) {
+    public BiomeIngredient(Collection<Integer> biomes) {
         this.biomes = biomes;
     }
 
-    public ArrayList<Integer> getBiomes(int index) {
+    public Collection<Integer> getBiomes(int index) {
         return biomes;
     }
 
     @Override
     public String getDisplayName() {
-        String displayName = "";
-        for (Integer i:biomes) {
-            displayName += Biome.getBiome(i).getBiomeName() + " or ";
-        }
-        displayName = displayName.substring(0,displayName.length()-4);
-        return displayName;
+        return biomes.stream().map(Biome::getBiome).filter(Objects::nonNull).map(Biome::getBiomeName).collect(Misc.englishList());
     }
 
     @Override

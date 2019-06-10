@@ -44,8 +44,8 @@ public class RequirementHotAir  extends RequirementConsumePerTick<HotAir, Requir
     public JEIComponent<HotAir> provideJEIComponent() {
         return new JEIComponentHotAir(this);
     }
-	
-	@Override
+
+    @Override
     protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
         return new ResourceToken(requiredTempMin,requiredTempMax,temp);
     }

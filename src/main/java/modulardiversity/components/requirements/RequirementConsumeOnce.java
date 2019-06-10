@@ -46,6 +46,18 @@ public abstract class RequirementConsumeOnce<T, V extends IResourceToken> extend
         return false;
     }
 
+    protected String getMissingInput() {
+        return "craftcheck."+getRequiredComponentType().getRegistryName()+".input";
+    }
+
+    protected String getMissingOutput() {
+        return "craftcheck."+getRequiredComponentType().getRegistryName()+".output";
+    }
+
+    protected String getMiscProblem() {
+        return "craftcheck.failure.misc";
+    }
+
     @Override
     public CraftCheck canStartCrafting(MachineComponent component, RecipeCraftingContext context, List<ComponentOutputRestrictor> list) {
         if(!isCorrectHatch(component)) return CraftCheck.skipComponent();
@@ -54,21 +66,23 @@ public abstract class RequirementConsumeOnce<T, V extends IResourceToken> extend
             case INPUT:
                 boolean didConsume = handler.consume(checkToken,false);
                 if(!didConsume) {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(handler.getInputProblem(checkToken));
                 } else if(checkToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getMissingInput());
                 }
             case OUTPUT:
-                handler.generate(checkToken,false);
-                if(checkToken.isEmpty()) {
+                boolean didGenerate = handler.generate(checkToken,false);
+                if(!didGenerate) {
+                    return CraftCheck.failure(handler.getOutputProblem(checkToken));
+                } else if(checkToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getMissingOutput());
                 }
         }
-        return CraftCheck.failure("");
+        return CraftCheck.failure(getMiscProblem());
     }
 
     @Override

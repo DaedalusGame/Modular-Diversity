@@ -25,4 +25,14 @@ public class TileEntityMekLaserAcceptor extends TileEntityMekLaser {
         };
 
     }
+
+    @Override
+    public String getInputProblem(RequirementMekLaser.ResourceToken token) {
+        return "craftcheck.meklaser.input";
+    }
+
+    @Override
+    public String getOutputProblem(RequirementMekLaser.ResourceToken token) {
+        return "craftcheck.meklaser.output";
+    }
 }

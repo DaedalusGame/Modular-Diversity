@@ -2,9 +2,6 @@ package modulardiversity.block;
 
 import hellfirepvp.modularmachinery.common.CommonProxy;
 import hellfirepvp.modularmachinery.common.block.BlockMachineComponent;
-import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
-import mekanism.api.lasers.ILaserReceptor;
-import modulardiversity.jei.ingredients.DaylightIngredient;
 import modulardiversity.tile.TileEntityMekLaserAcceptor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -18,7 +15,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nullable;
 

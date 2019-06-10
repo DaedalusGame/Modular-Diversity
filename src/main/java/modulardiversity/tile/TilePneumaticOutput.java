@@ -4,6 +4,7 @@ import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.ModularDiversity;
 import modulardiversity.components.MachineComponents;
 import modulardiversity.components.requirements.RequirementAir;
+import modulardiversity.components.requirements.RequirementMysticalMechanics;
 import modulardiversity.tile.base.TileEntityPneumaticBase;
 import modulardiversity.util.ICraftingResourceHolder;
 

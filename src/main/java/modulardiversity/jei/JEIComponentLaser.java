@@ -94,6 +94,7 @@ public class JEIComponentLaser extends ComponentRequirement.JEIComponent<Laser> 
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

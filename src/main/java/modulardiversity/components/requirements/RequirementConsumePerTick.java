@@ -31,6 +31,18 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
         return true;
     }
 
+    protected String getMissingInput() {
+        return "craftcheck."+getRequiredComponentType().getRegistryName()+".input";
+    }
+
+    protected String getMissingOutput() {
+        return "craftcheck."+getRequiredComponentType().getRegistryName()+".output";
+    }
+
+    protected String getMiscProblem() {
+        return "craftcheck.failure.misc";
+    }
+
     @Override
     public CraftCheck canStartCrafting(MachineComponent component, RecipeCraftingContext context, List<ComponentOutputRestrictor> list) {
         if(!isCorrectHatch(component)) return CraftCheck.skipComponent();
@@ -39,21 +51,23 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
             case INPUT:
                 boolean didConsume = handler.consume(checkToken,false);
                 if(!didConsume) {
-                    return CraftCheck.failure("craftcheck.failure.generic.input");
+                    return CraftCheck.failure(handler.getInputProblem(checkToken));
                 } else if(checkToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
                     return CraftCheck.partialSuccess();
                 }
             case OUTPUT:
-                handler.generate(checkToken,false);
-                if(checkToken.isEmpty()) {
+                boolean didGenerate = handler.generate(checkToken,false);
+                if(!didGenerate) {
+                    return CraftCheck.failure(handler.getOutputProblem(checkToken));
+                } else if(checkToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
                     return CraftCheck.partialSuccess();
                 }
         }
-        return CraftCheck.failure("craftcheck.failure.generic.input");
+        return CraftCheck.failure(getMiscProblem());
     }
 
     @Override
@@ -69,9 +83,14 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
 
     @Override
     public CraftCheck resetIOTick(RecipeCraftingContext context) {
-        boolean enough = perTickToken.isEmpty();
+        boolean enough = perTickToken != null && perTickToken.isEmpty();
         this.perTickToken = emitConsumptionToken(context);
-        return enough ? CraftCheck.success() : CraftCheck.failure("craftcheck.failure.generic.input");
+        if(enough)
+            return CraftCheck.success();
+        else if(getActionType() == MachineComponent.IOType.INPUT)
+            return CraftCheck.failure(getMissingInput());
+        else
+            return CraftCheck.failure(getMissingOutput());
     }
 
     @Override
@@ -92,21 +111,23 @@ public abstract class RequirementConsumePerTick<T, V extends IResourceToken> ext
             case INPUT:
                 boolean didConsume = handler.consume(perTickToken,true);
                 if(!didConsume) {
-                    return CraftCheck.failure("craftcheck.failure.generic.input");
+                    return CraftCheck.failure(handler.getInputProblem(perTickToken));
                 } else if(perTickToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
                     return CraftCheck.partialSuccess();
                 }
             case OUTPUT:
-                handler.generate(perTickToken,true);
-                if(perTickToken.isEmpty()) {
+                boolean didGenerate = handler.generate(perTickToken,true);
+                if(!didGenerate) {
+                    return CraftCheck.failure(handler.getOutputProblem(perTickToken));
+                } else if(perTickToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
                     return CraftCheck.partialSuccess();
                 }
         }
         //This is neither input nor output? when do we actually end up in this case down here?
-        return CraftCheck.failure("craftcheck.failure.generic.input");
+        return CraftCheck.failure(getMiscProblem());
     }
 }

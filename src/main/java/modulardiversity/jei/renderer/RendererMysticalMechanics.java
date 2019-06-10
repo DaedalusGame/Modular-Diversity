@@ -27,7 +27,7 @@ public class RendererMysticalMechanics implements IIngredientRenderer<MysticalMe
 
     @Override
     public List<String> getTooltip(Minecraft minecraft, MysticalMechanics ingredient, ITooltipFlag tooltipFlag) {
-        return Lists.newArrayList("Mechanical Power");
+        return Lists.newArrayList("Mechanical Power",ingredient.getDisplayName());
     }
 
     @Override

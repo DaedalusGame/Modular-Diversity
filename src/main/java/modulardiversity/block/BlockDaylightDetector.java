@@ -2,7 +2,7 @@ package modulardiversity.block;
 
 import hellfirepvp.modularmachinery.common.CommonProxy;
 import hellfirepvp.modularmachinery.common.block.BlockMachineComponent;
-import modulardiversity.jei.ingredients.DaylightIngredient;
+import modulardiversity.jei.ingredients.Daylight;
 import modulardiversity.tile.TileEntityDaylightDetector;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -36,7 +36,7 @@ public class BlockDaylightDetector extends BlockMachineComponent {
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         long time = worldIn.getWorldTime()%24000;
         if (!worldIn.isRemote) {
-            playerIn.sendStatusMessage(new TextComponentString("Current Time: " + DaylightIngredient.getFormattedTime(time)), false);
+            playerIn.sendStatusMessage(new TextComponentString("Current Time: " + Daylight.getFormattedLocalTime(time)), false);
         }
         return true;
     }

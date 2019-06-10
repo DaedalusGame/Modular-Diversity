@@ -5,7 +5,6 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import modulardiversity.ModularDiversity;
 import modulardiversity.jei.JEIHelpers;
-import modulardiversity.jei.ingredients.DaylightIngredient;
 import modulardiversity.jei.ingredients.Weather;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,12 +16,15 @@ import java.util.List;
 
 public class RendererWeather implements IIngredientRenderer<Weather> {
     IDrawable rain;
+    IDrawable snow;
     IDrawable thunder;
     IDrawable clear;
 
     private void registerDrawables() {
         if (rain == null)
             rain = JEIHelpers.GUI_HELPER.createDrawable(new ResourceLocation(ModularDiversity.MODID, "textures/blocks/overlay_rain.png"), 0, 0, 16, 16, 16,16);
+        if (snow == null)
+            snow = JEIHelpers.GUI_HELPER.createDrawable(new ResourceLocation(ModularDiversity.MODID, "textures/blocks/overlay_rain.png"), 0, 0, 16, 16, 16,16);
         if (thunder == null)
             thunder = JEIHelpers.GUI_HELPER.createDrawable(new ResourceLocation(ModularDiversity.MODID, "textures/blocks/overlay_thunder.png"), 0, 0, 16, 16, 16,16);
         if (clear == null)
@@ -36,10 +38,17 @@ public class RendererWeather implements IIngredientRenderer<Weather> {
 
         registerDrawables();
 
-
-        if (weather.getWeather() == 0) clear.draw(minecraft,i,i1);
-        else if (weather.getWeather() == 1) rain.draw(minecraft,i,i1);
-        else thunder.draw(minecraft,i,i1);
+        if(weather != null)
+        switch (weather.getWeather()) {
+            case CLEAR:
+                clear.draw(minecraft,i,i1); break;
+            case RAIN:
+                rain.draw(minecraft,i,i1);break;
+            case STORM:
+                thunder.draw(minecraft,i,i1);break;
+            case SNOW:
+                snow.draw(minecraft,i,i1);break;
+        }
 
         GlStateManager.disableAlpha();
         GlStateManager.disableBlend();

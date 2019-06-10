@@ -36,8 +36,8 @@ public class TileHotAirOutput extends TileEntityHotAir implements ITickable {
     		setAirTemp(token.getTemp());
     	return true;
     }
-    
-    @Nullable
+
+	@Nullable
     @Override
     public MachineComponent provideComponent() {
         return new MachineComponents.HotAirHatch(MachineComponent.IOType.OUTPUT) {

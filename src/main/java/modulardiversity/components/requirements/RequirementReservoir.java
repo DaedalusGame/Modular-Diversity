@@ -9,6 +9,7 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
+import modulardiversity.jei.JEIComponentReservoir;
 import modulardiversity.jei.ingredients.Reservoir;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.Misc;
@@ -20,10 +21,10 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class RequirementReservoir extends RequirementEnvironmental<Reservoir, RequirementReservoir.ResourceToken> {
-    private String name;
-    private int fluidMin, fluidMax;
-    private int residualMin, residualMax;
-    private int amount;
+    public String name;
+    public int fluidMin, fluidMax;
+    public int residualMin, residualMax;
+    public int amount;
 
     public RequirementReservoir(MachineComponent.IOType actionType, String name, int fluidMin, int fluidMax, int residualMin, int residualMax, int amount) {
         super(ComponentType.Registry.getComponent("reservoir"), actionType);
@@ -40,6 +41,16 @@ public class RequirementReservoir extends RequirementEnvironmental<Reservoir, Re
             if(type.name.equals(name))
                 return type;
         }
+        return null;
+    }
+
+    @Override
+    protected String getInputProblem(ResourceToken token) {
+        return "craftcheck.reservoir";
+    }
+
+    @Override
+    protected String getOutputProblem(ResourceToken token) {
         return null;
     }
 
@@ -84,7 +95,7 @@ public class RequirementReservoir extends RequirementEnvironmental<Reservoir, Re
                     reservoir.current = Math.max(0, reservoir.current + token.getAmount());
                     IPSaveData.setDirty(tile.getWorld().provider.getDimension());
                 }
-                token.setAmount(token.getAmount() - reservoir.current);
+                token.setAmount(0);
             }
         }
         return true;
@@ -109,7 +120,7 @@ public class RequirementReservoir extends RequirementEnvironmental<Reservoir, Re
 
     @Override
     public JEIComponent<Reservoir> provideJEIComponent() {
-        return null;
+        return new JEIComponentReservoir(this);
     }
 
     public static class ResourceToken implements IResourceToken

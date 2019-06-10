@@ -93,6 +93,16 @@ public class TileLaserInput extends TileColorableMachineComponent implements Mac
     }
 
     @Override
+    public String getInputProblem(RequirementLaser.ResourceToken token) {
+        return "craftcheck.laser.input";
+    }
+
+    @Override
+    public String getOutputProblem(RequirementLaser.ResourceToken token) {
+        return null;
+    }
+
+    @Override
     public void readCustomNBT(NBTTagCompound compound) {
         super.readCustomNBT(compound);
         this.power = compound.getLong("power");

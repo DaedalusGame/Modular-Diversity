@@ -35,7 +35,7 @@ public class ModularDiversity
     public static boolean ProdigyTechLoaded;
     public static boolean MekanismLoaded;
     public static boolean MysticalMechanicsLoaded;
-    public static int ManaHatchSize;
+    public static int manaHatchSize;
 
     Configuration configuration;
 

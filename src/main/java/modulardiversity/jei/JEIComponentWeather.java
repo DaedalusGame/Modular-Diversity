@@ -99,6 +99,7 @@ public class JEIComponentWeather extends JEIComponent<Weather> {
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

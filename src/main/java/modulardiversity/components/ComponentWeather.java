@@ -5,9 +5,13 @@ import com.google.gson.JsonParseException;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.requirements.RequirementWeather;
+import modulardiversity.util.JsonUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ComponentWeather extends ComponentType<RequirementWeather> {
     @Nonnull
@@ -25,11 +29,12 @@ public class ComponentWeather extends ComponentType<RequirementWeather> {
     @Nonnull
     @Override
     public RequirementWeather provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
-        if (requirement.has("weather") && requirement.get("weather").isJsonPrimitive() && requirement.get("weather").getAsJsonPrimitive().isNumber()) {
-            int weather = requirement.get("weather").getAsInt();
-            return new RequirementWeather(ioType, weather);
+        if (requirement.has("weather") && requirement.get("weather").isJsonPrimitive() && requirement.get("weather").getAsJsonPrimitive().isString()) {
+            String weather = requirement.get("weather").getAsString();
+            return (RequirementWeather) new RequirementWeather(ioType, RequirementWeather.Type.valueOf(weather)).setPerTick(JsonUtil.getPerTick(requirement));
         } else {
-            throw new JsonParseException("The Component 'weather' expects a value between 0-2 that represents the required weather! 2: Thunder | 1: Rain | 0: Clear Skies");
+            Stream<String> possibleValues = Arrays.stream(RequirementWeather.Type.values()).map(Enum::name);
+            throw new JsonParseException("The Component 'weather' expects a string! One of: "+String.join(", ", (Iterable<String>) possibleValues::iterator));
         }
     }
 }

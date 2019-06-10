@@ -31,7 +31,17 @@ public abstract class TileEntityHotAir extends TileColorableMachineComponent imp
         super.writeCustomNBT(compound);
         compound.setInteger("airtemp", airTemp);
     }
-	
+
+	@Override
+	public String getInputProblem(ResourceToken token) {
+		return "craftcheck.hotair.input";
+	}
+
+	@Override
+	public String getOutputProblem(ResourceToken token) {
+		return "craftcheck.hotair.output";
+	}
+
 	public void setAirTemp(int temp) {
 		this.airTemp = temp;
 	}

@@ -80,6 +80,27 @@ public class RequirementWeather extends RequirementEnvironmental<Weather, Requir
     }
 
     @Override
+    protected String getInputProblem(ResourceToken token) {
+        switch(weather) {
+
+            case CLEAR:
+                return "craftcheck.weather.clear";
+            case RAIN:
+                return "craftcheck.weather.rain";
+            case STORM:
+                return "craftcheck.weather.storm";
+            case SNOW:
+                return "craftcheck.weather.snow";
+        }
+        return null;
+    }
+
+    @Override
+    protected String getOutputProblem(ResourceToken token) {
+        return null;
+    }
+
+    @Override
     protected ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
         return new ResourceToken();
     }

@@ -73,4 +73,14 @@ public abstract class TileEntityMech extends TileColorableMachineComponent imple
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityMechanicalPower.MECHANICAL_POWER ? CapabilityMechanicalPower.MECHANICAL_POWER.cast(this) : super.getCapability(capability, facing);
     }
+
+    @Override
+    public String getInputProblem(RequirementMechanical.ResourceToken token) {
+        return "craftcheck.mechanical.input";
+    }
+
+    @Override
+    public String getOutputProblem(RequirementMechanical.ResourceToken token) {
+        return "craftcheck.mechanical.output";
+    }
 }

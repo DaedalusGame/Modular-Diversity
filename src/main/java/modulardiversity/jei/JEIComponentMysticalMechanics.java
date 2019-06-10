@@ -11,6 +11,8 @@ import modulardiversity.jei.ingredients.Mechanical;
 import modulardiversity.jei.ingredients.MysticalMechanics;
 import modulardiversity.jei.renderer.RendererMechanical;
 import modulardiversity.jei.renderer.RendererMysticalMechanics;
+import mysticalmechanics.api.IMechUnit;
+import mysticalmechanics.api.MysticalMechanicsAPI;
 import net.minecraft.client.Minecraft;
 
 import java.awt.*;
@@ -46,6 +48,7 @@ public class JEIComponentMysticalMechanics extends ComponentRequirement.JEICompo
 
     @Override
     public void onJEIHoverTooltip(int i, boolean b, MysticalMechanics mechanical, List<String> list) {
+
     }
 
     public static class LayoutPart extends RecipeLayoutPart<MysticalMechanics> {
@@ -104,6 +107,7 @@ public class JEIComponentMysticalMechanics extends ComponentRequirement.JEICompo
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

@@ -203,8 +203,11 @@ public class Registry {
         ComponentType.Registry.register(new ComponentMekHeat());
         ComponentType.Registry.register(new ComponentMysticalMechanics());
         ComponentType.Registry.register(new ComponentBiome());
+        ComponentType.Registry.register(new ComponentDimension());
         ComponentType.Registry.register(new ComponentDaylight());
         ComponentType.Registry.register(new ComponentWeather());
+        ComponentType.Registry.register(new ComponentReservoir());
+        ComponentType.Registry.register(new ComponentModifier());
     }
 
     @SubscribeEvent

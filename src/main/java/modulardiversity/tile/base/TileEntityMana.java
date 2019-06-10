@@ -70,4 +70,14 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
     public int getCurrentMana() {
         return mana;
     }
+
+    @Override
+    public String getInputProblem(RequirementMana.ResourceToken token) {
+        return "craftcheck.mana.input";
+    }
+
+    @Override
+    public String getOutputProblem(RequirementMana.ResourceToken token) {
+        return "craftcheck.mana.output";
+    }
 }

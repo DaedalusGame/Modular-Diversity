@@ -6,17 +6,19 @@ import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.jei.JEIComponentDaylight;
-import modulardiversity.jei.ingredients.DaylightIngredient;
+import modulardiversity.jei.ingredients.Daylight;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.Misc;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 import java.util.List;
 
-public class RequirementDaylight extends RequirementEnvironmental<DaylightIngredient,RequirementDaylight.ResourceToken> {
+public class RequirementDaylight extends RequirementEnvironmental<Daylight,RequirementDaylight.ResourceToken> {
 
     public long timeMin, timeMax;
     public long timeModulo;
+    public boolean timeLocal;
 
     private boolean isTimeValid(long time)
     {
@@ -27,24 +29,46 @@ public class RequirementDaylight extends RequirementEnvironmental<DaylightIngred
             return timeMin >= timeMax;
     }
 
-    public RequirementDaylight(MachineComponent.IOType actionType, long min, long max, long modulo) {
+    public RequirementDaylight(MachineComponent.IOType actionType, long min, long max, long modulo, boolean local) {
         super(Registry.getComponent("daylight"), actionType);
         timeMin = min;
         timeMax = max;
         timeModulo = modulo;
+        timeLocal = local;
     }
 
     @Override
     protected boolean consumeToken(MachineComponent component, RecipeCraftingContext context, ResourceToken token, boolean doConsume) {
         TileEntity tile = Misc.getTileEntity(component);
-        if(tile != null && isTimeValid(tile.getWorld().getTotalWorldTime()))
-            token.setRequirementMet();
-        return true;
+        if(tile != null){
+            World world = tile.getWorld();
+            long time = world.getTotalWorldTime();
+            if(timeLocal) {
+                time -= time % 24000;
+                time += world.getWorldTime();
+            }
+            if(isTimeValid(time)) {
+                token.setRequirementMet();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
     protected boolean generateToken(MachineComponent component, RecipeCraftingContext context, ResourceToken token, boolean doGenerate) {
         return false; //Don't feel comfortable doing this
+    }
+
+    @Override
+    protected String getInputProblem(ResourceToken token) {
+        return "craftcheck.time";
+    }
+
+    @Override
+    protected String getOutputProblem(ResourceToken token) {
+        return null;
     }
 
     @Override
@@ -54,16 +78,16 @@ public class RequirementDaylight extends RequirementEnvironmental<DaylightIngred
 
     @Override
     public ComponentRequirement deepCopy() {
-        return new RequirementDaylight(this.getActionType(), timeMin, timeMax, timeModulo);
+        return new RequirementDaylight(this.getActionType(), timeMin, timeMax, timeModulo, timeLocal);
     }
 
     @Override
-    public ComponentRequirement<DaylightIngredient> deepCopyModified(List<RecipeModifier> modifiers) {
-        return new RequirementDaylight(this.getActionType(), timeMin, timeMax, timeModulo);
+    public ComponentRequirement<Daylight> deepCopyModified(List<RecipeModifier> modifiers) {
+        return new RequirementDaylight(this.getActionType(), timeMin, timeMax, timeModulo, timeLocal);
     }
 
     @Override
-    public JEIComponent<DaylightIngredient> provideJEIComponent() {
+    public JEIComponent<Daylight> provideJEIComponent() {
         return new JEIComponentDaylight(this);
     }
 

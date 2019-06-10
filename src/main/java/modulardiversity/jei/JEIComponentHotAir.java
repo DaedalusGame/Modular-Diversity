@@ -95,6 +95,7 @@ public class JEIComponentHotAir extends ComponentRequirement.JEIComponent<HotAir
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

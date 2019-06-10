@@ -97,6 +97,7 @@ public class JEIComponentMana extends ComponentRequirement.JEIComponent<Mana> {
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

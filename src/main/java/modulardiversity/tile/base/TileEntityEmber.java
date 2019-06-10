@@ -6,6 +6,7 @@ import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
 import modulardiversity.block.prop.EmberHatchSize;
 import modulardiversity.components.requirements.RequirementEmber;
+import modulardiversity.components.requirements.RequirementMana;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -71,5 +72,13 @@ public abstract class TileEntityEmber extends TileColorableMachineComponent impl
         return capability == EmbersCapabilities.EMBER_CAPABILITY ? (T)this.capability : super.getCapability(capability, facing);
     }
 
+    @Override
+    public String getInputProblem(RequirementEmber.ResourceToken token) {
+        return "craftcheck.ember.input";
+    }
 
+    @Override
+    public String getOutputProblem(RequirementEmber.ResourceToken token) {
+        return "craftcheck.ember.output";
+    }
 }

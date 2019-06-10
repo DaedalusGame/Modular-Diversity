@@ -3,21 +3,15 @@ package modulardiversity.block;
 import hellfirepvp.modularmachinery.common.CommonProxy;
 import hellfirepvp.modularmachinery.common.block.BlockMachineComponent;
 import hellfirepvp.modularmachinery.common.block.BlockVariants;
-import modulardiversity.block.prop.EmberHatchSize;
-import modulardiversity.jei.ingredients.DaylightIngredient;
 import modulardiversity.jei.ingredients.Weather;
-import modulardiversity.tile.TileEntityDaylightDetector;
 import modulardiversity.tile.TileEntityWeatherDetector;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +21,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public class BlockWeatherDetector extends BlockMachineComponent implements BlockVariants {
     public static final PropertyInteger WEATHER_TYPE = PropertyInteger.create("weather", 0, 2);
@@ -45,10 +38,10 @@ public class BlockWeatherDetector extends BlockMachineComponent implements Block
     //When the player right clicks sends a message to chat with the biome
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!worldIn.isRemote) {
+        /*if (!worldIn.isRemote) {
             int weather = (worldIn.isRaining()) ? (worldIn.isThundering()) ? 2 : 1 : 0;
             playerIn.sendStatusMessage(new TextComponentString("Current Weather: " + Weather.getFormattedWeather(weather)), false);
-        }
+        }*/
         return true;
     }
 

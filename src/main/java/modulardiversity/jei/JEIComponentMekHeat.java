@@ -98,6 +98,7 @@ public class JEIComponentMekHeat extends ComponentRequirement.JEIComponent<MekHe
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

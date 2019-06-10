@@ -87,4 +87,14 @@ public abstract class TileEntityPneumaticBase extends TileColorableMachineCompon
     public void update() {
         airHandler.update();
     }
+
+    @Override
+    public String getInputProblem(RequirementMysticalMechanics.ResourceToken token) {
+        return "meklaser.input";
+    }
+
+    @Override
+    public String getOutputProblem(RequirementMysticalMechanics.ResourceToken token) {
+        return "meklaser.input";
+    }
 }

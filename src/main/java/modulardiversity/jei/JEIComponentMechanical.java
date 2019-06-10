@@ -96,6 +96,7 @@ public class JEIComponentMechanical extends ComponentRequirement.JEIComponent<Me
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

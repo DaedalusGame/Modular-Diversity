@@ -32,4 +32,14 @@ public abstract class TileEntityMysticalMechanics extends TileColorableMachineCo
             return (T) this.capability;
         return super.getCapability(capability, facing);
     }
+
+    @Override
+    public String getInputProblem(RequirementMysticalMechanics.ResourceToken token) {
+        return "craftcheck.mysticalmechanics.input";
+    }
+
+    @Override
+    public String getOutputProblem(RequirementMysticalMechanics.ResourceToken token) {
+        return "craftcheck.mysticalmechanics.output";
+    }
 }

@@ -40,3 +40,57 @@ tile.blockweatherdetector.name=Weather Detector
 
 tile.blockmystmechinput.name=Mystical Mechanical Input
 tile.blockmystmechoutput.name=Mystical Mechanical Output
+
+# I owe you lang file entries for english lists
+
+craftcheck.ember.input=Not enough Ember.
+craftcheck.ember.output=Ember output full.
+craftcheck.mana.input=Not enough Mana.
+craftcheck.mana.output=Mana output full.
+craftcheck.meklaser.input=Apply Mekanism Laser.
+craftcheck.laser.input=Apply Buildcraft Laser.
+craftcheck.hotair.input=Input air is not the right temperature.
+craftcheck.hotair.output=Output air is not the right temperature.
+craftcheck.mekheat.input=Input is not the right temperature.
+craftcheck.mekheat.output=Output is not the right temperature.
+craftcheck.mysticalmechanics.input=Not enough mechanical energy.
+craftcheck.mechanical.input=Not enough mechanical energy.
+craftcheck.time=Now is not the time for that.
+craftcheck.biome=Wrong biome.
+craftcheck.dimension=Wrong dimension.
+craftcheck.reservoir=No reservoir.
+craftcheck.weather.clear=Sky too cloudy.
+craftcheck.weather.rain=Not enough rainfall.
+craftcheck.weather.snow=Not enough snowfall.
+craftcheck.weather.storm=Not storming.
+
+component.missing.ember.input=No ember input hatch.
+component.missing.ember.output=No ember output hatch.
+component.missing.mana.input=No mana input hatch.
+component.missing.mana.output=No mana output hatch.
+component.missing.hotair.input=No hot air input hatch.
+component.missing.hotair.output=No hot air output hatch.
+component.missing.mekheat.input=No heat input hatch.
+component.missing.mekheat.output=No heat output hatch.
+component.missing.mechanical.input=No mechanical input hatch.
+component.missing.mechanical.output=No mechanical output hatch.
+component.missing.mysticalmechanics.input=No mystical mechanical input hatch.
+component.missing.mysticalmechanics.output=No mystical mechanical output hatch.
+component.missing.meklaser.input=No Mekanism laser input hatch.
+component.missing.laser.input=No Buildcraft laser input hatch.
+
+tooltip.reservoir.result.fill=Adds %s mb.
+tooltip.reservoir.result.deplete=Depletes %s mb.
+tooltip.reservoir.result.none=No change.
+tooltip.reservoir.amount.greater=Needs more than %1$s mb left.
+tooltip.reservoir.amount.less=Needs less than %2$s mb left.
+tooltip.reservoir.amount.exact=Needs %1$s mb left.
+tooltip.reservoir.amount=Needs %1$s-%2$s mb left.
+tooltip.reservoir.residual.greater=Needs more than %1$s mb residual.
+tooltip.reservoir.residual.less=Needs less than %2$s mb residual.
+tooltip.reservoir.residual.exact=Needs %1$s mb residual.
+tooltip.reservoir.residual=Needs %1$s-%2$s mb residual.
+
+dimension.overworld=Overworld
+dimension.the_nether=Nether
+dimension.the_end=The End

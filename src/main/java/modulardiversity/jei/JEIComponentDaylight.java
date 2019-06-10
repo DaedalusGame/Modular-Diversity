@@ -5,7 +5,7 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement.
 import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import modulardiversity.components.requirements.RequirementDaylight;
-import modulardiversity.jei.ingredients.DaylightIngredient;
+import modulardiversity.jei.ingredients.Daylight;
 import modulardiversity.jei.renderer.RendererDaylight;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.List;
 
-public class JEIComponentDaylight extends JEIComponent<DaylightIngredient> {
+public class JEIComponentDaylight extends JEIComponent<Daylight> {
 
     private final RequirementDaylight requirement;
 
@@ -23,27 +23,27 @@ public class JEIComponentDaylight extends JEIComponent<DaylightIngredient> {
     }
 
     @Override
-    public Class<DaylightIngredient> getJEIRequirementClass() {
-        return DaylightIngredient.class;
+    public Class<Daylight> getJEIRequirementClass() {
+        return Daylight.class;
     }
 
     @Override
-    public List<DaylightIngredient> getJEIIORequirements() {
-        return Lists.newArrayList(new DaylightIngredient(requirement.timeMin,requirement.timeMin,requirement.timeModulo));
+    public List<Daylight> getJEIIORequirements() {
+        return Lists.newArrayList(new Daylight(requirement.timeMin,requirement.timeMax,requirement.timeModulo,requirement.timeLocal));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public RecipeLayoutPart<DaylightIngredient> getLayoutPart(Point point) {
+    public RecipeLayoutPart<Daylight> getLayoutPart(Point point) {
         return new DaylightLayout(point);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onJEIHoverTooltip(int i, boolean b, DaylightIngredient biomeIngredient, List<String> list) {
+    public void onJEIHoverTooltip(int i, boolean b, Daylight biomeIngredient, List<String> list) {
     }
 
-    public static class DaylightLayout extends RecipeLayoutPart<DaylightIngredient> {
+    public static class DaylightLayout extends RecipeLayoutPart<Daylight> {
 
 
         protected DaylightLayout(Point offset) {
@@ -61,12 +61,12 @@ public class JEIComponentDaylight extends JEIComponent<DaylightIngredient> {
         }
 
         @Override
-        public Class<DaylightIngredient> getLayoutTypeClass() {
-            return DaylightIngredient.class;
+        public Class<Daylight> getLayoutTypeClass() {
+            return Daylight.class;
         }
 
         @Override
-        public IIngredientRenderer<DaylightIngredient> provideIngredientRenderer() {
+        public IIngredientRenderer<Daylight> provideIngredientRenderer() {
             return new RendererDaylight();
         }
 
@@ -101,6 +101,7 @@ public class JEIComponentDaylight extends JEIComponent<DaylightIngredient> {
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

@@ -1,9 +1,6 @@
 package modulardiversity.components;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.google.gson.*;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import modulardiversity.components.requirements.RequirementDaylight;
@@ -29,15 +26,24 @@ public class ComponentDaylight extends ComponentType<RequirementDaylight> {
     @Nonnull
     @Override
     public RequirementDaylight provideComponent(MachineComponent.IOType ioType, JsonObject json) {
-        JsonUtil.assertOnlyOne(json,"daytime","time","");
-
-        if (json.has("daylight") && json.get("daylight").isJsonArray() && json.get("daylight").getAsJsonArray().size() == 2 && json.get("daylight").getAsJsonArray().get(0).isJsonPrimitive() && json.get("daylight").getAsJsonArray().get(1).isJsonPrimitive() && json.get("daylight").getAsJsonArray().get(0).getAsJsonPrimitive().isNumber() && json.get("daylight").getAsJsonArray().get(1).getAsJsonPrimitive().isNumber()) {
-            JsonArray daylightPrimitive = json.get("daylight").getAsJsonArray();
-            ArrayList<Integer> daylight = new ArrayList<>();
-            for (JsonElement i: daylightPrimitive) daylight.add(i.getAsInt());
-            return new RequirementDaylight(ioType, 0,0,0);
+        if (json.has("start") || json.has("stop")) {
+            long start = 0;
+            long stop = Long.MAX_VALUE;
+            long modulo = Long.MAX_VALUE;
+            boolean local = false;
+            if(json.has("start"))
+                start = json.getAsJsonPrimitive("start").getAsLong();
+            if(json.has("stop"))
+                stop = json.getAsJsonPrimitive("stop").getAsLong();
+            if(json.has("modulo")) {
+                modulo = json.getAsJsonPrimitive("modulo").getAsLong();
+            }
+            if(json.has("local")) {
+                local = json.getAsJsonPrimitive("local").getAsBoolean();
+            }
+            return (RequirementDaylight) new RequirementDaylight(ioType, start,stop,modulo,local).setPerTick(JsonUtil.getPerTick(json));
         } else {
-            throw new JsonParseException("The ComponentType 'daylight' expects an array of length 2 that defines the earliest time and latest time the recipe can occur! Example: [6000, 1[2000] (Noon to Dusk)");
+            throw new JsonParseException("The ComponentType 'daylight' expects 'start', 'stop' and optionally 'modulo'. Refer to the documentation for how they work together.");
         }
     }
 }

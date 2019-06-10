@@ -97,6 +97,7 @@ public class JEIComponentEmber extends ComponentRequirement.JEIComponent<Embers>
         }
 
         @Override
+        @Deprecated
         public boolean canBeScaled() {
             return true;
         }

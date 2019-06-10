@@ -4,9 +4,9 @@ import com.google.common.collect.Lists;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement.JEIComponent;
 import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import modulardiversity.components.requirements.RequirementBiome;
-import modulardiversity.jei.ingredients.BiomeIngredient;
-import modulardiversity.jei.renderer.RendererBiome;
+import modulardiversity.components.requirements.RequirementDimension;
+import modulardiversity.jei.ingredients.DimensionIngredient;
+import modulardiversity.jei.renderer.RendererDimension;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -14,36 +14,36 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.List;
 
-public class JEIComponentBiome extends JEIComponent<BiomeIngredient> {
+public class JEIComponentDimension extends JEIComponent<DimensionIngredient> {
 
-    private final RequirementBiome requirement;
+    private final RequirementDimension requirement;
 
-    public JEIComponentBiome(RequirementBiome requirement) {
+    public JEIComponentDimension(RequirementDimension requirement) {
         this.requirement = requirement;
     }
 
     @Override
-    public Class<BiomeIngredient> getJEIRequirementClass() {
-        return BiomeIngredient.class;
+    public Class<DimensionIngredient> getJEIRequirementClass() {
+        return DimensionIngredient.class;
     }
 
     @Override
-    public List<BiomeIngredient> getJEIIORequirements() {
-        return Lists.newArrayList(new BiomeIngredient(requirement.getBiomes()));
+    public List<DimensionIngredient> getJEIIORequirements() {
+        return Lists.newArrayList(new DimensionIngredient(requirement.getDimensions()));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public RecipeLayoutPart<BiomeIngredient> getLayoutPart(Point point) {
+    public RecipeLayoutPart<DimensionIngredient> getLayoutPart(Point point) {
         return new BiomeLayout(point);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onJEIHoverTooltip(int i, boolean b, BiomeIngredient biomeIngredient, List<String> list) {
+    public void onJEIHoverTooltip(int i, boolean b, DimensionIngredient biomeIngredient, List<String> list) {
     }
 
-    public static class BiomeLayout extends RecipeLayoutPart<BiomeIngredient> {
+    public static class BiomeLayout extends RecipeLayoutPart<DimensionIngredient> {
         protected BiomeLayout(Point offset) {
             super(offset);
         }
@@ -59,13 +59,13 @@ public class JEIComponentBiome extends JEIComponent<BiomeIngredient> {
         }
 
         @Override
-        public Class<BiomeIngredient> getLayoutTypeClass() {
-            return BiomeIngredient.class;
+        public Class<DimensionIngredient> getLayoutTypeClass() {
+            return DimensionIngredient.class;
         }
 
         @Override
-        public IIngredientRenderer<BiomeIngredient> provideIngredientRenderer() {
-            return new RendererBiome();
+        public IIngredientRenderer<DimensionIngredient> provideIngredientRenderer() {
+            return new RendererDimension();
         }
 
         @Override

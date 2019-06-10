@@ -24,6 +24,12 @@ public abstract class RequirementEnvironmental<T, V extends IResourceToken> exte
         super(componentType, actionType);
     }
 
+    public RequirementEnvironmental<T,V> setPerTick(boolean perTick)
+    {
+        this.perTick = perTick;
+        return this;
+    }
+
     @Override
     public boolean startCrafting(MachineComponent component, RecipeCraftingContext context, ResultChance resultChance) {
         if (perTick)
@@ -48,27 +54,45 @@ public abstract class RequirementEnvironmental<T, V extends IResourceToken> exte
         return false;
     }
 
+    protected abstract String getInputProblem(V token);
+
+    protected abstract String getOutputProblem(V token);
+
+    protected String getMissingInput() {
+        return "craftcheck."+getRequiredComponentType().getRegistryName()+".input";
+    }
+
+    protected String getMissingOutput() {
+        return "craftcheck."+getRequiredComponentType().getRegistryName()+".output";
+    }
+
+    protected String getMiscProblem() {
+        return "craftcheck.failure.misc";
+    }
+
     @Override
     public CraftCheck canStartCrafting(MachineComponent component, RecipeCraftingContext context, List<ComponentOutputRestrictor> list) {
         switch (getActionType()) {
             case INPUT:
                 boolean didConsume = consumeToken(component, context, checkToken, false);
                 if (!didConsume) {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getInputProblem(checkToken));
                 } else if (checkToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getMissingInput());
                 }
             case OUTPUT:
-                generateToken(component, context, checkToken, false);
-                if (checkToken.isEmpty()) {
+                boolean didGenerate = generateToken(component, context, checkToken, false);
+                if (!didGenerate) {
+                    return CraftCheck.failure(getOutputProblem(checkToken));
+                } else if (checkToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getMissingOutput());
                 }
         }
-        return CraftCheck.failure("");
+        return CraftCheck.failure(getMiscProblem());
     }
 
     @Override
@@ -89,13 +113,19 @@ public abstract class RequirementEnvironmental<T, V extends IResourceToken> exte
     @Override
     public void startIOTick(RecipeCraftingContext context, float durationMultiplier) {
         perTickToken.applyModifiers(context,getActionType(), durationMultiplier);
+        EnvironmentalComponent.attach(getRequiredComponentType(),context);
     }
 
     @Override
     public CraftCheck resetIOTick(RecipeCraftingContext context) {
-        boolean enough = perTickToken.isEmpty();
+        boolean enough = !perTick || (perTickToken != null && perTickToken.isEmpty());
         this.perTickToken = emitConsumptionToken(context);
-        return enough ? CraftCheck.success() : CraftCheck.failure("");
+        if(enough)
+            return CraftCheck.success();
+        else if(getActionType() == MachineComponent.IOType.INPUT)
+            return CraftCheck.failure(getMissingInput());
+        else
+            return CraftCheck.failure(getMissingOutput());
     }
 
     @Nonnull
@@ -107,22 +137,24 @@ public abstract class RequirementEnvironmental<T, V extends IResourceToken> exte
             case INPUT:
                 boolean didConsume = consumeToken(component, context, perTickToken, true);
                 if (!didConsume) {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getInputProblem(perTickToken));
                 } else if (perTickToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getMissingInput());
                 }
             case OUTPUT:
-                generateToken(component, context, perTickToken, true);
-                if (perTickToken.isEmpty()) {
+                boolean didGenerate = generateToken(component, context, perTickToken, true);
+                if (!didGenerate) {
+                    return CraftCheck.failure(getOutputProblem(perTickToken));
+                } else if (perTickToken.isEmpty()) {
                     return CraftCheck.success();
                 } else {
-                    return CraftCheck.failure("");
+                    return CraftCheck.failure(getMissingOutput());
                 }
         }
         //This is neither input nor output? when do we actually end up in this case down here?
-        return CraftCheck.failure("");
+        return CraftCheck.failure(getMiscProblem());
     }
 
     protected abstract V emitConsumptionToken(RecipeCraftingContext context);

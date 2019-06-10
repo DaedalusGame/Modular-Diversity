@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import modulardiversity.jei.JEIHelpers;
-import modulardiversity.jei.ingredients.DaylightIngredient;
+import modulardiversity.jei.ingredients.Daylight;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.util.ITooltipFlag;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class RendererDaylight implements IIngredientRenderer<DaylightIngredient> {
+public class RendererDaylight implements IIngredientRenderer<Daylight> {
     ResourceLocation clock1Resource = new ResourceLocation("minecraft", "textures/items/clock_00.png");
     static IDrawable clock1;
     ResourceLocation clock2Resource = new ResourceLocation("minecraft", "textures/items/clock_00.png");
@@ -28,11 +28,11 @@ public class RendererDaylight implements IIngredientRenderer<DaylightIngredient>
     }
 
     @Override
-    public void render(Minecraft minecraft, int i, int i1, @Nullable DaylightIngredient daylightIngredient) {
+    public void render(Minecraft minecraft, int i, int i1, @Nullable Daylight daylight) {
         GlStateManager.enableAlpha();
         GlStateManager.enableBlend();
-        clock1Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylightIngredient.getClockFrame(0) + ".png");
-        clock2Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylightIngredient.getClockFrame(1) + ".png");
+        clock1Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylight.getClockFrame(0) + ".png");
+        clock2Resource = new ResourceLocation("minecraft", "textures/items/clock_" + daylight.getClockFrame(1) + ".png");
 
         registerDrawables();
 
@@ -44,7 +44,7 @@ public class RendererDaylight implements IIngredientRenderer<DaylightIngredient>
     }
 
     @Override
-    public List<String> getTooltip(Minecraft minecraft, DaylightIngredient ingredient, ITooltipFlag tooltipFlag) {
+    public List<String> getTooltip(Minecraft minecraft, Daylight ingredient, ITooltipFlag tooltipFlag) {
         return Lists.newArrayList(ingredient.getDisplayName());
     }
 }

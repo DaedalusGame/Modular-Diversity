@@ -4,9 +4,12 @@ import com.google.common.collect.Lists;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement.JEIComponent;
 import hellfirepvp.modularmachinery.common.integration.recipe.RecipeLayoutPart;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import modulardiversity.components.requirements.RequirementBiome;
-import modulardiversity.jei.ingredients.BiomeIngredient;
-import modulardiversity.jei.renderer.RendererBiome;
+import modulardiversity.components.requirements.RequirementModifier;
+import modulardiversity.components.requirements.RequirementReservoir;
+import modulardiversity.jei.ingredients.Modifier;
+import modulardiversity.jei.ingredients.Reservoir;
+import modulardiversity.jei.renderer.RendererModifier;
+import modulardiversity.jei.renderer.RendererReservoir;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -14,58 +17,58 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.List;
 
-public class JEIComponentBiome extends JEIComponent<BiomeIngredient> {
+public class JEIComponentModifier extends JEIComponent<Modifier> {
 
-    private final RequirementBiome requirement;
+    private final RequirementModifier requirement;
 
-    public JEIComponentBiome(RequirementBiome requirement) {
+    public JEIComponentModifier(RequirementModifier requirement) {
         this.requirement = requirement;
     }
 
     @Override
-    public Class<BiomeIngredient> getJEIRequirementClass() {
-        return BiomeIngredient.class;
+    public Class<Modifier> getJEIRequirementClass() {
+        return Modifier.class;
     }
 
     @Override
-    public List<BiomeIngredient> getJEIIORequirements() {
-        return Lists.newArrayList(new BiomeIngredient(requirement.getBiomes()));
+    public List<Modifier> getJEIIORequirements() {
+        return Lists.newArrayList(new Modifier(requirement.name,requirement.min,requirement.max));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public RecipeLayoutPart<BiomeIngredient> getLayoutPart(Point point) {
-        return new BiomeLayout(point);
+    public RecipeLayoutPart<Modifier> getLayoutPart(Point point) {
+        return new Layout(point);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onJEIHoverTooltip(int i, boolean b, BiomeIngredient biomeIngredient, List<String> list) {
+    public void onJEIHoverTooltip(int i, boolean b, Modifier ingredient, List<String> list) {
     }
 
-    public static class BiomeLayout extends RecipeLayoutPart<BiomeIngredient> {
-        protected BiomeLayout(Point offset) {
+    public static class Layout extends RecipeLayoutPart<Modifier> {
+        protected Layout(Point offset) {
             super(offset);
         }
 
         @Override
         public int getComponentWidth() {
-            return 18;
+            return 16;
         }
 
         @Override
         public int getComponentHeight() {
-            return 18;
+            return 16;
         }
 
         @Override
-        public Class<BiomeIngredient> getLayoutTypeClass() {
-            return BiomeIngredient.class;
+        public Class<Modifier> getLayoutTypeClass() {
+            return Modifier.class;
         }
 
         @Override
-        public IIngredientRenderer<BiomeIngredient> provideIngredientRenderer() {
-            return new RendererBiome();
+        public IIngredientRenderer<Modifier> provideIngredientRenderer() {
+            return new RendererModifier();
         }
 
         @Override
@@ -99,7 +102,6 @@ public class JEIComponentBiome extends JEIComponent<BiomeIngredient> {
         }
 
         @Override
-        @Deprecated
         public boolean canBeScaled() {
             return true;
         }
