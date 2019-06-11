@@ -207,6 +207,7 @@ public class Registry {
         ComponentType.Registry.register(new ComponentDaylight());
         ComponentType.Registry.register(new ComponentWeather());
         ComponentType.Registry.register(new ComponentReservoir());
+        ComponentType.Registry.register(new ComponentMineral());
         ComponentType.Registry.register(new ComponentModifier());
     }
 

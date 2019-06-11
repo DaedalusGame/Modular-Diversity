@@ -74,7 +74,7 @@ public class RequirementReservoir extends RequirementEnvironmental<Reservoir, Re
             if(token.matches(tile.getWorld(),tile.getPos(),reservoir))
             {
                 if(doConsume) {
-                    reservoir.current = Math.max(0, reservoir.current - token.getAmount());
+                    reservoir.current = Math.max(0, reservoir.current + token.getAmount());
                     IPSaveData.setDirty(tile.getWorld().provider.getDimension());
                 }
                 token.setAmount(token.getAmount() - reservoir.current);

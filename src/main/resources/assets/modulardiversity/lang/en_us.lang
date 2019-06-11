@@ -59,6 +59,7 @@ craftcheck.time=Now is not the time for that.
 craftcheck.biome=Wrong biome.
 craftcheck.dimension=Wrong dimension.
 craftcheck.reservoir=No reservoir.
+craftcheck.mineral=No mineral.
 craftcheck.weather.clear=Sky too cloudy.
 craftcheck.weather.rain=Not enough rainfall.
 craftcheck.weather.snow=Not enough snowfall.
@@ -90,6 +91,14 @@ tooltip.reservoir.residual.greater=Needs more than %1$s mb residual.
 tooltip.reservoir.residual.less=Needs less than %2$s mb residual.
 tooltip.reservoir.residual.exact=Needs %1$s mb residual.
 tooltip.reservoir.residual=Needs %1$s-%2$s mb residual.
+
+tooltip.mineral.result.fill=Adds %s ore.
+tooltip.mineral.result.deplete=Depletes %s ore.
+tooltip.mineral.result.none=No change.
+tooltip.mineral.amount.greater=Needs more than %1$s ore left.
+tooltip.mineral.amount.less=Needs less than %2$s ore left.
+tooltip.mineral.amount.exact=Needs %1$s ore left.
+tooltip.mineral.amount=Needs %1$s-%2$s ore left.
 
 dimension.overworld=Overworld
 dimension.the_nether=Nether
