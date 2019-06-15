@@ -68,6 +68,7 @@ craftcheck.vis=Wrong amount of vis in the aura.
 craftcheck.flux=Wrong amount of flux in the aura.
 craftcheck.ember=Wrong amount of ember in the chunk.
 craftcheck.ember_stability=Wrong stability of ember in the chunk.
+craftcheck.position=Not close enough to work area.
 
 component.missing.ember.input=No ember input hatch.
 component.missing.ember.output=No ember output hatch.
@@ -129,6 +130,26 @@ tooltip.ember_stability.greater=Needs more than %1$s ember in the chunk.
 tooltip.ember_stability.less=Needs less than %2$s ember in the chunk.
 tooltip.ember_stability.exact=Needs %1$s ember in the chunk.
 tooltip.ember_stability=Needs %1$s-%2$s ember in the chunk.
+
+tooltip.x.greater=East of x%1$s
+tooltip.x.less=West of x%2$s
+tooltip.x.exact=x%1$s
+tooltip.x=Between x%1$s and x%2$s
+
+tooltip.z.greater=South of z%1$s
+tooltip.z.less=North of z%2$s
+tooltip.z.exact=z%1$s
+tooltip.z=Between z%1$s and z%2$s
+
+tooltip.y.greater=Above y%1$s
+tooltip.y.less=Below y%2$s
+tooltip.y.exact=y%1$s
+tooltip.y=Between y%1$s and y%2$s
+
+tooltip.distance.greater=Further than %1$s blocks away
+tooltip.distance.less=Closer than %2$s blocks away
+tooltip.distance.exact=%1$s blocks away
+tooltip.distance=Between %1$s and %2$s blocks away
 
 dimension.overworld=Overworld
 dimension.the_nether=Nether
