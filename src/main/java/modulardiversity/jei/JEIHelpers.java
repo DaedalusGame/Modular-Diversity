@@ -37,5 +37,7 @@ public class JEIHelpers implements IModPlugin {
         registry.register(Mineral.class, new ArrayList<>(), new FakeIngredientHelper<>(), new RendererMineral());
         registry.register(Modifier.class, new ArrayList<>(), new FakeIngredientHelper<>(), new RendererModifier());
         registry.register(DimensionIngredient.class, new ArrayList<>(), new FakeIngredientHelper<>(), new RendererDimension());
+        registry.register(EmberWorld.class, new ArrayList<>(), new FakeIngredientHelper<>(), new RendererEmberWorld());
+        registry.register(Aura.class, new ArrayList<>(), new FakeIngredientHelper<>(), new RendererAura());
     }
 }

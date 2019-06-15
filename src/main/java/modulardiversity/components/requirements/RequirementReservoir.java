@@ -73,11 +73,12 @@ public class RequirementReservoir extends RequirementEnvironmental<Reservoir, Re
             OilWorldInfo reservoir = getReservoir(tile.getWorld(),tile.getPos());
             if(token.matches(tile.getWorld(),tile.getPos(),reservoir))
             {
+                int current = reservoir.current;
                 if(doConsume) {
-                    reservoir.current = Math.max(0, reservoir.current + token.getAmount());
+                    reservoir.current = Math.max(0, current + token.getAmount());
                     IPSaveData.setDirty(tile.getWorld().provider.getDimension());
                 }
-                token.setAmount(token.getAmount() - reservoir.current);
+                token.setAmount(token.getAmount() - current);
             }
         }
         return true;
@@ -92,7 +93,8 @@ public class RequirementReservoir extends RequirementEnvironmental<Reservoir, Re
             if(token.matches(tile.getWorld(),tile.getPos(),reservoir))
             {
                 if(doGenerate) {
-                    reservoir.current = Math.max(0, reservoir.current + token.getAmount());
+                    int current = reservoir.current;
+                    reservoir.current = Math.max(0, current + token.getAmount());
                     IPSaveData.setDirty(tile.getWorld().provider.getDimension());
                 }
                 token.setAmount(0);

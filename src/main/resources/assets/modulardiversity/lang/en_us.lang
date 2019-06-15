@@ -64,6 +64,10 @@ craftcheck.weather.clear=Sky too cloudy.
 craftcheck.weather.rain=Not enough rainfall.
 craftcheck.weather.snow=Not enough snowfall.
 craftcheck.weather.storm=Not storming.
+craftcheck.vis=Wrong amount of vis in the aura.
+craftcheck.flux=Wrong amount of flux in the aura.
+craftcheck.ember=Wrong amount of ember in the chunk.
+craftcheck.ember_stability=Wrong stability of ember in the chunk.
 
 component.missing.ember.input=No ember input hatch.
 component.missing.ember.output=No ember output hatch.
@@ -99,6 +103,32 @@ tooltip.mineral.amount.greater=Needs more than %1$s ore left.
 tooltip.mineral.amount.less=Needs less than %2$s ore left.
 tooltip.mineral.amount.exact=Needs %1$s ore left.
 tooltip.mineral.amount=Needs %1$s-%2$s ore left.
+
+tooltip.vis.fill=Adds %s vis.
+tooltip.vis.deplete=Depletes %s vis.
+tooltip.vis.none=No change in vis.
+tooltip.vis.greater=Needs more than %1$s vis left.
+tooltip.vis.less=Needs less than %2$s vis left.
+tooltip.vis.exact=Needs %1$s vis left.
+tooltip.vis=Needs %1$s-%2$s vis left.
+
+tooltip.flux.fill=Adds %s flux.
+tooltip.flux.deplete=Depletes %s flux.
+tooltip.flux.none=No change in flux.
+tooltip.flux.greater=Needs more than %1$s flux left.
+tooltip.flux.less=Needs less than %2$s flux left.
+tooltip.flux.exact=Needs %1$s flux left.
+tooltip.flux=Needs %1$s-%2$s flux left.
+
+tooltip.ember.greater=Needs more than %1$s ember in the chunk.
+tooltip.ember.less=Needs less than %2$s ember in the chunk.
+tooltip.ember.exact=Needs %1$s ember in the chunk.
+tooltip.ember=Needs %1$s-%2$s ember in the chunk.
+
+tooltip.ember_stability.greater=Needs more than %1$s ember in the chunk.
+tooltip.ember_stability.less=Needs less than %2$s ember in the chunk.
+tooltip.ember_stability.exact=Needs %1$s ember in the chunk.
+tooltip.ember_stability=Needs %1$s-%2$s ember in the chunk.
 
 dimension.overworld=Overworld
 dimension.the_nether=Nether

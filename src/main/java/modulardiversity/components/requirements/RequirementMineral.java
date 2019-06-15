@@ -55,11 +55,12 @@ public class RequirementMineral extends RequirementEnvironmental<Mineral, Requir
             ExcavatorHandler.MineralWorldInfo mineral = ExcavatorHandler.getMineralWorldInfo(tile.getWorld(), pos.x, pos.z);
             if(token.matches(tile.getWorld(),tile.getPos(), mineral))
             {
+                int depletion = mineral.depletion;
                 if(doConsume) {
-                    mineral.depletion = Math.max(0, mineral.depletion - token.amount);
+                    mineral.depletion = Math.max(0, depletion - token.amount);
                     IESaveData.setDirty(tile.getWorld().provider.getDimension());
                 }
-                token.setAmount(token.getAmount() - (ExcavatorHandler.mineralVeinCapacity - mineral.depletion));
+                token.setAmount(token.getAmount() - (ExcavatorHandler.mineralVeinCapacity - depletion));
             }
         }
         return true;
@@ -75,7 +76,8 @@ public class RequirementMineral extends RequirementEnvironmental<Mineral, Requir
             if(token.matches(tile.getWorld(),tile.getPos(),mineral))
             {
                 if(doGenerate) {
-                    mineral.depletion = Math.max(0, mineral.depletion - token.amount);
+                    int depletion = mineral.depletion;
+                    mineral.depletion = Math.max(0, depletion - token.amount);
                     IESaveData.setDirty(tile.getWorld().provider.getDimension());
                 }
                 token.setAmount(0);

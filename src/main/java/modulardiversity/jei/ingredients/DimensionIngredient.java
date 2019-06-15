@@ -24,6 +24,6 @@ public class DimensionIngredient implements IFakeIngredient {
 
     @Override
     public String getUniqueID() {
-        return "biome";
+        return "dimension";
     }
 }

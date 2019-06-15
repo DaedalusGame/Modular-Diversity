@@ -209,6 +209,8 @@ public class Registry {
         ComponentType.Registry.register(new ComponentReservoir());
         ComponentType.Registry.register(new ComponentMineral());
         ComponentType.Registry.register(new ComponentModifier());
+        ComponentType.Registry.register(new ComponentEmberWorld());
+        ComponentType.Registry.register(new ComponentAura());
     }
 
     @SubscribeEvent

@@ -44,9 +44,9 @@ public class RendererMineral implements IIngredientRenderer<Mineral> {
 
     private String getAmountKey(Mineral ingredient) {
         if(ingredient.getOreMin() <= 0)
-            return "tooltip.mineral.amount.greater";
-        else if(ingredient.getOreMax() >= Integer.MAX_VALUE)
             return "tooltip.mineral.amount.less";
+        else if(ingredient.getOreMax() >= Integer.MAX_VALUE)
+            return "tooltip.mineral.amount.greater";
         else if(ingredient.getOreMax() == ingredient.getOreMin())
             return "tooltip.mineral.amount.exact";
         else

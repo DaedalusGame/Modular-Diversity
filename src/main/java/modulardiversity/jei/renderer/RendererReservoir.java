@@ -52,9 +52,9 @@ public class RendererReservoir implements IIngredientRenderer<Reservoir> {
 
     private String getResidualKey(Reservoir ingredient) {
         if(ingredient.getResidualMin() <= 0)
-            return "tooltip.reservoir.residual.greater";
-        else if(ingredient.getResidualMax() >= Integer.MAX_VALUE)
             return "tooltip.reservoir.residual.less";
+        else if(ingredient.getResidualMax() >= Integer.MAX_VALUE)
+            return "tooltip.reservoir.residual.greater";
         else if(ingredient.getResidualMax() == ingredient.getResidualMin())
             return "tooltip.reservoir.residual.exact";
         else
@@ -63,9 +63,9 @@ public class RendererReservoir implements IIngredientRenderer<Reservoir> {
 
     private String getAmountKey(Reservoir ingredient) {
         if(ingredient.getFluidMin() <= 0)
-            return "tooltip.reservoir.amount.greater";
-        else if(ingredient.getFluidMax() >= Integer.MAX_VALUE)
             return "tooltip.reservoir.amount.less";
+        else if(ingredient.getFluidMax() >= Integer.MAX_VALUE)
+            return "tooltip.reservoir.amount.greater";
         else if(ingredient.getFluidMax() == ingredient.getFluidMin())
             return "tooltip.reservoir.amount.exact";
         else
