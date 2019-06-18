@@ -33,6 +33,14 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
         this.biomes = new HashSet<>(biomes);
     }
 
+    public RequirementBiome(MachineComponent.IOType actionType, int[] biomes) {
+        super(ComponentType.Registry.getComponent("biome"), actionType);
+        this.biomes = new HashSet<>();
+        for (int biome : biomes) {
+            this.biomes.add(biome);
+        }
+    }
+
     /*@Override
     public boolean startCrafting(MachineComponent component, RecipeCraftingContext context, ResultChance chance) {
         if (component.getComponentType().equals(this.getRequiredComponentType()) && component instanceof BiomeDetector && component.getIOType() == this.getActionType()) {

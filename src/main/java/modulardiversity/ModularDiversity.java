@@ -1,15 +1,6 @@
 package modulardiversity;
 
-import modulardiversity.block.BlockEmberInputHatch;
-import modulardiversity.block.BlockEmberOutputHatch;
-import modulardiversity.block.BlockJackHatch;
-import modulardiversity.tile.TileEmberInputHatch;
-import modulardiversity.tile.TileEmberOutputHatch;
-import modulardiversity.tile.TileJackHatch;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -17,8 +8,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = ModularDiversity.MODID, acceptedMinecraftVersions = "[1.12, 1.13)", dependencies = "required-after:modularmachinery;after:botania;after:embers;after:immersivepetroleum;after:buildcraftlib;after:pneumaticcraft;after:betterwithmods;")
 @Mod.EventBusSubscriber
@@ -35,7 +24,9 @@ public class ModularDiversity
     public static boolean ProdigyTechLoaded;
     public static boolean MekanismLoaded;
     public static boolean MysticalMechanicsLoaded;
-    public static int manaHatchSize;
+
+    public static int MANA_CAPACITY = 10000000;
+    public static float MEKANISM_LASER_CAPACITY = 5.0E9F;
 
     Configuration configuration;
 
@@ -57,6 +48,9 @@ public class ModularDiversity
 
         configuration = new Configuration(event.getSuggestedConfigurationFile());
         configuration.load();
+
+        MANA_CAPACITY = configuration.getInt("manaHatchSize","hatch", MANA_CAPACITY, 0, Integer.MAX_VALUE, "Determines size of the mana hatch.");
+        MEKANISM_LASER_CAPACITY = configuration.getFloat("mekanismLaserHatchSize","hatch", MEKANISM_LASER_CAPACITY, 0, Float.MAX_VALUE, "Determines size of the mekanism laser hatch.");
 
         if (configuration.hasChanged())
         {

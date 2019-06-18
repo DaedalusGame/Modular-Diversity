@@ -11,6 +11,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fml.common.Mod;
 
+import static modulardiversity.ModularDiversity.MEKANISM_LASER_CAPACITY;
+
 public abstract class TileEntityMekLaser extends TileColorableMachineComponent implements MachineComponentTile, ILaserReceptor, ICraftingResourceHolder<RequirementMekLaser.ResourceToken> {
     private double energy;
     private double capacity;
@@ -20,7 +22,7 @@ public abstract class TileEntityMekLaser extends TileColorableMachineComponent i
 
     //TODO add a config for MekLaserAcceptorCapacity
     public TileEntityMekLaser() {
-        this.capacity = 5.0E9D;
+        this.capacity = MEKANISM_LASER_CAPACITY;
         this.energy = 0;
     }
 

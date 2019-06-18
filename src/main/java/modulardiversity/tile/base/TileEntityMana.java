@@ -1,18 +1,14 @@
 package modulardiversity.tile.base;
 
-import hellfirepvp.modularmachinery.common.crafting.ComponentType;
-import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.tiles.base.MachineComponentTile;
 import hellfirepvp.modularmachinery.common.tiles.base.TileColorableMachineComponent;
-import modulardiversity.components.requirements.RequirementEmber;
 import modulardiversity.components.requirements.RequirementMana;
 import modulardiversity.util.ICraftingResourceHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
-import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 
-import javax.annotation.Nullable;
+import static modulardiversity.ModularDiversity.MANA_CAPACITY;
 
 public abstract class TileEntityMana extends TileColorableMachineComponent implements MachineComponentTile, IManaReceiver, ICraftingResourceHolder<RequirementMana.ResourceToken> {
     private int mana;
@@ -20,7 +16,7 @@ public abstract class TileEntityMana extends TileColorableMachineComponent imple
 
     public TileEntityMana()
     {
-        capacity = 10000000;
+        capacity = MANA_CAPACITY;
     }
 
     @Override

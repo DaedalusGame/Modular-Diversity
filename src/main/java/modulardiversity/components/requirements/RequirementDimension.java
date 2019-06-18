@@ -32,6 +32,14 @@ public class RequirementDimension extends RequirementEnvironmental<DimensionIngr
         this.dimensions = new HashSet<>(dimensions);
     }
 
+    public RequirementDimension(MachineComponent.IOType actionType, int[] dimensions) {
+        super(ComponentType.Registry.getComponent("dimension"), actionType);
+        this.dimensions = new HashSet<>();
+        for (int dimension : dimensions) {
+            this.dimensions.add(dimension);
+        }
+    }
+
     /*@Override
     public boolean startCrafting(MachineComponent component, RecipeCraftingContext context, ResultChance chance) {
         if (component.getComponentType().equals(this.getRequiredComponentType()) && component instanceof BiomeDetector && component.getIOType() == this.getActionType()) {
