@@ -56,10 +56,25 @@ public class Daylight implements IFakeIngredient {
             return "not between "+min+" and "+max+" ticks after every "+mod+" ticks";
     }
 
+    public static String getFormattedGlobalTime(long min, long max) {
+        if(max == min)
+            return "exactly "+min+" ticks after world start";
+        else if(max >= Long.MAX_VALUE)
+            return min+" ticks after world start";
+        else if(min <= 0)
+            return "up to "+max+" ticks after world start";
+        else if(min < max)
+            return "between "+min+" and "+max+" ticks after world start";
+        else
+            return "not between "+min+" and "+max+" ticks after world start";
+    }
+
     @Override
-    public String getDisplayName() {
+    public String getDisplayName() { //TODO: lang integration
         if(timeLocal)
             return "Time Required: Between " + getFormattedLocalTime(timeMin) + " and " + getFormattedLocalTime(timeMax);
+        else if(timeModulo >= Long.MAX_VALUE)
+            return "Time Required: " + getFormattedGlobalTime(timeMin,timeMax);
         else
             return "Time Required: " + getFormattedGlobalTime(timeMin,timeMax,timeModulo);
     }
