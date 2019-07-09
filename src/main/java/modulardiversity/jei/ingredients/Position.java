@@ -1,5 +1,6 @@
 package modulardiversity.jei.ingredients;
 
+import modulardiversity.components.requirements.AnchorType;
 import modulardiversity.jei.IFakeIngredient;
 
 public class Position implements IFakeIngredient {
@@ -7,8 +8,9 @@ public class Position implements IFakeIngredient {
     float yMin, yMax;
     float zMin, zMax;
     float distanceMin, distanceMax;
+    private AnchorType anchor;
 
-    public Position(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, float distanceMin, float distanceMax) {
+    public Position(float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, float distanceMin, float distanceMax, AnchorType anchor) {
         this.xMin = xMin;
         this.xMax = xMax;
         this.yMin = yMin;
@@ -17,6 +19,7 @@ public class Position implements IFakeIngredient {
         this.zMax = zMax;
         this.distanceMin = distanceMin;
         this.distanceMax = distanceMax;
+        this.anchor = anchor;
     }
 
     public float getxMin() {
@@ -49,6 +52,10 @@ public class Position implements IFakeIngredient {
 
     public float getDistanceMax() {
         return distanceMax;
+    }
+
+    public AnchorType getAnchor() {
+        return anchor;
     }
 
     @Override

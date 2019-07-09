@@ -3,11 +3,13 @@ package modulardiversity.components.requirements;
 import com.google.gson.JsonObject;
 import modulardiversity.util.JsonUtil;
 import modulardiversity.util.MachineList;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AnchorType {
@@ -48,6 +50,8 @@ public abstract class AnchorType {
 
     public abstract Vec3d getAnchorPoint(World world, BlockPos pos);
 
+    public abstract void addTooltip(List<String> tooltip);
+
     public static class Anchor extends AnchorType {
         private String identifier;
 
@@ -62,6 +66,11 @@ public abstract class AnchorType {
                 return new Vec3d(nearestPos.getX(),nearestPos.getY(),nearestPos.getZ());
             else
                 return null;
+        }
+
+        @Override
+        public void addTooltip(List<String> tooltip) {
+            tooltip.add(I18n.format("tooltip.anchor.anchor",identifier));
         }
     }
 
@@ -81,6 +90,13 @@ public abstract class AnchorType {
         public Vec3d getAnchorPoint(World world, BlockPos pos) {
             return new Vec3d(x,y,z);
         }
+
+        @Override
+        public void addTooltip(List<String> tooltip) {
+            if(x != 0 || y != 0 || z != 0){
+                tooltip.add(I18n.format("tooltip.anchor.offset",x,y,z));
+            }
+        }
     }
 
     public static class Spawn extends AnchorType {
@@ -89,6 +105,11 @@ public abstract class AnchorType {
         public Vec3d getAnchorPoint(World world, BlockPos pos) {
             BlockPos spawn = world.getSpawnPoint();
             return new Vec3d(spawn.getX(),spawn.getY(),spawn.getZ());
+        }
+
+        @Override
+        public void addTooltip(List<String> tooltip) {
+            tooltip.add(I18n.format("tooltip.anchor.spawn"));
         }
     }
 }

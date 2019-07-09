@@ -60,7 +60,7 @@ public class MachineList {
             } else if(identifier.equals(machine.getIdentifier())) {
                 BlockPos machinePos = machine.getPos();
                 double distance = pos.distanceSq(machinePos);
-                if(distance < nearestDist) {
+                if(distance < nearestDist && !machinePos.equals(pos)) {
                     nearestDist = distance;
                     nearestPos = machinePos;
                 }

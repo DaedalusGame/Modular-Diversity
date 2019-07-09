@@ -1,5 +1,7 @@
 package modulardiversity;
 
+import modulardiversity.util.MachineList;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -56,6 +58,8 @@ public class ModularDiversity
         {
             configuration.save();
         }
+
+        MinecraftForge.EVENT_BUS.register(MachineList.class);
 
         Registry.preInit();
         proxy.preInit();

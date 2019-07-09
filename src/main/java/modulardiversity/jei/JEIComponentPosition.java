@@ -32,7 +32,7 @@ public class JEIComponentPosition extends JEIComponent<Position> {
 
     @Override
     public List<Position> getJEIIORequirements() {
-        return Lists.newArrayList(new Position(requirement.xMin,requirement.xMax,requirement.yMin,requirement.yMax,requirement.zMin,requirement.zMax,requirement.distanceMin,requirement.distanceMax));
+        return Lists.newArrayList(new Position(requirement.xMin,requirement.xMax,requirement.yMin,requirement.yMax,requirement.zMin,requirement.zMax,requirement.distanceMin,requirement.distanceMax,requirement.anchor));
     }
 
     @SideOnly(Side.CLIENT)

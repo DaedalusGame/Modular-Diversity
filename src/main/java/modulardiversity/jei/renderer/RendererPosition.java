@@ -32,10 +32,15 @@ public class RendererPosition implements IIngredientRenderer<Position> {
     public List<String> getTooltip(Minecraft minecraft, Position ingredient, ITooltipFlag tooltipFlag) {
         List<String> tooltip = new ArrayList<>();
         tooltip.add(ingredient.getDisplayName());
+        if(ingredient.getxMin() != 0 || ingredient.getxMax() != 0)
         addCoordinate(tooltip, ingredient.getxMin(), ingredient.getxMax(), "x");
+        if(ingredient.getyMin() != 0 || ingredient.getyMax() != 0)
         addCoordinate(tooltip, ingredient.getyMin(), ingredient.getyMax(), "y");
+        if(ingredient.getzMin() != 0 || ingredient.getzMax() != 0)
         addCoordinate(tooltip, ingredient.getzMin(), ingredient.getzMax(), "z");
-        addDistance(tooltip, ingredient.getDistanceMin(), ingredient.getDistanceMax());
+        if(ingredient.getDistanceMax() > 0)
+            addDistance(tooltip, ingredient.getDistanceMin(), ingredient.getDistanceMax());
+        ingredient.getAnchor().addTooltip(tooltip);
 
         return tooltip;
     }

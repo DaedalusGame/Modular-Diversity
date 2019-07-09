@@ -62,13 +62,17 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
 
             Vec3d offset = anchor.getAnchorPoint(world,pos);
 
-            double dx = getDistance(pos.getX(),xMin + offset.x,xMax + offset.x);
-            double dy = getDistance(pos.getY(),yMin + offset.y,yMax + offset.y);
-            double dz = getDistance(pos.getZ(),zMin + offset.z,zMax + offset.z);
+            if(offset != null) {
+                double dx = getDistance(pos.getX(), xMin + offset.x, xMax + offset.x);
+                double dy = getDistance(pos.getY(), yMin + offset.y, yMax + offset.y);
+                double dz = getDistance(pos.getZ(), zMin + offset.z, zMax + offset.z);
 
-            double dist = Math.sqrt(dx*dx+dy*dy+dz*dz);
+                double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-            matched = dist >= distanceMin && dist <= distanceMax;
+                matched = dist >= distanceMin && dist <= distanceMax;
+            } else {
+                matched = true;
+            }
             token.setMatched(matched);
         }
         return matched;
