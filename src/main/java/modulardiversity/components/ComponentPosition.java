@@ -1,11 +1,10 @@
 package modulardiversity.components;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
+import modulardiversity.components.requirements.AnchorType;
 import modulardiversity.components.requirements.RequirementPosition;
-import modulardiversity.components.requirements.RequirementReservoir;
 import modulardiversity.util.JsonUtil;
 
 import javax.annotation.Nonnull;
@@ -36,8 +35,13 @@ public class ComponentPosition extends ComponentType<RequirementPosition> {
         float zMax = JsonUtil.get(requirement, "zMax", Float.POSITIVE_INFINITY);
         float distanceMin = JsonUtil.get(requirement, "distanceMin", 0);
         float distanceMax = JsonUtil.get(requirement, "distanceMax", Float.POSITIVE_INFINITY);
+        AnchorType anchor = AnchorType.DEFAULT;
+        if(requirement.has("anchor")) {
+            JsonObject anchorJson = requirement.getAsJsonObject("anchor");
+            anchor = AnchorType.get(anchorJson);
+        }
 
-        return (RequirementPosition) new RequirementPosition(ioType, xMin, xMax, yMin, yMax, zMin, zMax, distanceMin, distanceMax).setPerTick(JsonUtil.getPerTick(requirement));
+        return (RequirementPosition) new RequirementPosition(ioType, xMin, xMax, yMin, yMax, zMin, zMax, distanceMin, distanceMax, anchor).setPerTick(JsonUtil.getPerTick(requirement));
 
     }
 }

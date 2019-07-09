@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nullable;
 
-public class TileEntityDaylightDetector extends TileColorableMachineComponent implements MachineComponentTile {
+public class TileEntityDaylightDetector extends TileColorableMachineComponent {
     private MachineComponent.IOType ioType = MachineComponent.IOType.INPUT;
 
     public TileEntityDaylightDetector() {
@@ -23,16 +23,5 @@ public class TileEntityDaylightDetector extends TileColorableMachineComponent im
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
         compound.setBoolean("input", true);
-    }
-
-    @Override
-    @Nullable
-    public MachineComponent provideComponent() {
-        return new MachineComponents.DaylightDetector(this.ioType) {
-            @Override
-            public Long getContainerProvider() {
-                return TileEntityDaylightDetector.this.world.getWorldTime()%24000;
-            }
-        };
     }
 }

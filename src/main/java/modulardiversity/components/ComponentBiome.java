@@ -29,19 +29,20 @@ public class ComponentBiome extends ComponentType<RequirementBiome> {
     @Nonnull
     @Override
     public RequirementBiome provideComponent(MachineComponent.IOType ioType, JsonObject requirement) {
-        if (requirement.has("biome") && requirement.get("biome").isJsonPrimitive() && requirement.get("biome").getAsJsonPrimitive().isNumber()) {
-            int biome = requirement.getAsJsonPrimitive("biome").getAsInt();
+        //TODO: clean up busted english or just yeet the error messages and "hardcrash" instead
+        if (requirement.has("biome") && requirement.get("biome").isJsonPrimitive() && requirement.get("biome").getAsJsonPrimitive().isString()) {
+            String biome = requirement.getAsJsonPrimitive("biome").getAsString();
             return new RequirementBiome(ioType, biome);
         } else if (requirement.has("biome") && requirement.get("biome").isJsonArray()) {
             JsonArray biomes = requirement.get("biome").getAsJsonArray();
-            ArrayList<Integer> biomesArrayList = new ArrayList<>();
+            ArrayList<String> biomesArrayList = new ArrayList<>();
             for (JsonElement i:biomes) {
-                if (!(i.isJsonPrimitive() && i.getAsJsonPrimitive().isNumber())) throw new JsonParseException("The ComponentType 'biome' expects an integer-entry that defines the type of biome! Either your array of biomes is wrong or one of your biomes is not an integer!");
-                biomesArrayList.add(i.getAsJsonPrimitive().getAsInt());
+                if (!i.isJsonPrimitive() || !i.getAsJsonPrimitive().isString()) throw new JsonParseException("The ComponentType 'biome' expects a string-entry that defines the type of biome! Either your array of biomes is wrong or one of your biomes is not a string!");
+                biomesArrayList.add(i.getAsJsonPrimitive().getAsString());
             }
             return (RequirementBiome) new RequirementBiome(ioType, biomesArrayList).setPerTick(JsonUtil.getPerTick(requirement));
         } else {
-            throw new JsonParseException("The ComponentType 'biome' expects an integer-entry that defines the type of biome!");
+            throw new JsonParseException("The ComponentType 'biome' expects a string-entry that defines the type of biome!");
         }
     }
 }

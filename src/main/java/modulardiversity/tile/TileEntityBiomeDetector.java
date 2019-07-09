@@ -9,7 +9,7 @@ import net.minecraft.world.biome.Biome;
 
 import javax.annotation.Nullable;
 
-public class TileEntityBiomeDetector extends TileColorableMachineComponent implements MachineComponentTile {
+public class TileEntityBiomeDetector extends TileColorableMachineComponent {
     private MachineComponent.IOType ioType = MachineComponent.IOType.INPUT;
 
     public TileEntityBiomeDetector() {
@@ -25,16 +25,5 @@ public class TileEntityBiomeDetector extends TileColorableMachineComponent imple
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
         compound.setBoolean("input", true);
-    }
-
-    @Override
-    @Nullable
-    public MachineComponent provideComponent() {
-        return new MachineComponents.BiomeDetector(this.ioType) {
-            @Override
-            public Integer getContainerProvider() {
-                return Biome.getIdForBiome(TileEntityBiomeDetector.this.world.getBiome(TileEntityBiomeDetector.this.pos));
-            }
-        };
     }
 }

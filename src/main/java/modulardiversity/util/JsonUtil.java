@@ -64,6 +64,10 @@ public class JsonUtil {
     }
 
     public static boolean getPerTick(JsonObject json) {
-        return get(json,"perTick",false);
+        return getPerTick(json,false);
+    }
+
+    public static boolean getPerTick(JsonObject json, boolean defaultValue) {
+        return get(json,"perTick",defaultValue);
     }
 }

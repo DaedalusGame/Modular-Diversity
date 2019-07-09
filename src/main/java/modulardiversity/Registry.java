@@ -212,6 +212,7 @@ public class Registry {
         ComponentType.Registry.register(new ComponentEmberWorld());
         ComponentType.Registry.register(new ComponentAura());
         ComponentType.Registry.register(new ComponentPosition());
+        ComponentType.Registry.register(new ComponentAnchor());
     }
 
     @SubscribeEvent

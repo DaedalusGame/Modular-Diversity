@@ -334,12 +334,12 @@ public class PrimerExtension {
     // biome
     //----------------------------------------------------------------------------------------------
     @ZenMethod
-    public static RecipePrimer addBiomeRequirement(RecipePrimer primer, int[] biomes) {
+    public static RecipePrimer addBiomeRequirement(RecipePrimer primer, String[] biomes) {
         requireBiome(primer, MachineComponent.IOType.INPUT, biomes);
         return primer;
     }
 
-    private static void requireBiome(RecipePrimer primer, MachineComponent.IOType io, int[] biomes) {
+    private static void requireBiome(RecipePrimer primer, MachineComponent.IOType io, String[] biomes) {
         primer.appendComponent(new RequirementBiome(io, biomes));
     }
 
@@ -354,6 +354,19 @@ public class PrimerExtension {
 
     private static void requireDimension(RecipePrimer primer, MachineComponent.IOType io, int[] dimensions) {
         primer.appendComponent(new RequirementDimension(io, dimensions));
+    }
+
+    //----------------------------------------------------------------------------------------------
+    // anchor
+    //----------------------------------------------------------------------------------------------
+    @ZenMethod
+    public static RecipePrimer addAnchor(RecipePrimer primer, String identifier, int time) {
+        requireAnchor(primer, MachineComponent.IOType.INPUT, identifier, time);
+        return primer;
+    }
+
+    private static void requireAnchor(RecipePrimer primer, MachineComponent.IOType io, String identifier, int time) {
+        primer.appendComponent(new RequirementAnchor(io, identifier, time));
     }
 
     //----------------------------------------------------------------------------------------------
@@ -386,8 +399,16 @@ public class PrimerExtension {
         return primer;
     }
 
+    @ZenMethod
+    public static RecipePrimer setAnchor(RecipePrimer primer, AnchorTypeWrapper anchor) {
+        runOnLastRequirement(primer,RequirementPosition.class,"setDistance", (requirement) -> {
+            requirement.anchor = anchor.getInternal();
+        });
+        return primer;
+    }
+
     private static void requirePosition(RecipePrimer primer, MachineComponent.IOType io, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax) {
-        primer.appendComponent(new RequirementPosition(io,xMin,xMax,yMin,yMax,zMin,zMax,0,0));
+        primer.appendComponent(new RequirementPosition(io,xMin,xMax,yMin,yMax,zMin,zMax,0,0, AnchorType.DEFAULT));
     }
 
     //----------------------------------------------------------------------------------------------

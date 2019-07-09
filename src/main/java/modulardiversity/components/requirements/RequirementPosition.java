@@ -5,16 +5,14 @@ import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
-import modulardiversity.jei.JEIComponentEmberWorld;
 import modulardiversity.jei.JEIComponentPosition;
-import modulardiversity.jei.ingredients.EmberWorld;
 import modulardiversity.jei.ingredients.Position;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.Misc;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import teamroots.embers.util.EmberGenUtil;
 
 import java.util.List;
 
@@ -23,8 +21,9 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
     public float yMin, yMax;
     public float zMin, zMax;
     public float distanceMin, distanceMax;
+    public AnchorType anchor;
 
-    public RequirementPosition(MachineComponent.IOType actionType, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, float distanceMin, float distanceMax) {
+    public RequirementPosition(MachineComponent.IOType actionType, float xMin, float xMax, float yMin, float yMax, float zMin, float zMax, float distanceMin, float distanceMax, AnchorType anchor) {
         super(ComponentType.Registry.getComponent("position"), actionType);
         this.xMin = xMin;
         this.xMax = xMax;
@@ -34,6 +33,7 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
         this.zMax = zMax;
         this.distanceMin = distanceMin;
         this.distanceMax = distanceMax;
+        this.anchor = anchor;
     }
 
     @Override
@@ -60,9 +60,11 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
             World world = tile.getWorld();
             BlockPos pos = tile.getPos();
 
-            float dx = getDistance(pos.getX(),xMin,xMax);
-            float dy = getDistance(pos.getY(),yMin,yMax);
-            float dz = getDistance(pos.getZ(),zMin,zMax);
+            Vec3d offset = anchor.getAnchorPoint(world,pos);
+
+            double dx = getDistance(pos.getX(),xMin + offset.x,xMax + offset.x);
+            double dy = getDistance(pos.getY(),yMin + offset.y,yMax + offset.y);
+            double dz = getDistance(pos.getZ(),zMin + offset.z,zMax + offset.z);
 
             double dist = Math.sqrt(dx*dx+dy*dy+dz*dz);
 
@@ -72,7 +74,7 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
         return matched;
     }
 
-    private float getDistance(float coord, float min, float max)
+    private double getDistance(double coord, double min, double max)
     {
         if(coord < min)
             return min - coord;
@@ -89,13 +91,12 @@ public class RequirementPosition extends RequirementEnvironmental<Position, Requ
 
     @Override
     public ComponentRequirement<Position> deepCopy() {
-        return new RequirementPosition(getActionType(),xMin, xMax,yMin,yMax,zMin,zMax,distanceMin,distanceMax);
+        return new RequirementPosition(getActionType(),xMin, xMax,yMin,yMax,zMin,zMax,distanceMin,distanceMax,anchor);
     }
 
     @Override
     public ComponentRequirement<Position> deepCopyModified(List<RecipeModifier> modifiers) {
-        return new RequirementPosition(getActionType(), xMin, xMax,yMin,yMax,zMin,zMax,distanceMin,distanceMax
-        );
+        return new RequirementPosition(getActionType(), xMin, xMax,yMin,yMax,zMin,zMax,distanceMin,distanceMax,anchor);
     }
 
     @Override

@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 import static modulardiversity.block.BlockWeatherDetector.WEATHER_TYPE;
 
-public class TileEntityWeatherDetector extends TileColorableMachineComponent implements MachineComponentTile, ITickable {
+public class TileEntityWeatherDetector extends TileColorableMachineComponent implements ITickable {
     private MachineComponent.IOType ioType = MachineComponent.IOType.INPUT;
 
     public TileEntityWeatherDetector() {
@@ -31,17 +31,6 @@ public class TileEntityWeatherDetector extends TileColorableMachineComponent imp
     public void writeCustomNBT(NBTTagCompound compound) {
         super.writeCustomNBT(compound);
         compound.setBoolean("input", true);
-    }
-
-    @Override
-    @Nullable
-    public MachineComponent provideComponent() {
-        return new MachineComponents.BiomeDetector(this.ioType) {
-            @Override
-            public Integer getContainerProvider() {
-                return (world.isRaining()) ? (world.isThundering()) ? 2 : 1 : 0;
-            }
-        };
     }
 
     @Override

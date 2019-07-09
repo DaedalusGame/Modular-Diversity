@@ -10,6 +10,7 @@ import modulardiversity.jei.ingredients.BiomeIngredient;
 import modulardiversity.util.IResourceToken;
 import modulardiversity.util.Misc;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -20,23 +21,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,RequirementBiome.ResourceToken> {
-    private HashSet<Integer> biomes;
+    private HashSet<String> biomes;
 
-    public RequirementBiome(MachineComponent.IOType actionType, int biome) {
+    public RequirementBiome(MachineComponent.IOType actionType, String biome) {
         super(ComponentType.Registry.getComponent("biome"), actionType);
         biomes = new HashSet<>();
         this.biomes.add(biome);
     }
 
-    public RequirementBiome(MachineComponent.IOType actionType, Collection<Integer> biomes) {
+    public RequirementBiome(MachineComponent.IOType actionType, Collection<String> biomes) {
         super(ComponentType.Registry.getComponent("biome"), actionType);
         this.biomes = new HashSet<>(biomes);
     }
 
-    public RequirementBiome(MachineComponent.IOType actionType, int[] biomes) {
+    public RequirementBiome(MachineComponent.IOType actionType, String[] biomes) {
         super(ComponentType.Registry.getComponent("biome"), actionType);
         this.biomes = new HashSet<>();
-        for (int biome : biomes) {
+        for (String biome : biomes) {
             this.biomes.add(biome);
         }
     }
@@ -121,7 +122,7 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
     }
 
     private boolean isValidBiome(World world, BlockPos pos) {
-        return biomes.contains(Biome.getIdForBiome(world.getBiome(pos)));
+        return biomes.contains(world.getBiome(pos).getRegistryName().toString());
     }
 
     @Override
@@ -134,7 +135,7 @@ public class RequirementBiome extends RequirementEnvironmental<BiomeIngredient,R
         return new JEIComponentBiome(this);
     }
 
-    public Collection<Integer> getBiomes() {
+    public Collection<String> getBiomes() {
         return this.biomes.stream().sorted().collect(Collectors.toList());
     }
 
