@@ -34,7 +34,8 @@ public class ComponentMysticalMechanics extends ComponentType<RequirementMystica
         }
         else if(ioType == MachineComponent.IOType.OUTPUT) {
             double levelOutput = requirement.has("level") ? requirement.getAsJsonPrimitive("level").getAsDouble() : 0;
-            return new RequirementMysticalMechanics(ioType, levelOutput);
+            int time = requirement.has("time") ? requirement.getAsJsonPrimitive("time").getAsInt() : 5;
+            return new RequirementMysticalMechanics(ioType, levelOutput, time);
         }
         throw new JsonParseException("The ComponentType \'"+getRegistryName()+"\' was marked neither input nor output.");
     }

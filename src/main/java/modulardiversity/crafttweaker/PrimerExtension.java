@@ -275,8 +275,8 @@ public class PrimerExtension {
     }
 
     @ZenMethod
-    public static RecipePrimer addMysticalMechanicsOutput(RecipePrimer primer, double level) {
-        primer.appendComponent(new RequirementMysticalMechanics(MachineComponent.IOType.OUTPUT,level));
+    public static RecipePrimer addMysticalMechanicsOutput(RecipePrimer primer, double level, int time) {
+        primer.appendComponent(new RequirementMysticalMechanics(MachineComponent.IOType.OUTPUT,level,time));
         return primer;
     }
 

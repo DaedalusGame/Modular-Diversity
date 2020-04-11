@@ -7,8 +7,17 @@ import modulardiversity.tile.base.TileEntityMysticalMechanics;
 import modulardiversity.util.ICraftingResourceHolder;
 import mysticalmechanics.api.DefaultMechCapability;
 import mysticalmechanics.api.IMechCapability;
+import mysticalmechanics.api.MysticalMechanicsAPI;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +26,31 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
 
     @Override
     protected IMechCapability initCapability() {
-        return new DefaultMechCapability();
+        return new DefaultMechCapability() {
+            @Override
+            public void setPower(double value, EnumFacing from) {
+                if(from == null) {
+                    super.setPower(value, from);
+                }
+            }
+
+            @Override
+            public void onPowerChange() {
+                super.onPowerChange();
+                updateNearby();
+                markDirty();
+            }
+
+            @Override
+            public boolean isInput(EnumFacing from) {
+                return false;
+            }
+
+            @Override
+            public boolean isOutput(EnumFacing from) {
+                return true;
+            }
+        };
     }
 
     @Override
@@ -27,10 +60,9 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
 
     @Override
     public boolean generate(RequirementMysticalMechanics.ResourceToken token, boolean doGenerate) {
-        if(doGenerate) {
-            if(capability.getPower(null) != token.getLevelOutput())
+        if(doGenerate && !broken) {
             capability.setPower(token.getLevelOutput(),null);
-            keepPowerTicks = 20;
+            keepPowerTicks = token.getTime();
         }
 
         token.setRequiredlevelMet();
@@ -38,11 +70,31 @@ public class TileMysticalMechanicsOutput extends TileEntityMysticalMechanics imp
         return true;
     }
 
+    public void breakBlock(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        broken = true;
+        this.capability.setPower(0.0D, null);
+        updateNearby();
+    }
+
+    public void updateNearby() {
+        for (EnumFacing f : EnumFacing.values()) {
+            TileEntity t = world.getTileEntity(getPos().offset(f));
+            if (t != null) {
+                if (t.hasCapability(MysticalMechanicsAPI.MECH_CAPABILITY, f.getOpposite())) {
+                    t.getCapability(MysticalMechanicsAPI.MECH_CAPABILITY, f.getOpposite()).setPower(capability.getPower(f), f.getOpposite());
+                    t.markDirty();
+                }
+            }
+        }
+    }
+
     @Override
     public void update() {
-        keepPowerTicks = Math.max(0,keepPowerTicks-1);
-        if(keepPowerTicks <= 0 && capability.getPower(null) > 0) {
-            capability.setPower(0,null);
+        if(!world.isRemote) {
+            keepPowerTicks = Math.max(0, keepPowerTicks - 1);
+            if (keepPowerTicks <= 0 && capability.getPower(null) > 0) {
+                capability.setPower(0, null);
+            }
         }
     }
 

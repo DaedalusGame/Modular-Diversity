@@ -17,20 +17,22 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
     private double requiredLevelMin;
     private double requiredLevelMax;
     private double levelOutput;
+    private int time;
 
     public RequirementMysticalMechanics(MachineComponent.IOType actionType, double requiredLevelMin, double requiredLevelMax) {
-        this(actionType,requiredLevelMin,requiredLevelMax,0);
+        this(actionType,requiredLevelMin,requiredLevelMax,0,0);
     }
 
-    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double levelOutput) {
-        this(actionType,0,0,levelOutput);
+    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double levelOutput, int time) {
+        this(actionType,0,0,levelOutput,time);
     }
 
-    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double requiredLevelMin, double requiredLevelMax, double levelOutput) {
+    public RequirementMysticalMechanics(MachineComponent.IOType actionType, double requiredLevelMin, double requiredLevelMax, double levelOutput, int time) {
         super(ComponentType.Registry.getComponent("mysticalmechanics"), actionType);
         this.requiredLevelMin = requiredLevelMin;
         this.requiredLevelMax = requiredLevelMax;
         this.levelOutput = levelOutput;
+        this.time = time;
     }
 
     public double getRequiredLevelMin() {
@@ -45,9 +47,11 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
         return levelOutput;
     }
 
+    public int getTime() {return time;}
+
     @Override
     protected RequirementMysticalMechanics.ResourceToken emitConsumptionToken(RecipeCraftingContext context) {
-        return new ResourceToken(requiredLevelMin,requiredLevelMax,levelOutput);
+        return new ResourceToken(requiredLevelMin,requiredLevelMax,levelOutput,time);
     }
 
     @Override
@@ -59,7 +63,7 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
 
     @Override
     public ComponentRequirement<MysticalMechanics> deepCopy() {
-        return new RequirementMysticalMechanics(getActionType(),requiredLevelMin,requiredLevelMax,levelOutput);
+        return new RequirementMysticalMechanics(getActionType(),requiredLevelMin,requiredLevelMax,levelOutput,time);
     }
 
     @Override
@@ -67,7 +71,8 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
         return new RequirementMysticalMechanics(getActionType(),
                 Misc.applyModifiers(modifiers,"mysticalmechanics_min",getActionType(), requiredLevelMin,false),
                 Misc.applyModifiers(modifiers,"mysticalmechanics_max",getActionType(), requiredLevelMax,false),
-                Misc.applyModifiers(modifiers,"mysticalmechanics",getActionType(), levelOutput,false)
+                Misc.applyModifiers(modifiers,"mysticalmechanics",getActionType(), levelOutput,false),
+                time
         );
     }
 
@@ -81,11 +86,13 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
         private double requiredLevelMax;
         private double levelOutput;
         private boolean requiredlevelMet;
+        private int time;
 
-        public ResourceToken(double requiredLevelMin, double requiredLevelMax, double levelOutput) {
+        public ResourceToken(double requiredLevelMin, double requiredLevelMax, double levelOutput, int time) {
             this.requiredLevelMin = requiredLevelMin;
             this.requiredLevelMax = requiredLevelMax;
             this.levelOutput = levelOutput;
+            this.time = time;
         }
 
         public double getRequiredLevelMin() {
@@ -98,6 +105,10 @@ public class RequirementMysticalMechanics extends RequirementConsumePerTick<Myst
 
         public double getLevelOutput() {
             return levelOutput;
+        }
+
+        public int getTime() {
+            return time;
         }
 
         public void setRequiredlevelMet() {

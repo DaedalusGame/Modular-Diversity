@@ -7,15 +7,17 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven { url = "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'com.wynprice.cursemaven:CurseMaven:1.2.3'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.wynprice.cursemaven'
 
-
-version = "1.8"
+version = "1.10"
 group= "modulardiversity" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Modular Diversity"
 
@@ -38,6 +40,7 @@ repositories {
 }
 
 dependencies {
+    deobfCompile curse.resolveUrl("https://www.curseforge.com/minecraft/mc-mods/mysticalmechanics/files/2869691")
 	deobfCompile "mezz.jei:jei_1.12.2:4.14.4.267"
     deobfCompile "vazkii.botania:Botania:r1.10-355.4" //should this be deobfProvided?
     deobfCompile "me.desht.pneumaticcraft:pneumaticcraft-repressurized:1.12.2-0.9.1-317"
