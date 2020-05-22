@@ -3,6 +3,7 @@ package modulardiversity.components.requirements;
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
 import hellfirepvp.modularmachinery.common.crafting.helper.RecipeCraftingContext;
+import hellfirepvp.modularmachinery.common.machine.IOType;
 import hellfirepvp.modularmachinery.common.machine.MachineComponent;
 import hellfirepvp.modularmachinery.common.modifier.RecipeModifier;
 import modulardiversity.components.MachineComponents;
@@ -12,11 +13,11 @@ import modulardiversity.util.IResourceToken;
 
 import java.util.List;
 
-public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAir.ResourceToken> {
+public class RequirementAir extends RequirementConsumePerTick<Air, RequirementAir.ResourceToken, > {
     public final int volumeConsumed;
     public final float pressureRequired;
 
-    public RequirementAir(MachineComponent.IOType actionType, int volumeConsumed, float pressureRequired) {
+    public RequirementAir(IOType actionType, int volumeConsumed, float pressureRequired) {
         super(ComponentType.Registry.getComponent("pneumatic_air"), actionType);
         this.volumeConsumed = volumeConsumed;
         this.pressureRequired = pressureRequired;

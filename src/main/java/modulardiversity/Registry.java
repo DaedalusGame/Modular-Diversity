@@ -2,11 +2,14 @@ package modulardiversity;
 
 import hellfirepvp.modularmachinery.common.crafting.ComponentType;
 import hellfirepvp.modularmachinery.common.crafting.helper.ComponentRequirement;
+import hellfirepvp.modularmachinery.common.crafting.requirement.type.RequirementType;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponent;
 import hellfirepvp.modularmachinery.common.item.ItemBlockMachineComponentCustomName;
+import hellfirepvp.modularmachinery.common.lib.RegistriesMM;
 import modulardiversity.block.*;
 import modulardiversity.components.*;
 import modulardiversity.components.ComponentLaser;
+import modulardiversity.components.requirements.RequirementEmber;
 import modulardiversity.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -193,26 +196,32 @@ public class Registry {
     }
 
     @SubscribeEvent
-    public static void registerComponents(ComponentType.ComponentRegistryEvent event) {
-        ComponentType.Registry.register(new ComponentMechanical());
-        ComponentType.Registry.register(new ComponentEmber());
-        ComponentType.Registry.register(new ComponentMana());
-        ComponentType.Registry.register(new ComponentLaser());
-        ComponentType.Registry.register(new ComponentHotAir());
-        ComponentType.Registry.register(new ComponentMekLaser());
-        ComponentType.Registry.register(new ComponentMekHeat());
-        ComponentType.Registry.register(new ComponentMysticalMechanics());
-        ComponentType.Registry.register(new ComponentBiome());
-        ComponentType.Registry.register(new ComponentDimension());
-        ComponentType.Registry.register(new ComponentDaylight());
-        ComponentType.Registry.register(new ComponentWeather());
-        ComponentType.Registry.register(new ComponentReservoir());
-        ComponentType.Registry.register(new ComponentMineral());
-        ComponentType.Registry.register(new ComponentModifier());
-        ComponentType.Registry.register(new ComponentEmberWorld());
-        ComponentType.Registry.register(new ComponentAura());
-        ComponentType.Registry.register(new ComponentPosition());
-        ComponentType.Registry.register(new ComponentAnchor());
+    public static void registerComponents(RegistryEvent.Register<ComponentType> event) {
+        event.getRegistry().register(new ComponentEmber());
+        event.getRegistry().register(new ComponentMechanical());
+        event.getRegistry().register(new ComponentEmber());
+        event.getRegistry().register(new ComponentMana());
+        event.getRegistry().register(new ComponentLaser());
+        event.getRegistry().register(new ComponentHotAir());
+        event.getRegistry().register(new ComponentMekLaser());
+        event.getRegistry().register(new ComponentMekHeat());
+        event.getRegistry().register(new ComponentMysticalMechanics());
+        event.getRegistry().register(new ComponentBiome());
+        event.getRegistry().register(new ComponentDimension());
+        event.getRegistry().register(new ComponentDaylight());
+        event.getRegistry().register(new ComponentWeather());
+        event.getRegistry().register(new ComponentReservoir());
+        event.getRegistry().register(new ComponentMineral());
+        event.getRegistry().register(new ComponentModifier());
+        event.getRegistry().register(new ComponentEmberWorld());
+        event.getRegistry().register(new ComponentAura());
+        event.getRegistry().register(new ComponentPosition());
+        event.getRegistry().register(new ComponentAnchor());
+    }
+
+    @SubscribeEvent
+    public static void registerRequirements(RegistryEvent.Register<RequirementType<?,?>> event) {
+        event.getRegistry().register(new RequirementEmber.Type());
     }
 
     @SubscribeEvent
