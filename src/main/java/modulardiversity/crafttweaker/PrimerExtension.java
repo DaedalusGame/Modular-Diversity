@@ -243,7 +243,7 @@ public class PrimerExtension {
     }
 
     private static void requireHotAir(RecipePrimer primer, MachineComponent.IOType io, int temperature, int temperatureMin, int temperatureMax) {
-        primer.appendComponent(new RequirementHotAir(io,temperature,temperatureMin,temperatureMax));
+        primer.appendComponent(new RequirementHotAir(io,temperatureMin,temperatureMax,temperature));
     }
 
     //----------------------------------------------------------------------------------------------
